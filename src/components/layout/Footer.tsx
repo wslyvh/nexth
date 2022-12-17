@@ -1,6 +1,6 @@
 import React from 'react'
 import { Flex, Text } from '@chakra-ui/react'
-import { FaHeart } from 'react-icons/fa'
+import { FaGithub, FaTwitter } from 'react-icons/fa'
 import { LinkComponent } from 'components/LinkComponent'
 import { SITE_DESCRIPTION, SITE_NAME, SOCIAL_GITHUB, SOCIAL_TWITTER } from 'utils/config'
 
@@ -13,14 +13,17 @@ export function Footer(props: Props) {
 
   return (
     <Flex as="footer" className={className} flexDirection="column" justifyContent="center" alignItems="center" mt={8}>
-      <LinkComponent href={`https://github.com/${SOCIAL_GITHUB}`}>
-        <Text fontSize="xl">{SITE_NAME}</Text>
-      </LinkComponent>
+      <Text fontSize="xl">{SITE_NAME}</Text>
 
       <Text>{SITE_DESCRIPTION}</Text>
 
-      <Flex fontSize="xs" color="gray.500" alignItems="center" gap={2}>
-        <LinkComponent href={`https://twitter.com/${SOCIAL_TWITTER}`}>@wslyvh</LinkComponent>
+      <Flex color="gray.500" gap={2} alignItems="center">
+        <LinkComponent href={`https://github.com/${SOCIAL_GITHUB}`}>
+          <FaGithub />
+        </LinkComponent>
+        <LinkComponent href={`https://twitter.com/${SOCIAL_TWITTER}`}>
+          <FaTwitter />
+        </LinkComponent>
       </Flex>
     </Flex>
   )

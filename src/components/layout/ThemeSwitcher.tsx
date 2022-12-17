@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, useColorMode } from '@chakra-ui/react'
+import { Box, useColorMode } from '@chakra-ui/react'
 import { MoonIcon, SunIcon } from '@chakra-ui/icons'
 
 interface Props {
@@ -11,8 +11,8 @@ export function ThemeSwitcher(props: Props) {
   const { colorMode, toggleColorMode } = useColorMode()
 
   return (
-    <Button onClick={toggleColorMode} className={className}>
+    <Box className={className} onClick={toggleColorMode} _hover={{ cursor: 'pointer' }}>
       {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
-    </Button>
+    </Box>
   )
 }

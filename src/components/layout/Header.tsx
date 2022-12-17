@@ -1,9 +1,9 @@
 import React from 'react'
 import { Flex, useColorModeValue, Spacer, Heading } from '@chakra-ui/react'
-import { FaGithub } from 'react-icons/fa'
-import { SITE_NAME, SOCIAL_GITHUB } from 'utils/config'
+import { SITE_NAME } from 'utils/config'
 import { LinkComponent } from 'components/LinkComponent'
 import { ThemeSwitcher } from './ThemeSwitcher'
+import { ConnectKitButton } from 'connectkit'
 
 interface Props {
   className?: string
@@ -23,9 +23,7 @@ export function Header(props: Props) {
       <Spacer />
 
       <Flex alignItems="center" gap={4}>
-        <LinkComponent href={`https://github.com/${SOCIAL_GITHUB}`}>
-          <FaGithub />
-        </LinkComponent>
+        <ConnectKitButton />
         <ThemeSwitcher />
       </Flex>
     </Flex>
