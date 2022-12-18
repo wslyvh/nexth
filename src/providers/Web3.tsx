@@ -14,6 +14,7 @@ const { provider, webSocketProvider } = configureChains(ETH_CHAINS, [publicProvi
 const client = createClient(
   getDefaultClient({
     appName: SITE_NAME,
+    autoConnect: true,
     provider,
     webSocketProvider,
   })
