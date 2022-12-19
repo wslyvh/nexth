@@ -1,6 +1,5 @@
-import { Heading, Text } from '@chakra-ui/react'
 import { Head } from 'components/layout/Head'
-import { SITE_DESCRIPTION, SITE_NAME } from 'utils/config'
+import { NetworkUtilization } from 'components/NetworkUtilization'
 
 export default function Home() {
   return (
@@ -8,8 +7,7 @@ export default function Home() {
       <Head />
 
       <main>
-        <Heading as="h2">{SITE_NAME}</Heading>
-        <Text>{SITE_DESCRIPTION}</Text>
+        <NetworkUtilization />
       </main>
     </>
   )
