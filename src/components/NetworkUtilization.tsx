@@ -1,7 +1,7 @@
-import { Flex } from '@chakra-ui/react'
+import { Box, Flex, Text } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 import { watchBlockNumber } from '@wagmi/core'
-import { useProvider } from 'wagmi'
+import { useBlockNumber, useProvider } from 'wagmi'
 import { Block } from '@ethersproject/providers'
 import { StatsCard } from './StatsCard'
 
@@ -9,6 +9,7 @@ const maxBlocks = 25
 
 export function NetworkUtilization() {
   const provider = useProvider()
+  const block = useBlockNumber({ watch: true })
   const [latestBlocksState, setLatestBlocksState] = useState<any>({})
   const blocksRef = useRef<any>({})
 
@@ -63,23 +64,28 @@ export function NetworkUtilization() {
   }
 
   return (
-    <Flex gap={4}>
-      <StatsCard
-        title="⛽ Gas Used"
-        items={[
-          { title: 'Average', value: `${maxMinMean(latestBlocksState, 'gasUsed')[2]} M` },
-          { title: 'Max', value: `${maxMinMean(latestBlocksState, 'gasUsed')[0]} M` },
-          { title: 'Min', value: `${maxMinMean(latestBlocksState, 'gasUsed')[1]} M` },
-        ]}
-      />
-      <StatsCard
-        title="💲 Base Fee"
-        items={[
-          { title: 'Average', value: `${maxMinMean(latestBlocksState, 'baseFeePerGas')[2]} Gwei` },
-          { title: 'Max', value: `${maxMinMean(latestBlocksState, 'baseFeePerGas')[0]} Gwei` },
-          { title: 'Min', value: `${maxMinMean(latestBlocksState, 'baseFeePerGas')[1]} Gwei` },
-        ]}
-      />
-    </Flex>
+    <Box>
+      <Flex gap={4}>
+        <StatsCard
+          title="⛽ Gas Used"
+          items={[
+            { title: 'Average', value: `${maxMinMean(latestBlocksState, 'gasUsed')[2]} M` },
+            { title: 'Max', value: `${maxMinMean(latestBlocksState, 'gasUsed')[0]} M` },
+            { title: 'Min', value: `${maxMinMean(latestBlocksState, 'gasUsed')[1]} M` },
+          ]}
+        />
+        <StatsCard
+          title="💲 Base Fee"
+          items={[
+            { title: 'Average', value: `${maxMinMean(latestBlocksState, 'baseFeePerGas')[2]} Gwei` },
+            { title: 'Max', value: `${maxMinMean(latestBlocksState, 'baseFeePerGas')[0]} Gwei` },
+            { title: 'Min', value: `${maxMinMean(latestBlocksState, 'baseFeePerGas')[1]} Gwei` },
+          ]}
+        />
+      </Flex>
+      <Text fontSize="xs" float="right" mt={2}>
+        Last block #{block.data} (last {maxBlocks})
+      </Text>
+    </Box>
   )
 }
