@@ -17,7 +17,7 @@ export function StatsCard(props: Props) {
         <Stack divider={<StackDivider />} spacing="4">
           {props.items.map((i) => {
             return (
-              <Flex alignItems="center">
+              <Flex key={i.title} alignItems="center">
                 <Heading size="sm" textTransform="uppercase">
                   {i.title}
                 </Heading>
