@@ -40,8 +40,11 @@ export function NetworkUtilization() {
       blocksRef.current = state
       setLatestBlocksState(state)
     }
+
     getInitialBlocks()
-  }, [])
+    // todo useCallback
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [provider])
 
   function getBlockState(items: Block[]) {
     const latestBlockItems = items
@@ -118,7 +121,7 @@ export function NetworkUtilization() {
           <Tbody>
             {toArray(latestBlocksState).map((i) => {
               return (
-                <Tr>
+                <Tr key={`TR_${i.number}`}>
                   <Td textDecoration="underline">
                     <LinkComponent href={`${explorerUrl}/block/${i.number}`}>{i.number}</LinkComponent>
                   </Td>
