@@ -82,7 +82,7 @@ export function NetworkUtilization() {
         <StatsCard
           title="⛽ Gas Used"
           items={[
-            { title: 'Average', value: `${maxMinMean(latestBlocksState, 'gasUsed')[2]} M` },
+            { title: 'Avg', value: `${maxMinMean(latestBlocksState, 'gasUsed')[2]} M` },
             { title: 'Max', value: `${maxMinMean(latestBlocksState, 'gasUsed')[0]} M` },
             { title: 'Min', value: `${maxMinMean(latestBlocksState, 'gasUsed')[1]} M` },
           ]}
@@ -90,7 +90,7 @@ export function NetworkUtilization() {
         <StatsCard
           title="💲 Base Fee"
           items={[
-            { title: 'Average', value: `${maxMinMean(latestBlocksState, 'baseFeePerGas')[2]} Gwei` },
+            { title: 'Avg', value: `${maxMinMean(latestBlocksState, 'baseFeePerGas')[2]} Gwei` },
             { title: 'Max', value: `${maxMinMean(latestBlocksState, 'baseFeePerGas')[0]} Gwei` },
             { title: 'Min', value: `${maxMinMean(latestBlocksState, 'baseFeePerGas')[1]} Gwei` },
           ]}
@@ -109,11 +109,11 @@ export function NetworkUtilization() {
                 #
               </Th>
               <Th minW="120px">Time</Th>
-              <Th minW="100px" isNumeric>
-                Base Fee
-              </Th>
               <Th minW="140px" isNumeric>
                 Gas Used
+              </Th>
+              <Th minW="100px" isNumeric>
+                Base Fee
               </Th>
               <Th isNumeric>Miner</Th>
             </Tr>
@@ -128,13 +128,13 @@ export function NetworkUtilization() {
                   <Td>
                     <Text fontSize="xs">{dayjs(i.timestamp * 1000).fromNow(true)}</Text>
                   </Td>
-                  <Td isNumeric>{Math.round(i.baseFeePerGas / 1e9)} Gwei</Td>
                   <Td>
                     <Flex flexDirection="column">
                       <p>{Math.round(i.gasUsed / 1e6)} M</p>
                       <Progress size="xs" value={Math.round((i.gasUsed / i.gasLimit) * 100)} hasStripe />
                     </Flex>
                   </Td>
+                  <Td isNumeric>{Math.round(i.baseFeePerGas / 1e9)} Gwei</Td>
                   <Td textDecoration="underline">
                     <LinkComponent href={`${explorerUrl}/address/${i.miner}`}>{i.miner}</LinkComponent>
                   </Td>
