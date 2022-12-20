@@ -1,4 +1,4 @@
-import { Box, Flex, Progress, Table, TableContainer, Tbody, Td, Text, Tfoot, Th, Thead, Tr, useColorModeValue } from '@chakra-ui/react'
+import { Box, Flex, Progress, Select, Table, TableContainer, Tbody, Td, Text, Tfoot, Th, Thead, Tr, useColorModeValue } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 import { watchBlockNumber } from '@wagmi/core'
 import { useBlockNumber, useNetwork, useProvider } from 'wagmi'
@@ -10,12 +10,11 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import { THEME_COLOR_SCHEME } from 'utils/config'
 dayjs.extend(relativeTime)
 
-const maxBlocks = 25
-
 export function NetworkUtilization() {
   const provider = useProvider()
   const network = useNetwork()
   const block = useBlockNumber({ watch: true })
+  const [nrOfBlocks, setNrOfBlocks] = useState(25)
   const [latestBlocksState, setLatestBlocksState] = useState<any>({})
   const blocksRef = useRef<any>({})
   const explorerUrl = network.chain?.blockExplorers?.default.url ?? 'https://etherscan.io'
@@ -34,7 +33,7 @@ export function NetworkUtilization() {
   useEffect(() => {
     async function getInitialBlocks() {
       const latest = await provider.getBlock('latest')
-      const blocks = await Promise.all([...Array(maxBlocks).keys()].map((i) => provider.getBlock(latest.number - i)))
+      const blocks = await Promise.all([...Array(nrOfBlocks).keys()].map((i) => provider.getBlock(latest.number - i)))
 
       const state = getBlockState(blocks)
       blocksRef.current = state
@@ -44,13 +43,13 @@ export function NetworkUtilization() {
     getInitialBlocks()
     // todo useCallback
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [provider])
+  }, [provider, nrOfBlocks])
 
   function getBlockState(items: Block[]) {
     const latestBlockItems = items
       .concat(toArray(blocksRef.current))
       .sort((a: Block, b: Block) => b.number - a.number)
-      .slice(0, maxBlocks * 2)
+      .slice(0, nrOfBlocks * 2)
 
     return latestBlockItems.reduce((block, item) => {
       return {
@@ -66,6 +65,14 @@ export function NetworkUtilization() {
       .sort((a: Block, b: Block) => b.number - a.number)
   }
 
+  function AvgNetworkUtilization(state: any) {
+    const blocks = toArray(state)
+    const items = blocks.map((i) => Math.round((i.gasUsed / i.gasLimit) * 100))
+    if (!items.length) return 0
+
+    return Math.round(items.reduce((sum, x) => sum + x, 0) / items.length)
+  }
+
   function maxMinMean(state: any, type: 'baseFeePerGas' | 'gasUsed') {
     const blocks = toArray(state)
     const items = blocks.map((i) => Number(i[type]) / (type === 'baseFeePerGas' ? 1e9 : 1e6))
@@ -76,9 +83,29 @@ export function NetworkUtilization() {
     return results
   }
 
+  function getColorScheme(value: number) {
+    if (value >= 50) return 'green'
+    if (value >= 40) return 'yellow'
+    if (value >= 20) return 'orange'
+
+    return 'red'
+  }
+
   return (
     <Box>
-      <Flex gap={4}>
+      <Flex gap={4} justifyContent="space-between" my={4}>
+        <Box>
+          <Text>Network Utilization: {AvgNetworkUtilization(latestBlocksState)}%</Text>
+          <Text fontSize="xs">Last block #{block.data}</Text>
+        </Box>
+        <Select maxW="150px" onChange={(e) => setNrOfBlocks(Number(e.target.value))}>
+          <option value={25}>25</option>
+          <option value={50}>50</option>
+          <option value={100}>100</option>
+        </Select>
+      </Flex>
+
+      <Flex gap={4} my={4}>
         <StatsCard
           title="⛽ Gas Used"
           items={[
@@ -97,11 +124,7 @@ export function NetworkUtilization() {
         />
       </Flex>
 
-      <Text fontSize="xs" float="right" my={4}>
-        Last block #{block.data} (last {maxBlocks})
-      </Text>
-
-      <Box width="100%" maxHeight="300px" overflowX="scroll" overflow="auto">
+      <Box width="100%" maxHeight="300px" overflowX="scroll" overflow="auto" my={4}>
         <Table size="sm" variant="striped">
           <Thead position="sticky" top={0} bgColor={bgColor} zIndex={2}>
             <Tr>
@@ -130,8 +153,18 @@ export function NetworkUtilization() {
                   </Td>
                   <Td>
                     <Flex flexDirection="column">
-                      <p>{Math.round(i.gasUsed / 1e6)} M</p>
-                      <Progress size="xs" value={Math.round((i.gasUsed / i.gasLimit) * 100)} hasStripe />
+                      <Text>
+                        {Math.round(i.gasUsed / 1e6)} M{' '}
+                        <Text as="span" fontSize="xs" float="right">
+                          {Math.round((i.gasUsed / i.gasLimit) * 100)}%
+                        </Text>
+                      </Text>
+                      <Progress
+                        size="xs"
+                        value={Math.round((i.gasUsed / i.gasLimit) * 100)}
+                        colorScheme={getColorScheme(Math.round((i.gasUsed / i.gasLimit) * 100))}
+                        hasStripe
+                      />
                     </Flex>
                   </Td>
                   <Td isNumeric>{Math.round(i.baseFeePerGas / 1e9)} Gwei</Td>
