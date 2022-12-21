@@ -18,7 +18,6 @@ yarn dev
 - [wagmi](https://wagmi.sh/)
 - [ethers.js](https://docs.ethers.org/)
 - [eslint](https://eslint.org/) + [prettier](https://prettier.io/)
--
 
 ## Deploy on Vercel
 
