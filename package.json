@@ -31,10 +31,12 @@
     "dayjs": "^1.11.7",
     "ethers": "^5.7.2",
     "framer-motion": "^6",
+    "iron-session": "^6.3.1",
     "next": "13.0.7",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
+    "siwe": "^1.1.6",
     "usehooks-ts": "^2.9.1",
     "wagmi": "^0.9.4"
   },
