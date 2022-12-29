@@ -1,6 +1,6 @@
-import { Box, Flex, Progress, Select, Table, TableContainer, Tbody, Td, Text, Tfoot, Th, Thead, Tr, useColorModeValue } from '@chakra-ui/react'
+import { Box, Flex, Progress, Select, Table, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
-import { watchBlockNumber } from '@wagmi/core'
+import { watchBlockNumber, watchPendingTransactions } from '@wagmi/core'
 import { useBlockNumber, useNetwork, useProvider } from 'wagmi'
 import { Block } from '@ethersproject/providers'
 import { StatsCard } from './StatsCard'
@@ -28,6 +28,11 @@ export function NetworkUtilization() {
     blocksRef.current = state
     setLatestBlocksState(state)
     unwatch()
+  })
+
+  const unwatchPending = watchPendingTransactions({}, (transaction) => {
+    console.log('tx', transaction.hash)
+    unwatchPending()
   })
 
   useEffect(() => {

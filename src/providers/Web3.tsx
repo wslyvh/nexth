@@ -1,5 +1,5 @@
 import { configureChains, createClient, WagmiConfig } from 'wagmi'
-import { publicProvider } from 'wagmi/providers/public'
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 import { ConnectKitProvider, getDefaultClient } from 'connectkit'
 import { ETH_CHAINS, SITE_NAME } from 'utils/config'
 import { useColorMode } from '@chakra-ui/react'
@@ -9,7 +9,14 @@ interface Props {
   children: ReactNode
 }
 
-const { provider, webSocketProvider } = configureChains(ETH_CHAINS, [publicProvider()])
+const { provider, webSocketProvider } = configureChains(ETH_CHAINS, [
+  jsonRpcProvider({
+    rpc: (chain) => ({
+      http: 'https://bordel.xyz',
+      ws: 'https://bordel.xyz',
+    }),
+  }),
+])
 
 const client = createClient(
   getDefaultClient({

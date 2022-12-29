@@ -13,4 +13,4 @@ export const THEME_CONFIG = {
 export const SOCIAL_TWITTER = 'wslyvh'
 export const SOCIAL_GITHUB = 'wslyvh/nexth/tree/txpool'
 
-export const ETH_CHAINS = [mainnet, goerli, sepolia, polygon, optimism, arbitrum]
+export const ETH_CHAINS = [mainnet]
