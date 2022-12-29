@@ -138,6 +138,9 @@ export function NetworkUtilization() {
               <Th minW="100px" isNumeric>
                 Base Fee
               </Th>
+              <Th minW="60px" isNumeric>
+                Txn
+              </Th>
               <Th isNumeric>Miner</Th>
             </Tr>
           </Thead>
@@ -168,6 +171,7 @@ export function NetworkUtilization() {
                     </Flex>
                   </Td>
                   <Td isNumeric>{Math.round(i.baseFeePerGas / 1e9)} Gwei</Td>
+                  <Td isNumeric>{i.transactions.length}</Td>
                   <Td textDecoration="underline">
                     <LinkComponent href={`${explorerUrl}/address/${i.miner}`}>{i.miner}</LinkComponent>
                   </Td>
