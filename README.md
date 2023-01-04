@@ -1,8 +1,10 @@
 # Nexth
 
-A [Next.js](https://nextjs.org/) + Ethereum starter kit.
+A Next.js + Ethereum starter kit to quickly ship Web3 Apps ⚡
 
-## Getting Started
+![Nexth Readme Image](./readme.png)
+
+## Getting Started 🔌
 
 ```bash
 npm run dev
@@ -10,16 +12,24 @@ npm run dev
 yarn dev
 ```
 
-## Features
+## Features ✅
 
 - [Next.js](https://nextjs.org/docs)
 - [Chakra UI](https://chakra-ui.com/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [wagmi](https://wagmi.sh/)
 - [ethers.js](https://docs.ethers.org/)
-- [eslint](https://eslint.org/) + [prettier](https://prettier.io/)
+- [wagmi](https://wagmi.sh/)
+- [ConnectKit](https://docs.family.co/connectkit/)
+- [Sign-In with Ethereum](https://www.login.xyz/)
+- [usehooks-ts](https://usehooks-ts.com/)
 
-## Deploy on Vercel
+## Developer Experience 🧰
+
+- [TypeScript](https://www.typescriptlang.org/)
+- [eslint](https://eslint.org/)
+- [prettier](https://prettier.io/)
+- [Husky](https://typicode.github.io/husky/)
+
+## Deploy on Vercel 🚢
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=nexth&filter=next.js&utm_source=nexth&utm_campaign=nexth-readme) from the creators of Next.js.
 
