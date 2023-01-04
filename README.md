@@ -4,13 +4,9 @@ A Next.js + Ethereum starter kit to quickly ship Web3 Apps ⚡
 
 ![Nexth Readme Image](./readme.png)
 
-## Getting Started 🔌
+## Getting Started 👀
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+Check-out the [example pages](./src/pages/examples/) or [live demo](https://nexth.vercel.app/) to see how you can use this starter kit.
 
 ## Features ✅
 
@@ -28,6 +24,14 @@ yarn dev
 - [eslint](https://eslint.org/)
 - [prettier](https://prettier.io/)
 - [Husky](https://typicode.github.io/husky/)
+
+## Development 🛠️
+
+```bash
+npm run dev
+# or
+yarn dev
+```
 
 ## Deploy on Vercel 🚢
 
