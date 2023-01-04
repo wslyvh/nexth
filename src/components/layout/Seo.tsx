@@ -1,9 +1,9 @@
 import React from 'react'
-import { SITE_DESCRIPTION, SITE_NAME, SOCIAL_TWITTER } from 'utils/config'
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL, SOCIAL_TWITTER } from 'utils/config'
 import { DefaultSeo } from 'next-seo'
 
 export function Seo() {
-  const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : ''
+  const origin = typeof window !== 'undefined' && window.location.origin ? window.location.origin : SITE_URL
 
   return (
     <DefaultSeo

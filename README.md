@@ -17,6 +17,7 @@ Check-out the [example pages](./src/pages/examples/) or [live demo](https://next
 - [ConnectKit](https://docs.family.co/connectkit/)
 - [Sign-In with Ethereum](https://www.login.xyz/)
 - [usehooks-ts](https://usehooks-ts.com/)
+- [next-SEO](https://github.com/garmeeh/next-seo)
 
 ## Developer Experience 🧰
 
