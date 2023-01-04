@@ -4,6 +4,7 @@ import { Button, FormControl, FormLabel, Heading, Textarea } from '@chakra-ui/re
 import { useState } from 'react'
 import { verifyMessage } from 'ethers/lib/utils'
 import { SignMessageArgs } from '@wagmi/core'
+import { NextSeo } from 'next-seo'
 
 function SignMessage() {
   let [message, setMessage] = useState('')
@@ -64,8 +65,9 @@ export default function SignExample() {
   if (isConnected) {
     return (
       <div>
+        <NextSeo title="Sign & verify messages" />
         <Heading as="h2" fontSize="2xl" my={4}>
-          Sign and verify messages
+          Sign & verify messages
         </Heading>
         <p>
           Private keys can be used to sign any kind of messages. This is useful for verifying that a message was sent by a specific account. This is

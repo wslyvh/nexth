@@ -11,10 +11,10 @@ export default function Home() {
         <Heading as="h2">Nexth Examples</Heading>
         <UnorderedList>
           <ListItem>
-            <LinkComponent href="/examples/sign">Signing & Verifying messages</LinkComponent>
+            <LinkComponent href="/examples/sign">Sign & verify messages</LinkComponent>
           </ListItem>
           <ListItem>
-            <LinkComponent href="/examples/siwe">Sign-In With Ethereum</LinkComponent>
+            <LinkComponent href="/examples/siwe">Sign-in With Ethereum</LinkComponent>
           </ListItem>
         </UnorderedList>
       </main>
