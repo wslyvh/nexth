@@ -10,10 +10,10 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <ChakraProvider>
+      <Seo />
       <Web3Provider>
         {isMounted && (
           <Layout>
-            <Seo />
             <Component {...pageProps} />
           </Layout>
         )}
