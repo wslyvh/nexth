@@ -1,13 +1,15 @@
-import { Box, Flex, Progress, Select, Table, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue } from '@chakra-ui/react'
+import { Box, Flex, Heading, Progress, Select, Table, Tbody, Td, Text, Th, Thead, Tr, useColorModeValue } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 import { watchBlockNumber, watchPendingTransactions } from '@wagmi/core'
 import { useBlockNumber, useNetwork, useProvider } from 'wagmi'
 import { Block } from '@ethersproject/providers'
 import { StatsCard } from './StatsCard'
 import { LinkComponent } from './LinkComponent'
+import { THEME_COLOR_SCHEME } from 'utils/config'
+import { Transaction } from 'ethers'
+import { TruncateMiddle } from 'utils/strings'
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
-import { THEME_COLOR_SCHEME } from 'utils/config'
 dayjs.extend(relativeTime)
 
 export function NetworkUtilization() {
@@ -15,10 +17,13 @@ export function NetworkUtilization() {
   const network = useNetwork()
   const block = useBlockNumber({ watch: true })
   const [nrOfBlocks, setNrOfBlocks] = useState(25)
-  const [latestBlocksState, setLatestBlocksState] = useState<any>({})
-  const blocksRef = useRef<any>({})
   const explorerUrl = network.chain?.blockExplorers?.default.url ?? 'https://etherscan.io'
   const bgColor = useColorModeValue(`${THEME_COLOR_SCHEME}.200`, `${THEME_COLOR_SCHEME}.900`)
+
+  const [pendingTransactions, setPendingTransactions] = useState<Transaction[]>([])
+  const pendingRef = useRef<Transaction[]>([])
+  const [latestBlocksState, setLatestBlocksState] = useState<any>({})
+  const blocksRef = useRef<any>({})
 
   const unwatch = watchBlockNumber({ listen: true }, async (blockNr) => {
     const block = await provider.getBlock(blockNr)
@@ -30,9 +35,21 @@ export function NetworkUtilization() {
     unwatch()
   })
 
-  const unwatchPending = watchPendingTransactions({}, (transaction) => {
-    console.log('tx', transaction.hash)
-    unwatchPending()
+  const unwatchPending = watchPendingTransactions({}, (transaction: Transaction) => {
+    const pendingTransactions = [...pendingRef.current, transaction]
+
+    const unique = pendingTransactions.reduce((acc: Transaction[], tx) => {
+      if (!acc.some((transaction: any) => transaction.hash === tx.hash)) {
+        if (!toArray(blocksRef.current).some((b) => tx.hash && b.transactions.includes(tx.hash))) {
+          acc.push(tx)
+        }
+      }
+      return acc
+    }, [])
+
+    pendingRef.current = unique
+    setPendingTransactions(unique)
+    unwatchPending
   })
 
   useEffect(() => {
@@ -129,6 +146,10 @@ export function NetworkUtilization() {
         />
       </Flex>
 
+      <Heading as="h3" fontSize="xl">
+        Latest Blocks
+      </Heading>
+
       <Box width="100%" maxHeight="300px" overflowX="scroll" overflow="auto" my={4}>
         <Table size="sm" variant="striped">
           <Thead position="sticky" top={0} bgColor={bgColor} zIndex={2}>
@@ -180,6 +201,53 @@ export function NetworkUtilization() {
                   <Td textDecoration="underline">
                     <LinkComponent href={`${explorerUrl}/address/${i.miner}`}>{i.miner}</LinkComponent>
                   </Td>
+                </Tr>
+              )
+            })}
+          </Tbody>
+        </Table>
+      </Box>
+
+      <Heading as="h3" fontSize="xl">
+        Pending Transactions
+      </Heading>
+
+      {/* hash, from, nonce, gasLimit, gasPrice, value  */}
+      <Box width="100%" maxHeight="300px" overflowX="scroll" overflow="auto" my={4}>
+        <Table size="sm" variant="striped">
+          <Thead position="sticky" top={0} bgColor={bgColor} zIndex={2}>
+            <Tr>
+              <Th py={2}>Hash</Th>
+              <Th>From</Th>
+              <Th minW="60px" isNumeric>
+                Nonce
+              </Th>
+              <Th minW="100px" isNumeric>
+                Gas Limit
+              </Th>
+              <Th minW="100px" isNumeric>
+                Gas Price
+              </Th>
+              <Th minW="100px">Value</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {pendingTransactions.map((i) => {
+              return (
+                <Tr key={`TR_${i.hash}`}>
+                  <Td textDecoration="underline">
+                    <LinkComponent href={`${explorerUrl}/tx/${i.hash}`}>{TruncateMiddle(i.hash)}</LinkComponent>
+                  </Td>
+                  <Td textDecoration="underline">
+                    <LinkComponent href={`${explorerUrl}/address/${i.from}`}>{i.from}</LinkComponent>
+                  </Td>
+                  <Td isNumeric>{i.nonce}</Td>
+                  <Td isNumeric>{i.gasLimit.toString()}</Td>
+                  <Td isNumeric>
+                    {i.maxFeePerGas && `${Math.round(Number(i.maxFeePerGas) / 1e9)} | ${Math.round(Number(i.maxPriorityFeePerGas) / 1e9)} Gwei`}
+                    {!i.maxFeePerGas && i.gasPrice && `${Math.round(Number(i.gasPrice) / 1e9)} Gwei`}
+                  </Td>
+                  <Td isNumeric>{Math.round(Number(i.value) / 1e18)} Ether</Td>
                 </Tr>
               )
             })}
