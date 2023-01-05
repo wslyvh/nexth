@@ -49,7 +49,7 @@ export function NetworkUtilization() {
 
     pendingRef.current = unique
     setPendingTransactions(unique)
-    unwatchPending
+    // unwatchPending()
   })
 
   useEffect(() => {
