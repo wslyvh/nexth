@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useAccount, useSigner } from 'wagmi'
-import { Button, Heading } from '@chakra-ui/react'
+import { Button, Heading, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { LinkComponent } from 'components/layout/LinkComponent'
@@ -87,9 +87,16 @@ export default function PassportExample() {
         <Heading as="h2" fontSize="2xl" my={4}>
           Gitcoin Passport
         </Heading>
+
         <p>
           Gitcoin Passport is an identity protocol that proves your trustworthiness without needing to collect personally identifiable information.
         </p>
+
+        <Text my={4}>
+          If you fork this repo, you need to create your project and API keys at{' '}
+          <LinkComponent href="https://scorer.gitcoin.co/">Gitcoin Scorer</LinkComponent>. <br />
+          Then, add your API key and community ID to your .env variables.
+        </Text>
 
         {message && (
           <div>
