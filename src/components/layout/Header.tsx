@@ -4,6 +4,7 @@ import { SITE_NAME } from 'utils/config'
 import { LinkComponent } from './LinkComponent'
 import { ThemeSwitcher } from './ThemeSwitcher'
 import { ConnectKitButton } from 'connectkit'
+import { PassportScore } from './PassportScore'
 
 interface Props {
   className?: string
@@ -23,6 +24,7 @@ export function Header(props: Props) {
       <Spacer />
 
       <Flex alignItems="center" gap={4}>
+        <PassportScore />
         <ConnectKitButton />
         <ThemeSwitcher />
       </Flex>

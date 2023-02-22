@@ -4,6 +4,7 @@ import { Button, Heading, Text } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { LinkComponent } from 'components/layout/LinkComponent'
+import { usePassportScore } from 'hooks/usePassportScore'
 
 const COMMUNITY_ID = process.env.NEXT_PUBLIC_GITCOIN_PASSPORT_COMMUNITY_ID
 const API_KEY = process.env.NEXT_PUBLIC_GITCOIN_PASSPORT_API_KEY
@@ -19,30 +20,7 @@ export default function PassportExample() {
   const { data: signer } = useSigner()
   const { address, isConnected } = useAccount()
   const [message, setMessage] = useState('')
-  const [score, setScore] = useState<number | undefined>(-1)
-
-  useEffect(() => {
-    if (isConnected && address) {
-      const getPassport = async () => {
-        const response = await fetch(`https://api.scorer.gitcoin.co/registry/score/${COMMUNITY_ID}/${address}`, {
-          headers,
-        })
-        const data = await response.json()
-
-        if (response.status === 200) {
-          const score = Number(data.score)
-          setMessage('')
-          setScore(Math.round(score * 100) / 100)
-        } else {
-          console.log(data.detail)
-          setMessage('')
-          setScore(undefined)
-        }
-      }
-
-      getPassport()
-    }
-  }, [address, isConnected])
+  const { loading, data: score, error } = usePassportScore()
 
   async function submit() {
     if (!signer) return
@@ -107,7 +85,7 @@ export default function PassportExample() {
           </div>
         )}
 
-        {score === 0 && (
+        {!loading && score === 0 && (
           <div>
             <Heading as="h3" fontSize="xl" my={4}>
               Passport Score is 0
@@ -118,7 +96,7 @@ export default function PassportExample() {
           </div>
         )}
 
-        {!!score && score > 0 && (
+        {!loading && !!score && score > 0 && (
           <div>
             <Heading as="h3" fontSize="xl" my={4}>
               Passport Score
@@ -127,7 +105,7 @@ export default function PassportExample() {
           </div>
         )}
 
-        {score === undefined && (
+        {!loading && score === undefined && (
           <div>
             <Heading as="h3" fontSize="xl" my={4}>
               Submit your passport
