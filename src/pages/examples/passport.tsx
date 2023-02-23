@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { useAccount, useSigner } from 'wagmi'
 import { Button, Heading, Text } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { LinkComponent } from 'components/layout/LinkComponent'
 import { usePassportScore } from 'hooks/usePassportScore'
@@ -101,7 +101,7 @@ export default function PassportExample() {
             <Heading as="h3" fontSize="xl" my={4}>
               Passport Score
             </Heading>
-            <p>Your passport score is {score}</p>
+            <p>Your passport score is {score.toString()}</p>
           </div>
         )}
 
