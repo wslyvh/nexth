@@ -22,6 +22,9 @@ export default function Home() {
           <ListItem>
             <LinkComponent href="/examples/send-ether">Send Ether transaction</LinkComponent>
           </ListItem>
+          <ListItem>
+            <LinkComponent href="/examples/send-erc20">Send ERC20 transaction</LinkComponent>
+          </ListItem>
         </UnorderedList>
       </main>
     </>
