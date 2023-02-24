@@ -26,7 +26,7 @@ function SendEther() {
     },
   })
   const sendTransaction = useSendTransaction(prepareSendTransaction.config)
-  const waitForTransaction = useWaitForTransaction({ hash: sendTransaction.data?.hash })
+  const waitForTransaction = useWaitForTransaction({ hash: sendTransaction.data?.hash, onSettled: () => balance.refetch() })
 
   const handleSendTransation = () => {
     sendTransaction.sendTransaction?.()
