@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { useAccount, useSigner } from 'wagmi'
 import { Button, Heading, Text } from '@chakra-ui/react'
 import { useState } from 'react'

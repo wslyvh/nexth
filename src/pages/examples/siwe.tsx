@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { useAccount, useNetwork, useSignMessage } from 'wagmi'
 import { SiweMessage } from 'siwe'
 import { useEffect, useState } from 'react'
