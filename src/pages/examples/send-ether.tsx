@@ -1,17 +1,17 @@
-import { useDebounce } from 'use-debounce'
 import { useAccount, useBalance, usePrepareSendTransaction, useSendTransaction, useWaitForTransaction, useNetwork } from 'wagmi'
 import { Button, FormControl, FormLabel, Heading, Input, NumberInput, NumberInputField, Text } from '@chakra-ui/react'
 import { useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { utils } from 'ethers'
 import { LinkComponent } from 'components/layout/LinkComponent'
+import { useDebounce } from 'usehooks-ts'
 
 function SendEther() {
   const [to, setTo] = useState('')
-  const [debouncedTo] = useDebounce(to, 500)
+  const debouncedTo = useDebounce(to, 500)
 
   const [amount, setAmount] = useState('')
-  const [debouncedAmount] = useDebounce(amount, 500)
+  const debouncedAmount = useDebounce(amount, 500)
 
   const { chain } = useNetwork()
   const { address } = useAccount()
