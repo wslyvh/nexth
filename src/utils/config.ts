@@ -1,5 +1,5 @@
 import { ThemingProps } from '@chakra-ui/react'
-import { mainnet, goerli, sepolia, polygon, optimism, arbitrum } from '@wagmi/chains'
+import { mainnet, sepolia, optimism } from '@wagmi/chains'
 
 export const SITE_NAME = 'useWeb3 Learn'
 export const SITE_DESCRIPTION = 'An open education platform to attest your knowledge and claim your ZK certifications.'
@@ -14,7 +14,7 @@ export const THEME_CONFIG = {
 export const SOCIAL_TWITTER = 'useWeb3'
 export const SOCIAL_GITHUB = 'wslyvh/useWeb3'
 
-export const ETH_CHAINS = [mainnet, goerli, sepolia, polygon, optimism, arbitrum]
+export const ETH_CHAINS = [mainnet, sepolia, optimism]
 
 export const SERVER_SESSION_SETTINGS = {
   cookieName: SITE_NAME,
