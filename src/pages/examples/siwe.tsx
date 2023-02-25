@@ -2,9 +2,10 @@ import { useAccount, useNetwork, useSignMessage } from 'wagmi'
 import { SiweMessage } from 'siwe'
 import { useEffect, useState } from 'react'
 import { SITE_NAME } from 'utils/config'
-import { Button, Heading, ListItem, UnorderedList } from '@chakra-ui/react'
+import { Button, ListItem, UnorderedList } from '@chakra-ui/react'
 import { LinkComponent } from 'components/layout/LinkComponent'
 import { NextSeo } from 'next-seo'
+import { HeadingComponent } from 'components/layout/HeadingComponent'
 
 function SignInButton() {
   const [loggedInAddress, setLoggedInAddress] = useState('')
@@ -82,18 +83,14 @@ function SignInButton() {
 
   return (
     <div>
-      <Heading as="h3" fontSize="xl" my={4}>
-        Try it out
-      </Heading>
+      <HeadingComponent as="h3">Try it out</HeadingComponent>
       <p>
         <Button onClick={signIn}>Sign-in With Ethereum</Button>
       </p>
 
       {loggedInAddress && (
         <div>
-          <Heading as="h3" fontSize="xl" my={4}>
-            Signed in as
-          </Heading>
+          <HeadingComponent as="h3">Signed in as</HeadingComponent>
           <p>{loggedInAddress}</p>
           <p>
             <Button onClick={logout}>Sign Out</Button>
@@ -111,11 +108,9 @@ export default function SiweExample() {
     return (
       <div>
         <NextSeo title="Sign-in With Ethereum" />
-        <Heading as="h2" fontSize="2xl" my={4}>
-          Sign-in With Ethereum
-        </Heading>
+        <HeadingComponent as="h2">Sign-in with Ethereum</HeadingComponent>
         <p>
-          Sign-in With Ethereum is a new form of authentication that enables users to control their digital identity with their Ethereum account and
+          Sign-in with Ethereum is a new form of authentication that enables users to control their digital identity with their Ethereum account and
           ENS profile instead of relying on a traditional intermediary.
         </p>
 

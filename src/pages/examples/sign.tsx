@@ -1,9 +1,10 @@
 import { useAccount, useSignMessage } from 'wagmi'
-import { Button, FormControl, FormLabel, Heading, Textarea } from '@chakra-ui/react'
+import { Button, FormControl, FormLabel, Textarea } from '@chakra-ui/react'
 import { useState } from 'react'
 import { verifyMessage } from 'ethers/lib/utils'
 import { SignMessageArgs } from '@wagmi/core'
 import { NextSeo } from 'next-seo'
+import { HeadingComponent } from 'components/layout/HeadingComponent'
 
 function SignMessage() {
   let [message, setMessage] = useState('')
@@ -24,9 +25,7 @@ function SignMessage() {
 
   return (
     <div>
-      <Heading as="h3" fontSize="xl" my={4}>
-        Sign Message
-      </Heading>
+      <HeadingComponent as="h3">Sign Message</HeadingComponent>
 
       <FormControl>
         <FormLabel>Message</FormLabel>
@@ -38,18 +37,14 @@ function SignMessage() {
 
         {signMessage.data && (
           <div>
-            <Heading as="h3" fontSize="xl" my={4}>
-              Signature
-            </Heading>
+            <HeadingComponent as="h3">Signature</HeadingComponent>
             <p>{signMessage.data}</p>
           </div>
         )}
 
         {address && (
           <div>
-            <Heading as="h3" fontSize="xl" my={4}>
-              Signed by
-            </Heading>
+            <HeadingComponent as="h3">Signed by</HeadingComponent>
             <p>{address}</p>
           </div>
         )}
@@ -65,9 +60,7 @@ export default function SignExample() {
     return (
       <div>
         <NextSeo title="Sign & verify messages" />
-        <Heading as="h2" fontSize="2xl" my={4}>
-          Sign & verify messages
-        </Heading>
+        <HeadingComponent as="h2">Sign & verify messages</HeadingComponent>
         <p>
           Private keys can be used to sign any kind of messages. This is useful for verifying that a message was sent by a specific account. This is
           also how transactions are (signed and) send to the network.

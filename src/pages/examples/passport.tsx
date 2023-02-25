@@ -1,9 +1,10 @@
 import { useAccount, useSigner } from 'wagmi'
-import { Button, Heading, Text } from '@chakra-ui/react'
+import { Button, Text } from '@chakra-ui/react'
 import { useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { LinkComponent } from 'components/layout/LinkComponent'
 import { usePassportScore } from 'hooks/usePassportScore'
+import { HeadingComponent } from 'components/layout/HeadingComponent'
 
 const COMMUNITY_ID = process.env.NEXT_PUBLIC_GITCOIN_PASSPORT_COMMUNITY_ID
 const API_KEY = process.env.NEXT_PUBLIC_GITCOIN_PASSPORT_API_KEY
@@ -61,9 +62,7 @@ export default function PassportExample() {
     return (
       <div>
         <NextSeo title="Gitcoin Passport" />
-        <Heading as="h2" fontSize="2xl" my={4}>
-          Gitcoin Passport
-        </Heading>
+        <HeadingComponent as="h2">Gitcoin Passport</HeadingComponent>
 
         <p>
           Gitcoin Passport is an identity protocol that proves your trustworthiness without needing to collect personally identifiable information.
@@ -77,18 +76,14 @@ export default function PassportExample() {
 
         {message && (
           <div>
-            <Heading as="h3" fontSize="xl" my={4}>
-              Error
-            </Heading>
+            <HeadingComponent as="h3">Error</HeadingComponent>
             <p>{message}</p>
           </div>
         )}
 
         {!loading && score === 0 && (
           <div>
-            <Heading as="h3" fontSize="xl" my={4}>
-              Passport Score is 0
-            </Heading>
+            <HeadingComponent as="h3">Passport Score is 0</HeadingComponent>
             <p>
               Make sure you have added stamps on <LinkComponent href="https://passport.gitcoin.co/">your passport</LinkComponent>.
             </p>
@@ -97,18 +92,14 @@ export default function PassportExample() {
 
         {!loading && !!score && score > 0 && (
           <div>
-            <Heading as="h3" fontSize="xl" my={4}>
-              Passport Score
-            </Heading>
+            <HeadingComponent as="h3">Passport Score</HeadingComponent>
             <p>Your passport score is {score.toString()}</p>
           </div>
         )}
 
         {!loading && score === undefined && (
           <div>
-            <Heading as="h3" fontSize="xl" my={4}>
-              Submit your passport
-            </Heading>
+            <HeadingComponent as="h3">Submit your passport</HeadingComponent>
             <p>
               No score available. Make sure to <LinkComponent href="https://passport.gitcoin.co/">create your passport</LinkComponent> before
               submitting your passport.
