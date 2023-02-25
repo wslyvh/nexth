@@ -3,12 +3,12 @@ import { HeadingComponent } from 'components/layout/HeadingComponent'
 import { CardList } from 'components/layout/CardList'
 import { Code, Text } from '@chakra-ui/react'
 
-import SignIcon from '../../assets/icons/fingerprint.png'
-import AuthIcon from '../../assets/icons/auth.png'
-import PassportIcon from '../../assets/icons/passport.png'
-import EtherIcon from '../../assets/icons/ethereum.png'
-import TokenIcon from '../../assets/icons/token.png'
-import NFTIcon from '../../assets/icons/nft.png'
+import SignIcon from 'assets/icons/fingerprint.png'
+import AuthIcon from 'assets/icons/auth.png'
+import PassportIcon from 'assets/icons/passport.png'
+import EtherIcon from 'assets/icons/ethereum.png'
+import TokenIcon from 'assets/icons/token.png'
+import NFTIcon from 'assets/icons/nft.png'
 
 export const ExampleItems = [
   {
