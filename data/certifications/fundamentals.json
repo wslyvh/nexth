@@ -1,0 +1,25 @@
+{
+  "order": 1,
+  "title": "Blockchain Fundamentals",
+  "description": "Learn about the fundamentals of blockchain, how it works and why it matters.",
+  "image": "/images/blockchain.png",
+  "questions": [
+    {
+      "title": "What is the primary function of a public, permissionless blockchain (like Bitcoin and Ethereum?",
+      "answers": ["To store data", "To execute smart contracts", "To process transactions", "To generate revenue", "All of the above"]
+    },
+    {
+      "title": "What are main benefits of using public, permissionless blockchains?",
+      "answers": ["Accessibility", "Security", "Decentralization", "All of the above"]
+    },
+    {
+      "title": "What is a node in a blockchain network?",
+      "answers": [
+        "A type of digital wallet",
+        "A user account that interacts with the blockchain",
+        "A computer that stores a copy of the blockchain",
+        "A type of central authority"
+      ]
+    }
+  ]
+}
