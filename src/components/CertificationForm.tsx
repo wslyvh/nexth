@@ -1,4 +1,5 @@
-import { Button, Flex, FormControl, FormLabel, Radio, RadioGroup } from '@chakra-ui/react'
+import { Button, Flex, FormControl, FormLabel, Radio, RadioGroup, useToast } from '@chakra-ui/react'
+import { m } from 'framer-motion'
 import { FormEvent } from 'react'
 import { Certification } from 'types/certifications'
 
@@ -8,10 +9,12 @@ interface Props {
 }
 
 export function CertificationForm(props: Props) {
+  const toast = useToast()
   const className = props.className ?? ''
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
+    // const data = new FormData(event.currentTarget)
 
     const values = props.item.questions.map((i) => {
       const elements = event.currentTarget.elements
@@ -19,7 +22,29 @@ export function CertificationForm(props: Props) {
       return element.value
     })
 
-    console.log('VALUES', values)
+    toast({
+      title: `Generating proof...`,
+      status: 'info',
+      variant: 'solid',
+      position: 'bottom',
+      isClosable: true,
+    })
+
+    toast({
+      title: `Invalid solution. Please try again.`,
+      status: 'error',
+      variant: 'solid',
+      position: 'bottom',
+      isClosable: true,
+    })
+
+    toast({
+      title: `Completed. Congratulations!`,
+      status: 'success',
+      variant: 'solid',
+      position: 'bottom',
+      isClosable: true,
+    })
   }
 
   return (
@@ -27,8 +52,10 @@ export function CertificationForm(props: Props) {
       <section>
         {props.item.questions.map((i) => {
           return (
-            <FormControl as="fieldset" key={i.title} isRequired>
-              <FormLabel as="legend">{i.title}</FormLabel>
+            <FormControl as="fieldset" key={i.title} isRequired my={4}>
+              <FormLabel as="legend" fontSize="lg" fontWeight="semibold">
+                {i.title}
+              </FormLabel>
               <RadioGroup name={i.title}>
                 <Flex direction="column">
                   {i.answers.map((a) => {

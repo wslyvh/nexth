@@ -1,25 +1,109 @@
 {
   "order": 1,
   "title": "Blockchain Fundamentals",
-  "description": "Learn about the fundamentals of blockchain, how it works and why it matters.",
+  "description": "In this module we'll cover the fundamentals of public, permissionless blockchains like Bitcoin and Ethereum, it's benefits and how they can be used. This module is an excellent beginner quiz to test your knowledge.",
   "image": "/images/blockchain.png",
   "questions": [
     {
-      "title": "What is the primary function of a public, permissionless blockchain (like Bitcoin and Ethereum?",
-      "answers": ["To store data", "To execute smart contracts", "To process transactions", "To generate revenue", "All of the above"]
-    },
-    {
-      "title": "What are main benefits of using public, permissionless blockchains?",
-      "answers": ["Accessibility", "Security", "Decentralization", "All of the above"]
-    },
-    {
-      "title": "What is a node in a blockchain network?",
+      "title": "What is a blockchain?",
       "answers": [
-        "A type of digital wallet",
-        "A user account that interacts with the blockchain",
-        "A computer that stores a copy of the blockchain",
-        "A type of central authority"
+        "A replacement for traditional databases",
+        "A regulatory framework for a new financial infrastructure",
+        "A platform to find and collect digital art",
+        "A distributed ledger with growing lists of records (blocks) that are securely linked together via cryptographic hashes",
+        "All of the above",
+        "None of the above"
       ]
+    },
+    {
+      "title": "What is the primary function of a public blockchain (like Bitcoin or Ethereum)?",
+      "answers": [
+        "To process transactions",
+        "To store data",
+        "To send private and anonynomous payments",
+        "To run applications",
+        "All of the above",
+        "None of the above"
+      ]
+    },
+    {
+      "title": "What makes a blockchain decentralized?",
+      "answers": [
+        "The ledger is stored on a secure server",
+        "Account balances and transactions are anonymous and hidden",
+        "The ledger is accessible by a large, distributed network of indepedent computers",
+        "Cheap and instant transactions",
+        "All of the above",
+        "None of the above"
+      ]
+    },
+    {
+      "title": "Which of the following is NOT a type of consensus algorithm?",
+      "answers": ["Proof of Work (PoW)", "Proof of Authority (PoA)", "Proof of Attendance Protocol (POAP)", "Proof of Stake (PoS)"]
+    },
+    {
+      "title": "How would you describe the Byzantine General's Problem?",
+      "answers": [
+        "A way to store and distribute data in a decentralized, permissionless network",
+        "A way to reach consensus in a decentralized, permissionless network",
+        "A way to connect with more than 51% of the network",
+        "A reference to the Art of War (by Sun Tzu) that can be applied to modern computer infrastructure"
+      ]
+    },
+    {
+      "title": "What is the function of a node (sometimes also called 'miner' or 'validator')?",
+      "answers": [
+        "They are required to run in order for you to receive payments on the network",
+        "They provide a service to the network by downloading and verifying transactions sent to the network",
+        "They generate revenue for the network",
+        "They connect all the participants of the network with each other",
+        "All of the above",
+        "None of the above"
+      ]
+    },
+    {
+      "title": "What is a smart contract?",
+      "answers": [
+        "A legal agreement between 2 parties",
+        "A type of cryptocurrency",
+        "A piece of self-executing code that runs on a blockchain",
+        "A protocol used for secure communication"
+      ]
+    },
+    {
+      "title": "What is a crypto wallet?",
+      "answers": [
+        "An account that protects my digital assets",
+        "A device with RFID technology",
+        "An app that proves my identity to the blockchain",
+        "An app that is connected to the blockchain to be able to accept transaction"
+      ]
+    },
+    {
+      "title": "What is the purpose of a block hash?",
+      "answers": [
+        "To encrypt the data of a block to keep its content private and secure",
+        "To provide a unique identifier for each block",
+        "To cryptographically link each block to the previous so it can't be tampered with",
+        "To ensure the transactions are sent to the correct recipients"
+      ]
+    },
+    {
+      "title": "What is the definition of a transaction?",
+      "answers": [
+        "A secret exchange of messages between a selected group of peers",
+        "An atomic event that is broadcasted by the underlying protocol",
+        "The transmission of a message between nodes to update the state of the network",
+        "The impact on an account's balance"
+      ]
+    },
+    {
+      "title": "Who's the inventor of the Bitcoin protocol?",
+      "answers": ["Satoshi Nakamoto", "Vitalik Buterin", "Hal Finney", "Alan Turing"]
+    },
+    {
+      "title": "Who first coined the term 'Web3'",
+      "answers": ["Satoshi Nakamoto", "Vitalik Buterin", "Jack Dorsey", "Gavin Wood"]
     }
   ]
 }
