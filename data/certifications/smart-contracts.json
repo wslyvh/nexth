@@ -2,6 +2,7 @@
   "order": 4,
   "title": "Smart Contracts",
   "description": "Smart contracts are a fundamental part of the Ethereum ecosystem. Learn more about them here.",
+  "level": "Intermediate",
   "image": "/images/smart-contracts.png",
   "questions": []
 }

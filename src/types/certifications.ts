@@ -3,6 +3,7 @@ export interface Certification {
   order: number
   title: string
   description: string
+  level: 'Beginner' | 'Intermediate' | 'Advanced'
   image: string
   questions: Question[]
 }

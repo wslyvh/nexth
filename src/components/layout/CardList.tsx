@@ -1,19 +1,14 @@
 import React from 'react'
-import { Image, Text, Box, Card, CardBody, Flex, useColorModeValue } from '@chakra-ui/react'
+import { Image, Text, Box, Card, CardBody, Flex, useColorModeValue, Badge, Stack } from '@chakra-ui/react'
 import { LinkComponent } from './LinkComponent'
 import { HeadingComponent } from './HeadingComponent'
-
-interface ListItemType {
-  title: string
-  description: string
-  image: string
-  url?: string
-}
+import { THEME_COLOR_SCHEME } from 'utils/config'
+import { Certification } from 'types/certifications'
 
 interface Props {
   className?: string
   title?: string
-  items: ListItemType[]
+  items: Certification[]
 }
 
 export function CardList(props: Props) {
@@ -26,6 +21,12 @@ export function CardList(props: Props) {
 
       <Flex direction="column" gap={4}>
         {props.items.map((i, index) => {
+          const url = `/certifications/${i.id}`
+          let color = THEME_COLOR_SCHEME
+          if (i.level === 'Beginner') color = 'green'
+          if (i.level === 'Intermediate') color = 'yellow'
+          if (i.level === 'Advanced') color = 'red'
+
           return (
             <Card key={`${index}_${i.title}`} variant="outline" size="sm">
               <CardBody>
@@ -35,14 +36,18 @@ export function CardList(props: Props) {
                   </Flex>
 
                   <Flex direction="column">
-                    {i.url && (
-                      <LinkComponent href={i.url}>
-                        <HeadingComponent as="h4">{i.title}</HeadingComponent>
-                      </LinkComponent>
-                    )}
-                    {!i.url && <HeadingComponent as="h4">{i.title}</HeadingComponent>}
+                    <LinkComponent href={url}>
+                      <HeadingComponent as="h4">{i.title}</HeadingComponent>
+                    </LinkComponent>
 
-                    <Text mt={4}>{i.description}</Text>
+                    <Text mt={2}>{i.description}</Text>
+
+                    <Stack direction="row" mt={2} alignItems="center">
+                      <Badge variant="outline" colorScheme={color} pt={1} fontSize="x-small">
+                        {i.level}
+                      </Badge>
+                      <Text fontSize="sm">{i.questions.length} questions</Text>
+                    </Stack>
                   </Flex>
                 </Flex>
               </CardBody>

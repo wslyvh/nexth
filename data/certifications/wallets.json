@@ -1,7 +1,8 @@
 {
   "order": 2,
   "title": "Digital Wallets",
-  "description": "Learn about wallets, publick-key cryptography, and how to use them to interact with the blockchain.",
+  "description": "This modules evaluates your knowledge of crypto wallets, public-private key cryptography and how those are used within the context of blockchains.",
+  "level": "Beginner",
   "image": "/images/wallet.png",
   "questions": []
 }
