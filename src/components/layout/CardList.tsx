@@ -1,9 +1,9 @@
 import React from 'react'
-import { Image, Text, Box, Card, CardBody, Flex, useColorModeValue, Badge, Stack } from '@chakra-ui/react'
+import { Image, Text, Box, Card, CardBody, Flex, useColorModeValue, Stack } from '@chakra-ui/react'
 import { LinkComponent } from './LinkComponent'
 import { HeadingComponent } from './HeadingComponent'
-import { THEME_COLOR_SCHEME } from 'utils/config'
 import { Certification } from 'types/certifications'
+import { LevelBadge } from 'components/LevelBadge'
 
 interface Props {
   className?: string
@@ -22,10 +22,6 @@ export function CardList(props: Props) {
       <Flex direction="column" gap={4}>
         {props.items.map((i, index) => {
           const url = `/certifications/${i.id}`
-          let color = THEME_COLOR_SCHEME
-          if (i.level === 'Beginner') color = 'green'
-          if (i.level === 'Intermediate') color = 'yellow'
-          if (i.level === 'Advanced') color = 'red'
 
           return (
             <Card key={`${index}_${i.title}`} variant="outline" size="sm">
@@ -43,10 +39,13 @@ export function CardList(props: Props) {
                     <Text mt={2}>{i.description}</Text>
 
                     <Stack direction="row" mt={2} alignItems="center">
-                      <Badge variant="outline" colorScheme={color} pt={1} fontSize="x-small">
-                        {i.level}
-                      </Badge>
-                      <Text fontSize="sm">{i.questions.length} questions</Text>
+                      <LevelBadge level={i.level} />
+                      {i.questions.length === 0 && (
+                        <Text fontSize="sm" fontStyle="italic">
+                          coming soon
+                        </Text>
+                      )}
+                      {i.questions.length > 0 && <Text fontSize="sm">{i.questions.length} questions</Text>}
                     </Stack>
                   </Flex>
                 </Flex>

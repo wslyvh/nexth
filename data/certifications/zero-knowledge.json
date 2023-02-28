@@ -1,0 +1,8 @@
+{
+  "order": 7,
+  "title": "Zero Knowledge",
+  "description": "Test your knowledge on anything related to Zero Knowledge cryptography, ZKP, SNARKs, STARKs and the math behind it.",
+  "level": "Advanced",
+  "image": "/images/cryptography.png",
+  "questions": []
+}

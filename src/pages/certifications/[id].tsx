@@ -1,7 +1,8 @@
-import { Text } from '@chakra-ui/react'
+import { Stack, Text } from '@chakra-ui/react'
 import { CertificationForm } from 'components/CertificationForm'
 import { Head } from 'components/layout/Head'
 import { HeadingComponent } from 'components/layout/HeadingComponent'
+import { LevelBadge } from 'components/LevelBadge'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 import { Certification } from 'types/certifications'
@@ -20,11 +21,18 @@ export default function Home(props: Props) {
       <Head />
 
       <main>
-        <HeadingComponent as="h2">{item.title}</HeadingComponent>
+        <HeadingComponent as="h2">
+          {item.title} <LevelBadge level={item.level} />
+        </HeadingComponent>
         <Text>{item.description}</Text>
       </main>
 
-      <CertificationForm item={item} />
+      {item.questions.length === 0 && (
+        <Text fontSize="sm" fontStyle="italic" my={4}>
+          coming soon
+        </Text>
+      )}
+      {item.questions.length > 0 && <CertificationForm item={item} />}
     </>
   )
 }

@@ -1,7 +1,7 @@
 {
   "order": 3,
   "title": "Ethereum 101",
-  "description": "Learn about the Ethereum blockchain protocol, how it works and how to build on it.",
+  "description": "Test your knowledge on the Ethereum blockchain protocol. Do you know what differentiates it with other blockchains?",
   "level": "Beginner",
   "image": "/images/ether.png",
   "questions": []
