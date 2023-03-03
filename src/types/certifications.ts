@@ -1,9 +1,10 @@
 export interface Certification {
   id: string
   order: number
-  title: string
+  name: string
   description: string
   level: 'Beginner' | 'Intermediate' | 'Advanced'
+  icon: string
   image: string
   questions: Question[]
 }

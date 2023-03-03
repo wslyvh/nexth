@@ -22,7 +22,7 @@ export default function Home(props: Props) {
 
       <main>
         <HeadingComponent as="h2">
-          {item.title} <LevelBadge level={item.level} />
+          {item.name} <LevelBadge level={item.level} />
         </HeadingComponent>
         <Text>{item.description}</Text>
       </main>

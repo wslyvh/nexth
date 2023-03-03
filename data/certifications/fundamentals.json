@@ -1,9 +1,10 @@
 {
   "order": 1,
-  "title": "Blockchain Fundamentals",
+  "name": "Blockchain Fundamentals",
   "description": "In this module we'll cover the fundamentals of public, permissionless blockchains like Bitcoin and Ethereum, it's benefits and how they can be used. This module is an excellent beginner quiz to test your knowledge.",
   "level": "Beginner",
-  "image": "/images/blockchain.png",
+  "icon": "/icons/fundamentals.png",
+  "image": "https://learn.useweb3.xyz/nfts/fundamentals.png",
   "questions": [
     {
       "title": "What is a blockchain?",

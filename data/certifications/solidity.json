@@ -1,8 +1,9 @@
 {
   "order": 5,
-  "title": "Solidity",
+  "name": "Solidity",
   "description": "Test your knowledge about the Solidity programming language, the Ethereum Virtual Machine.",
   "level": "Intermediate",
-  "image": "/images/code.png",
+  "icon": "/icons/solidity.png",
+  "image": "https://learn.useweb3.xyz/nfts/solidity.png",
   "questions": []
 }

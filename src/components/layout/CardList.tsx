@@ -24,16 +24,16 @@ export function CardList(props: Props) {
           const url = `/certifications/${i.id}`
 
           return (
-            <Card key={`${index}_${i.title}`} variant="outline" size="sm">
+            <Card key={`${index}_${i.name}`} variant="outline" size="sm">
               <CardBody>
                 <Flex gap={4} direction={{ base: 'column', sm: 'row' }}>
                   <Flex px={{ base: 0, sm: 4 }}>
-                    <Image objectFit="contain" maxW="60px" src={i.image} alt={i.title} filter={`invert(${invert})`} />
+                    <Image objectFit="contain" maxW="60px" src={i.icon} alt={i.name} filter={`invert(${invert})`} />
                   </Flex>
 
                   <Flex direction="column">
                     <LinkComponent href={url}>
-                      <HeadingComponent as="h4">{i.title}</HeadingComponent>
+                      <HeadingComponent as="h4">{i.name}</HeadingComponent>
                     </LinkComponent>
 
                     <Text mt={2}>{i.description}</Text>

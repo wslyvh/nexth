@@ -1,8 +1,9 @@
 {
   "order": 3,
-  "title": "Ethereum 101",
+  "name": "Ethereum 101",
   "description": "Test your knowledge on the Ethereum blockchain protocol. Do you know what differentiates it with other blockchains?",
   "level": "Beginner",
-  "image": "/images/ether.png",
+  "icon": "/icons/ethereum.png",
+  "image": "https://learn.useweb3.xyz/nfts/ethereum.png",
   "questions": []
 }

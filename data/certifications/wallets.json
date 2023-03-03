@@ -1,8 +1,9 @@
 {
   "order": 2,
-  "title": "Digital Wallets",
+  "name": "Digital Wallets",
   "description": "This modules evaluates your knowledge of crypto wallets, public-private key cryptography and how those are used within the context of blockchains.",
   "level": "Beginner",
-  "image": "/images/wallet.png",
+  "icon": "/icons/wallets.png",
+  "image": "https://learn.useweb3.xyz/nfts/wallets.png",
   "questions": []
 }
