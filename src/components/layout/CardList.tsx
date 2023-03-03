@@ -21,7 +21,7 @@ export function CardList(props: Props) {
 
       <Flex direction="column" gap={4}>
         {props.items.map((i, index) => {
-          const url = `/certifications/${i.id}`
+          const url = `/certification/${i.id}`
 
           return (
             <Card key={`${index}_${i.name}`} variant="outline" size="sm">
