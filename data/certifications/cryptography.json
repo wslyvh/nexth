@@ -4,6 +4,6 @@
   "description": "This module covers the different kind of cryptographic primitives used in the context of blockchains. Test your knowledge on asymmetric cryptography, hash functions, digital signatures, and more.",
   "level": "Intermediate",
   "icon": "/icons/cryptography.png",
-  "image": "https://learn.useweb3.xyz/nfts/cryptography.png",
+  "image": "https://academy.useweb3.xyz/nfts/cryptography.png",
   "questions": []
 }

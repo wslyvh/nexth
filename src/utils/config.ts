@@ -3,7 +3,7 @@ import { mainnet, sepolia, optimism } from '@wagmi/chains'
 
 export const SITE_NAME = 'useWeb3 Academy'
 export const SITE_DESCRIPTION = 'Test your Web3 knowledge and claim your ZK certifications.'
-export const SITE_URL = 'https://useweb3-learn.vercel.app/'
+export const SITE_URL = 'https://academy.useweb3.xyz'
 
 export const THEME_INITIAL_COLOR = 'system'
 export const THEME_COLOR_SCHEME: ThemingProps['colorScheme'] = 'gray'
