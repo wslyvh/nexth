@@ -1,7 +1,7 @@
 import { ThemingProps } from '@chakra-ui/react'
 import { mainnet, sepolia, optimism } from '@wagmi/chains'
 
-export const SITE_NAME = 'useWeb3 Learn'
+export const SITE_NAME = 'useWeb3 Academy'
 export const SITE_DESCRIPTION = 'Test your Web3 knowledge and claim your ZK certifications.'
 export const SITE_URL = 'https://useweb3-learn.vercel.app/'
 

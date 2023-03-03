@@ -1,9 +1,9 @@
-import { Stack, Text } from '@chakra-ui/react'
+import { Text } from '@chakra-ui/react'
 import { CertificationForm } from 'components/CertificationForm'
-import { Head } from 'components/layout/Head'
 import { HeadingComponent } from 'components/layout/HeadingComponent'
 import { LevelBadge } from 'components/LevelBadge'
 import { GetStaticPaths, GetStaticProps } from 'next'
+import { NextSeo } from 'next-seo'
 import { Params } from 'next/dist/shared/lib/router/utils/route-matcher'
 import { Certification } from 'types/certifications'
 import { GetCertifications } from 'utils/certifications'
@@ -18,7 +18,7 @@ export default function Home(props: Props) {
 
   return (
     <>
-      <Head title={item.name} description={item.description} />
+      <NextSeo title={item.name} description={item.description} />
 
       <main>
         <HeadingComponent as="h2">
