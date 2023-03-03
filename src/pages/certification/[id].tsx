@@ -18,7 +18,7 @@ export default function Home(props: Props) {
 
   return (
     <>
-      <Head />
+      <Head title={item.name} description={item.description} />
 
       <main>
         <HeadingComponent as="h2">
