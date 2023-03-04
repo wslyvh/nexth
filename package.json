@@ -4,10 +4,12 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && yarn wagmi",
     "start": "next start",
     "lint": "next lint --fix",
-    "prettier": "prettier './src' --write"
+    "prettier": "prettier './src' --write",
+    "wagmi": "wagmi generate",
+    "wagmi:dev": "wagmi generate --watch"
   },
   "husky": {
     "hooks": {
@@ -46,6 +48,7 @@
     "@types/node": "18.11.18",
     "@types/react": "18.0.26",
     "@types/react-dom": "18.0.10",
+    "@wagmi/cli": "^0.1.11",
     "eslint": "8.30.0",
     "eslint-config-next": "13.1.1",
     "eslint-config-prettier": "^8.5.0",
