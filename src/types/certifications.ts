@@ -1,5 +1,6 @@
 export interface Certification {
   id: string
+  testId: number
   order: number
   name: string
   description: string
