@@ -1,6 +1,6 @@
 import { Stack, Button, Flex, FormControl, FormLabel, Radio, RadioGroup, useToast } from '@chakra-ui/react'
 import { bqTest } from "bq-core"
-import { useEffect, FormEvent, useState, Dispatch } from 'react'
+import { useEffect, FormEvent, useState } from 'react'
 import { useAccount } from "wagmi";
 import { fetchSigner } from '@wagmi/core'
 import { Certification } from 'types/certifications'
@@ -150,21 +150,18 @@ export function CertificationForm(props: Props) {
     setButtonStates(prevState => ({...prevState, submit: true}))
 
     const signer = await fetchSigner()
-    try {  
-      const tx = await test.sendSolutionTransaction( 
-        signer,
-        testProof
-      )
+    await test.sendSolutionTransaction( 
+      signer,
+      testProof
+    ).then( async (tx: any) => {
       await tx.wait()
-    } catch(err) {
-      return
-    }
 
-    setToast(
-      'Congratulations! You obtained this credential',
-      '',
-      'success'
-    )
+      setToast(
+        'Congratulations! You obtained this credential',
+        '',
+        'success'
+      )
+    }).catch(() => {})
 
     setButtonStates(prevState => ({...prevState, submit: false}))
   }
