@@ -1,4 +1,4 @@
-import { Stack, Button, Flex, FormControl, FormLabel, Radio, RadioGroup, useToast } from '@chakra-ui/react'
+import { Stack, Button, Flex, FormControl, FormLabel, Radio, RadioGroup, useToast, Box, Text, Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, PopoverHeader, PopoverBody, Spinner } from '@chakra-ui/react'
 import { bqTest } from "bq-core"
 import { useEffect, FormEvent, useState } from 'react'
 import { useAccount } from "wagmi";
@@ -13,9 +13,8 @@ interface Props {
 
 export function CertificationForm(props: Props) {
   const [test, setTest] = useState<any>();
-  const [testProof, setTestProof] = useState<any>();
-  const [buttonStates, setButtonStates] = useState({"prove": false, "submit": false});
-  const [clickedButton, setClickedButton] = useState<"grade" | "prove" | "submit" | "">("");
+  const [submitButtonState, setSubmitButtonState] = useState(false);
+  const [clickedButton, setClickedButton] = useState<"grade" | "submit" | "">("");
 
   const { address } = useAccount()
 
@@ -65,10 +64,20 @@ export function CertificationForm(props: Props) {
     }
   }
 
-  async function handleProve(multipleChoiceAnswers: number[]) {
+  async function handleSubmit(multipleChoiceAnswers: number[]) {
     if (!address) {
       setToast(
         'You need to connect your wallet first',
+        '',
+        'error'
+      )
+      return
+    }
+
+    const isHolder = await test.holdsCredential(address)
+    if (isHolder) {
+      setToast(
+        'You already own this credential',
         '',
         'error'
       )
@@ -87,17 +96,7 @@ export function CertificationForm(props: Props) {
       return
     }
 
-    const isHolder = await test.holdsCredential(address)
-    if (isHolder) {
-      setToast(
-        'You already own this credential',
-        '',
-        'error'
-      )
-      return
-    }
-
-    setButtonStates(prevState => ({...prevState, prove: true}))
+    setSubmitButtonState(true)
     setToast(
       'Generating proof',
       'Hang tight, this might take a while',
@@ -108,51 +107,17 @@ export function CertificationForm(props: Props) {
       recipient: address,
       multipleChoiceAnswers
     })
-    setTestProof(proof)
 
-    setButtonStates(prevState => ({...prevState, prove: false}))
     setToast(
       'Proof generated!',
-      `Click on 'Submit' to send your transaction and get your credential`,
+      `Approve the transaction to earn your credential`,
       'success'
     )
-  }
-
-  async function handleSubmit() {
-    if (!testProof) {
-      setToast(
-        'You need to generate a proof first',
-        `To generate a proof, click on the 'Prove' button`,
-        'error'
-      )
-      return
-    }
-
-    if (!address) {
-      setToast(
-        'You need to connect your wallet first',
-        '',
-        'error'
-      )
-      return
-    }
-
-    const isHolder = await test.holdsCredential(address)
-    if (isHolder) {
-      setToast(
-        'You already own this credential',
-        '',
-        'error'
-      )
-      return
-    }
-
-    setButtonStates(prevState => ({...prevState, submit: true}))
 
     const signer = await fetchSigner()
     await test.sendSolutionTransaction( 
       signer,
-      testProof
+      proof
     ).then( async (tx: any) => {
       await tx.wait()
 
@@ -163,7 +128,7 @@ export function CertificationForm(props: Props) {
       )
     }).catch(() => {})
 
-    setButtonStates(prevState => ({...prevState, submit: false}))
+    setSubmitButtonState(false)
   }
 
   async function handleForm(event: FormEvent<HTMLFormElement>) {
@@ -177,43 +142,84 @@ export function CertificationForm(props: Props) {
 
     if (clickedButton === "grade") {
       handleGrade(multipleChoiceAnswers)
-    } else if (clickedButton === "prove") {
-      handleProve(multipleChoiceAnswers)
     } else if (clickedButton === "submit") {
-      handleSubmit()
+      handleSubmit(multipleChoiceAnswers)
     }
   }
 
-  return (
-    <form className={className} onSubmit={handleForm} role="form">
-      <section>
-        {props.item.questions.map((i) => {
-          return (
-            <FormControl as="fieldset" key={i.title} isRequired my={4}>
-              <FormLabel as="legend" fontSize="lg" fontWeight="semibold">
-                {i.title}
-              </FormLabel>
-              <RadioGroup name={i.title}>
-                <Flex direction="column">
-                  {i.answers.map((a) => {
-                    return (
-                      <Radio key={a} value={a}>
-                        {a}
-                      </Radio>
-                    )
-                  })}
-                </Flex>
-              </RadioGroup>
-            </FormControl>
-          )
-        })}
+  const TestInformation = () => {
+    return (
+      test ? 
+        <>
+          <PopoverArrow />
+          <PopoverCloseButton />
+          <PopoverHeader>{test.stats.credentialsGained}</PopoverHeader>
+          <PopoverBody>{'Credential type: '}
+            <Text as='b'>{test.stats.testType === 0 ? ' Open Answer' : test.stats.testType === 100 ? 'Multiple Choice' : 'Mixed'}</Text> 
+          </PopoverBody>
+          <PopoverBody>{'Minimum grade: '}<Text as='b'>{test.stats.minimumGrade}</Text> </PopoverBody>
+          <PopoverBody>{'Number of questions: '}
+            <Text as='b'>
+              {
+                test.stats.testType === 0 ? 
+                  test.stats.nQuestions   // open answer
+                : 
+                  test.stats.testType === 100 ?  
+                    props.item.questions.length   // multiple choice
+                  : 
+                    props.item.questions.length + test.stats.nQuestions  // mixed 
+              }
+            </Text>
+          </PopoverBody>
+          <PopoverBody>{'Number of solvers: '}<Text as='b'>{test.stats.solvers}</Text> </PopoverBody>
+        </>
+      :
+        <PopoverBody display='flex' justifyContent='center'>
+          <Spinner />
+        </PopoverBody>
+    )
+  }
 
-        <Stack spacing={4} direction='row' align='center'> 
-          <Button type="submit" onClick={()=>{setClickedButton("grade")}}>Grade</Button>
-          <Button type="submit" isLoading={buttonStates.prove} onClick={()=>{setClickedButton("prove")}}>Prove</Button>
-          <Button type="submit" isLoading={buttonStates.submit} onClick={()=>{setClickedButton("submit")}}>Submit</Button>
-        </Stack>
-      </section>
-    </form>
+  return (
+    <Box mt='4'>
+      <Popover>
+        <PopoverTrigger>
+          <Button>Test Information</Button>
+        </PopoverTrigger>
+        <PopoverContent>
+          <TestInformation />
+        </PopoverContent>
+      </Popover>
+
+      <form className={className} onSubmit={handleForm} role="form">
+        <section>
+          {props.item.questions.map((i) => {
+            return (
+              <FormControl as="fieldset" key={i.title} isRequired my={4}>
+                <FormLabel as="legend" fontSize="lg" fontWeight="semibold">
+                  {i.title}
+                </FormLabel>
+                <RadioGroup name={i.title}>
+                  <Flex direction="column">
+                    {i.answers.map((a) => {
+                      return (
+                        <Radio key={a} value={a}>
+                          {a}
+                        </Radio>
+                      )
+                    })}
+                  </Flex>
+                </RadioGroup>
+              </FormControl>
+            )
+          })}
+
+          <Stack spacing={4} direction='row' align='center'> 
+            <Button type="submit" onClick={()=>{setClickedButton("grade")}}>Grade</Button>
+            <Button type="submit" isLoading={submitButtonState} onClick={()=>{setClickedButton("submit")}}>Submit</Button>
+          </Stack>
+        </section>
+      </form>
+    </Box>
   )
 }
