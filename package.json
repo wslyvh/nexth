@@ -4,13 +4,11 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
-    "prebuild": "cd ./contracts && yarn",
-    "build": "next build && yarn wagmi",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint --fix",
     "prettier": "prettier './src' --write",
-    "wagmi": "wagmi generate",
-    "wagmi:dev": "wagmi generate --watch"
+    "wagmi": "wagmi generate"
   },
   "husky": {
     "hooks": {

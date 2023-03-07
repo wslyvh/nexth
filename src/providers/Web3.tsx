@@ -15,6 +15,7 @@ const client = createClient(
   getDefaultClient({
     appName: SITE_NAME,
     autoConnect: true,
+    chains: ETH_CHAINS,
     provider,
     webSocketProvider,
   })

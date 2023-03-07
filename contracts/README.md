@@ -11,4 +11,28 @@ yarn test
 yarn coverage
 ```
 
-Once you're ready to deploy your contracts to a testnet, setup a deployer account using `process.env.DEPLOYER_KEY` and try to run `yarn deploy --network sepolia`. You might need testnet Ethers for that. More info and faucet links can be found on [Sepolia Dev](https://sepolia.dev/).
+## Deploy
+
+Once you're ready to deploy your contracts, setup a deployer account using `DEPLOYER_KEY` and try to run e.g.
+
+```
+yarn deploy --network sepolia
+```
+
+Note that you need testnet Ethers for that. More info and faucet links can be found on [Sepolia Dev](https://sepolia.dev/). You can set up different networks using [Hardhat's network configuration](https://hardhat.org/hardhat-runner/docs/config#networks-configuration).
+
+## Verify
+
+Contracts are automatically verified on Etherscan if you've set up the `ETHERSCAN_API_KEY` environment variable. You can also verify contracts manually using
+
+```
+yarn verify
+```
+
+## Wagmi CLI
+
+The front-end uses the [Wagmi CLI](https://wagmi.sh/cli/getting-started) to automatically generate types and default hooks for your contracts. You can find the generated files in `src/abi.test`.
+
+```
+yarn wagmi
+```

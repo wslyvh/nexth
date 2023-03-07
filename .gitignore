@@ -46,4 +46,6 @@ contracts/typechain-types
 
 contracts/cache
 contracts/artifacts
-/src/abis.ts
+
+# wagmi recommends to ignore their generated file
+# /src/abis.ts 
