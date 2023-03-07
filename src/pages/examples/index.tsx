@@ -6,6 +6,7 @@ import { Code, Text } from '@chakra-ui/react'
 import SignIcon from 'assets/icons/fingerprint.png'
 import AuthIcon from 'assets/icons/auth.png'
 import PassportIcon from 'assets/icons/passport.png'
+import CustomIcon from 'assets/icons/custom.png'
 import EtherIcon from 'assets/icons/ethereum.png'
 import TokenIcon from 'assets/icons/token.png'
 import NFTIcon from 'assets/icons/nft.png'
@@ -29,6 +30,12 @@ export const ExampleItems = [
       'Gitcoin Passport is an identity protocol that proves your trustworthiness without needing to collect personally identifiable information.',
     image: PassportIcon.src,
     url: '/examples/passport',
+  },
+  {
+    title: 'Custom Contract',
+    description: 'This example shows a custom Solidity smart contract deployed using Hardhat. You can find sample contract under /contracts.',
+    image: CustomIcon.src,
+    url: '/examples/custom-message',
   },
   {
     title: 'Send Ether',
