@@ -24,7 +24,7 @@ function SendERC20() {
   })
 
   const prepareContractWrite = usePrepareContractWrite({
-    address: debouncedTokenContract,
+    address: debouncedTokenContract as `0x{string}`,
     abi: erc20ABI,
     functionName: 'transfer',
     args: [(debouncedTo as `0x{string}`) ?? '0x0', debouncedAmount ? utils.parseEther(debouncedAmount) : utils.parseEther('0')],
