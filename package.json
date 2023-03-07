@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "cd ./contracts && yarn",
     "build": "next build && yarn wagmi",
     "start": "next start",
     "lint": "next lint --fix",

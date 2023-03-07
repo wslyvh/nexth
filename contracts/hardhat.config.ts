@@ -29,6 +29,7 @@ const config: HardhatUserConfig = {
       url: 'http://127.0.0.1:8545',
     },
     sepolia: {
+      chainId: 11155111,
       url: 'https://rpc.sepolia.org/',
       accounts: [deployerKey as string],
     },

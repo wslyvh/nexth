@@ -46,3 +46,4 @@ contracts/typechain-types
 
 contracts/cache
 contracts/artifacts
+/src/abis.ts
