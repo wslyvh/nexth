@@ -2,6 +2,7 @@ import { ethers, network, run } from 'hardhat'
 
 async function main() {
   console.log('Deploying Nexth NFT...')
+  const [deployer, recipient] = await ethers.getSigners()
 
   const args: any[] = []
   const NexthFT = await ethers.getContractFactory('NexthFT')
@@ -27,6 +28,10 @@ async function main() {
       console.log(e)
     }
   }
+
+  // Send some NFTs as an example
+  await nft.safeMint(deployer.address)
+  await nft.safeMint(recipient.address)
 }
 
 // We recommend this pattern to be able to use async/await everywhere
