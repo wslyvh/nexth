@@ -9,16 +9,24 @@ const deployerKey = process.env.DEPLOYER_KEY
 if (!deployerKey) {
   console.warn('DEPLOYER_KEY not found in .env file. Running with default config')
 }
-const etherscanApiKey = process.env.ETHERSCAN_API_KEY
+const etherscanApiKey = process.env.ETHERSCAN_API_KEY ?? ''
 if (!etherscanApiKey) {
   console.warn('ETHERSCAN_API_KEY not found in .env file. Will skip Etherscan verification')
+}
+const polygonApiKey = process.env.POLYSCAN_API_KEY ?? ''
+if (!polygonApiKey) {
+  console.warn('POLYSCAN_API_KEY not found in .env file. Will skip Etherscan verification')
 }
 
 const config: HardhatUserConfig = {
   solidity: '0.8.18',
   defaultNetwork: 'hardhat',
   etherscan: {
-    apiKey: etherscanApiKey,
+    apiKey: {
+      mainnet: etherscanApiKey,
+      sepolia: etherscanApiKey,
+      polygonMumbai: polygonApiKey,
+    },
   },
   networks: {
     hardhat: {
@@ -31,6 +39,11 @@ const config: HardhatUserConfig = {
     sepolia: {
       chainId: 11155111,
       url: 'https://rpc.sepolia.org/',
+      accounts: [deployerKey as string],
+    },
+    mumbai: {
+      chainId: 80001,
+      url: 'https://rpc-mumbai.maticvigil.com/',
       accounts: [deployerKey as string],
     },
   },
