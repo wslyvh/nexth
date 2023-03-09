@@ -3,7 +3,8 @@
   "name": "Solidity",
   "description": "Test your knowledge about the Solidity programming language, the Ethereum Virtual Machine.",
   "level": "Intermediate",
-  "icon": "/icons/solidity.png",
+  "icon": "https://academy.useweb3.xyz/icons/solidity.png",
+  "external_url": "https://academy.useweb3.xyz/certification/solidity",
   "image": "https://academy.useweb3.xyz/nfts/solidity.png",
   "questions": []
 }

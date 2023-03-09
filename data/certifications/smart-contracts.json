@@ -3,7 +3,8 @@
   "name": "Smart Contracts",
   "description": "Smart contracts are a fundamental part of the Ethereum ecosystem. Learn more about them here.",
   "level": "Intermediate",
-  "icon": "/icons/smart-contracts.png",
+  "icon": "https://academy.useweb3.xyz/icons/smart-contracts.png",
+  "external_url": "https://academy.useweb3.xyz/certification/smart-contracts",
   "image": "https://academy.useweb3.xyz/nfts/smart-contracts.png",
   "questions": []
 }
