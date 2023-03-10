@@ -1,4 +1,5 @@
 {
+  "testId": 2,
   "order": 2,
   "name": "Digital Wallets",
   "description": "This test evaluates your knowledge of crypto wallets, asymmetric (or public-key) cryptography and how those are used within the context of blockchains.",
@@ -136,5 +137,8 @@
       "title": "Considering the following secret phrase `candy maple cake sugar pudding cream honey rich smooth crumble sweet treat` what is the first public address on default derivation path most commonly used for Ethereum",
       "answers": []
     }
+  ],
+  "openAnswerHashes": [
+    "259448045474987998539256631817002319631836745276804933477164405439408711950"
   ]
 }

@@ -26,7 +26,8 @@ export function CertificationForm(props: Props) {
       const solveModeTest = await bqTest.solveMode(
         props.item.testId,
         ETHERS_PROVIDER,
-        DEPLOYED_CONTRACTS.TesterCreator
+        DEPLOYED_CONTRACTS.TestCreator,
+        props.item.openAnswerHashes
       )
       setTest(solveModeTest)
     }
@@ -44,8 +45,9 @@ export function CertificationForm(props: Props) {
     })
   }
 
-  function handleGrade(multipleChoiceAnswers: number[]) {
+  function handleGrade(openAnswers: string[], multipleChoiceAnswers: number[]) {
     const grade = test.gradeSolution({
+      openAnswers,
       multipleChoiceAnswers
     })
 
@@ -64,7 +66,7 @@ export function CertificationForm(props: Props) {
     }
   }
 
-  async function handleSubmit(multipleChoiceAnswers: number[]) {
+  async function handleSubmit(openAnswers: string[], multipleChoiceAnswers: number[]) {
     if (!address) {
       setToast(
         'You need to connect your wallet first',
@@ -85,6 +87,7 @@ export function CertificationForm(props: Props) {
     }
 
     const grade = test.gradeSolution({
+      openAnswers,
       multipleChoiceAnswers
     })
     if (!grade.pass) {
@@ -105,6 +108,7 @@ export function CertificationForm(props: Props) {
 
     const proof = await test.generateSolutionProof({
       recipient: address,
+      openAnswers,
       multipleChoiceAnswers
     })
 
@@ -134,16 +138,22 @@ export function CertificationForm(props: Props) {
   async function handleForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    const multipleChoiceAnswers = props.item.questions.map((i) => {
+    const multipleChoiceAnswers = props.item.questions.filter((i) => i.answers.length > 0).map((i) => {
       const elements = event.currentTarget.elements
       const element = elements.namedItem(i.title) as HTMLInputElement
       return i.answers.indexOf(element.value) + 1
     })
 
+    const openAnswers = props.item.questions.filter((i) => i.answers.length === 0).map((i) => {
+      const elements = event.currentTarget.elements
+      const element = elements.namedItem(i.title) as HTMLInputElement
+      return element.value.toLowerCase()
+    })
+
     if (clickedButton === "grade") {
-      handleGrade(multipleChoiceAnswers)
+      handleGrade(openAnswers, multipleChoiceAnswers)
     } else if (clickedButton === "submit") {
-      handleSubmit(multipleChoiceAnswers)
+      handleSubmit(openAnswers, multipleChoiceAnswers)
     }
   }
 
@@ -159,17 +169,7 @@ export function CertificationForm(props: Props) {
           </PopoverBody>
           <PopoverBody>{'Minimum grade: '}<Text as='b'>{test.stats.minimumGrade}</Text> </PopoverBody>
           <PopoverBody>{'Number of questions: '}
-            <Text as='b'>
-              {
-                test.stats.testType === 0 ? 
-                  test.stats.nQuestions   // open answer
-                : 
-                  test.stats.testType === 100 ?  
-                    props.item.questions.length   // multiple choice
-                  : 
-                    props.item.questions.length + test.stats.nQuestions  // mixed 
-              }
-            </Text>
+            <Text as='b'>{props.item.questions.length}</Text>
           </PopoverBody>
           <PopoverBody>{'Number of solvers: '}<Text as='b'>{test.stats.solvers}</Text> </PopoverBody>
         </>

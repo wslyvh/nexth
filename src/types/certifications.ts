@@ -9,6 +9,7 @@ export interface Certification {
   image: string
   info?: string
   questions: Question[]
+  openAnswerHashes: string[]
 }
 
 export interface Question {

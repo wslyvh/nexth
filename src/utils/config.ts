@@ -28,7 +28,7 @@ export const SERVER_SESSION_SETTINGS = {
 export const ETHERS_PROVIDER = new ethers.providers.JsonRpcProvider("https://rpc-mumbai.maticvigil.com")
 
 export const DEPLOYED_CONTRACTS = {
-  TesterCreator: "0xECe4239a93F97e52aE88b64228d38e39195B9e9A",
-  Credentials: "0xc8c0A832e04Ea78E46bDf0e133aB525840b1c53d",
-  TestVerifier: "0x3561B5ccD0b058c80884E6a6Fa1205fb0d249c43",
+  TestCreator: "0x879919ebA0A48B4AF966e2B43c16B17A906d4DE9",
+  Credentials: "0x8002C94BDad20F64ACE040C74eBFE262c0A0aE25",
+  TestVerifier: "0x23F5f7Fe1829f86C8C0bC35C4a2B068D664Eba9c",
 }
