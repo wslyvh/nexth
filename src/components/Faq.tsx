@@ -6,7 +6,11 @@ import { HeadingComponent } from './layout/HeadingComponent'
 const Questions = [
   {
     question: 'What is a ZK certification?',
-    answer: `A ZK certification is proof that you have completed a certain task. In this case, successfully completing a quiz that tested your knowledge. It is a digital credential that is stored on the Ethereum blockchain and can be verified by anyone without revealing any of the information with others. useWeb3 academy uses BlockQualified. You can find more information in their [documentation](https://deenz.gitbook.io/bq-core/).`,
+    answer: `A ZK certification is proof that you have completed a certain task. In this case, successfully completing a quiz that tested your knowledge. 
+It is a digital credential that is stored on the Ethereum blockchain and can be verified by anyone without revealing any of the submitted information. 
+Your solution is hidden inside the ZK proof to prevents others from simply copying answers and guarantees the validity of each transaction. 
+
+useWeb3 academy uses [BlockQualified](https://github.com/0xdeenz/bq-core), by [@0xdeenz](https://twitter.com/0xdeenz). Find more info in [the documentation](https://deenz.gitbook.io/bq-core/).`,
   },
   {
     question: 'How do I gain a certification?',
