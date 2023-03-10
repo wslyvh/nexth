@@ -6,6 +6,7 @@ export interface Certification {
   level: 'Beginner' | 'Intermediate' | 'Advanced'
   icon: string
   image: string
+  info?: string
   questions: Question[]
 }
 

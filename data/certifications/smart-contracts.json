@@ -8,8 +8,102 @@
   "image": "https://academy.useweb3.xyz/nfts/smart-contracts.png",
   "questions": [
     {
-      "title": "",
-      "answers": []
+      "title": "What is a smart contract?",
+      "answers": [
+        "A legal agreement between 2 parties",
+        "A type of cryptocurrency",
+        "A piece of self-executing code that runs on a blockchain",
+        "A protocol used for secure communication"
+      ]
+    },
+    {
+      "title": "What are the benefits of using smart contracts?",
+      "answers": [
+        "Cheap transaction costs",
+        "Easy enforcement of common law",
+        "Efficient performance monitoring",
+        "Inform about any events that occur on the blockchain",
+        "Define the value of digital assets (such as Ether, DAI or NFTs)",
+        "Self executing code that can’t be tampered with"
+      ]
+    },
+    {
+      "title": "Smart contracts on Ethereum",
+      "answers": [
+        "Can be deployed by anyone",
+        "Can be deployed through the Ethereum DApp store",
+        "Are guaranteed to be secure",
+        "Are guaranteed to have an owner"
+      ]
+    },
+    {
+      "title": "Which is the most common standard for defining a token smart contract?",
+      "answers": ["ERC-20", "ERC-712", "ERC-1337", "ERC-4337", "EIP-1559", "EIP-4844"]
+    },
+    {
+      "title": "Which of the following statements about smart contracts on Ethereum are true?",
+      "answers": [
+        "A single, specifically crafted transaction is sent to deploy a contract",
+        "A contract is uniquely identifiable by its immutable address",
+        "The exact same contract code can be deployed more than once",
+        "Smart contracts are stored on the blockchain as bytecode",
+        "All of the above",
+        "None of the above"
+      ]
+    },
+    {
+      "title": "What is the most popular smart contract programming language to date (2023)?",
+      "answers": ["Vyper", "Python", "Go", "C++", "Solidity", "Rust"]
+    },
+    {
+      "title": "What is the ABI of a smart contract?",
+      "answers": [
+        "It describes the compiler that was used to translate your Solidity code into bytecode",
+        "It describes the bytecode of a contract",
+        "It describes the functions and fields of a contract",
+        "It describes the owner who deployed the contract"
+      ]
+    },
+    {
+      "title": "When deploying a contract, its address is",
+      "answers": [
+        "Randomly generated",
+        "Automatically incremented equal to the number of transactions sent from this address",
+        "Calculated from the bytecode",
+        "Calculated from a hash of my address and the transaction nonce"
+      ]
+    },
+    {
+      "title": "When deploying a contract, the recipient of the transaction is",
+      "answers": ["The master node", "The EVM contract registry", "There is no recipient", "The owner of the contract"]
+    },
+    {
+      "title": "Which of the following property modifiers prevents the outside world to see its data",
+      "answers": ["Public", "Private", "External", "Internal", "None of the above"]
+    },
+    {
+      "title": "What happens when a transaction is sent to a contract without specifying a function to execute?",
+      "answers": ["Nothing", "The fallback function is executed", "An exception is thrown", "The value of the transaction is sent back to the caller"]
+    },
+    {
+      "title": "What is an event?",
+      "answers": [
+        "A way to inform nodes when a function failed",
+        "A way to securely access and verify off-chain data",
+        "A way to push data into a smart contract",
+        "A way for a smart contract to inform others about the transaction status"
+      ]
+    },
+    {
+      "title": "Which of the following are automatically performed by an Oracle smart contract?",
+      "answers": [
+        "Define asset values (like ETH/USD) to be used by DeFi applications",
+        "Generate random numbers to be used by gaming DApps",
+        "Give weather data for insurance contracts",
+        "Inform a bridge smart contract about the events occurring on other blockchains",
+        "All of the above",
+        "None of the above"
+      ]
     }
   ]
 }
