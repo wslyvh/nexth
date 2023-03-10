@@ -8,6 +8,5 @@
     "require": ["tsconfig-paths/register"]
   },
   "include": ["next-env.d.ts", "src"],
-  "exclude": ["node_modules"],
-  "moduleResolution":"node"
+  "exclude": ["node_modules"]
 }

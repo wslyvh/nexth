@@ -1,5 +1,5 @@
 {
-  "order": 7,
+  "testId": 700,
   "name": "Zero Knowledge",
   "description": "Test your knowledge on anything related to Zero Knowledge cryptography, ZKP, SNARKs, STARKs and the math behind it.",
   "level": "Advanced",

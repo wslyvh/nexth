@@ -2,9 +2,9 @@ import { ThemingProps } from '@chakra-ui/react'
 import { polygonMumbai } from '@wagmi/chains'
 import { ethers } from 'ethers'
 
-export const SITE_NAME = 'useWeb3 Learn'
-export const SITE_DESCRIPTION = 'An open education platform to attest your knowledge and claim your ZK certifications.'
-export const SITE_URL = 'https://useweb3-learn.vercel.app/'
+export const SITE_NAME = 'useWeb3 Academy'
+export const SITE_DESCRIPTION = 'Test your Web3 knowledge and claim your ZK certifications.'
+export const SITE_URL = 'https://academy.useweb3.xyz'
 
 export const THEME_INITIAL_COLOR = 'system'
 export const THEME_COLOR_SCHEME: ThemingProps['colorScheme'] = 'gray'
@@ -25,10 +25,10 @@ export const SERVER_SESSION_SETTINGS = {
   },
 }
 
-export const ETHERS_PROVIDER = new ethers.providers.JsonRpcProvider("https://rpc-mumbai.maticvigil.com")
+export const ETHERS_PROVIDER = new ethers.providers.JsonRpcProvider('https://rpc-mumbai.maticvigil.com')
 
 export const DEPLOYED_CONTRACTS = {
-  TestCreator: "0x879919ebA0A48B4AF966e2B43c16B17A906d4DE9",
-  Credentials: "0x8002C94BDad20F64ACE040C74eBFE262c0A0aE25",
-  TestVerifier: "0x23F5f7Fe1829f86C8C0bC35C4a2B068D664Eba9c",
+  TestCreator: '0x879919ebA0A48B4AF966e2B43c16B17A906d4DE9',
+  Credentials: '0x8002C94BDad20F64ACE040C74eBFE262c0A0aE25',
+  TestVerifier: '0x23F5f7Fe1829f86C8C0bC35C4a2B068D664Eba9c',
 }

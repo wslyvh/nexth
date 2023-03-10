@@ -1,10 +1,30 @@
-import { Stack, Button, Flex, FormControl, FormLabel, Input, Radio, RadioGroup, useToast, Box, Text, Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, PopoverHeader, PopoverBody, Spinner } from '@chakra-ui/react'
-import { bqTest } from "bq-core"
+import {
+  Stack,
+  Button,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  Radio,
+  RadioGroup,
+  useToast,
+  Box,
+  Text,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverArrow,
+  PopoverCloseButton,
+  PopoverHeader,
+  PopoverBody,
+  Spinner,
+} from '@chakra-ui/react'
+import { bqTest } from 'bq-core'
 import { useEffect, FormEvent, useState } from 'react'
-import { useAccount } from "wagmi";
+import { useAccount } from 'wagmi'
 import { fetchSigner } from '@wagmi/core'
 import { Certification } from 'types/certifications'
-import { DEPLOYED_CONTRACTS, ETHERS_PROVIDER } from 'utils/config';
+import { DEPLOYED_CONTRACTS, ETHERS_PROVIDER } from 'utils/config'
 
 interface Props {
   className?: string
@@ -12,29 +32,24 @@ interface Props {
 }
 
 export function CertificationForm(props: Props) {
-  const [test, setTest] = useState<any>();
-  const [submitButtonState, setSubmitButtonState] = useState(false);
-  const [clickedButton, setClickedButton] = useState<"grade" | "submit" | "">("");
+  const [test, setTest] = useState<any>()
+  const [submitButtonState, setSubmitButtonState] = useState(false)
+  const [clickedButton, setClickedButton] = useState<'grade' | 'submit' | ''>('')
 
   const { address } = useAccount()
 
   const toast = useToast()
   const className = props.className ?? ''
 
-  useEffect(() =>  {
-    const loadTest = async() => {
-      const solveModeTest = await bqTest.solveMode(
-        props.item.testId,
-        ETHERS_PROVIDER,
-        DEPLOYED_CONTRACTS.TestCreator,
-        props.item.openAnswerHashes
-      )
+  useEffect(() => {
+    const loadTest = async () => {
+      const solveModeTest = await bqTest.solveMode(props.item.testId, ETHERS_PROVIDER, DEPLOYED_CONTRACTS.TestCreator, props.item.openAnswerHashes)
       setTest(solveModeTest)
     }
     loadTest()
-  }, [])
+  }, [props.item])
 
-  function setToast(title: string, description: string, status: "success" | "error" | "info") {
+  function setToast(title: string, description: string, status: 'success' | 'error' | 'info') {
     toast({
       title,
       description,
@@ -48,19 +63,15 @@ export function CertificationForm(props: Props) {
   function handleGrade(openAnswers: string[], multipleChoiceAnswers: number[]) {
     const grade = test.gradeSolution({
       openAnswers,
-      multipleChoiceAnswers
+      multipleChoiceAnswers,
     })
 
     if (grade.pass) {
-      setToast(
-        `You passed this test`, 
-        `You obtained ${grade.grade}/100 and can obtain this credential.`, 
-        'success'
-      )
+      setToast(`You passed this test`, `You obtained ${grade.grade}/100 and can obtain this credential.`, 'success')
     } else {
       setToast(
-        `You did not pass this test`, 
-        `You obtained ${grade.grade}/100 which is below the minimum grade of ${grade.minimumGrade}. You cannot obtain this credential.`, 
+        `You did not pass this test`,
+        `You obtained ${grade.grade}/100 which is below the minimum grade of ${grade.minimumGrade}. You cannot obtain this credential.`,
         'error'
       )
     }
@@ -68,69 +79,49 @@ export function CertificationForm(props: Props) {
 
   async function handleSubmit(openAnswers: string[], multipleChoiceAnswers: number[]) {
     if (!address) {
-      setToast(
-        'You need to connect your wallet first',
-        '',
-        'error'
-      )
+      setToast('You need to connect your wallet first', '', 'error')
       return
     }
 
     const isHolder = await test.holdsCredential(address)
     if (isHolder) {
-      setToast(
-        'You already own this credential',
-        '',
-        'error'
-      )
+      setToast('You already own this credential', '', 'error')
       return
     }
 
     const grade = test.gradeSolution({
       openAnswers,
-      multipleChoiceAnswers
+      multipleChoiceAnswers,
     })
     if (!grade.pass) {
       setToast(
-        `Your solution does not pass this test`, 
-        `You obtained ${grade.grade}/100 which is below the minimum grade of ${grade.minimumGrade}. You cannot obtain this credential.`, 
+        `Your solution does not pass this test`,
+        `You obtained ${grade.grade}/100 which is below the minimum grade of ${grade.minimumGrade}. You cannot obtain this credential.`,
         'error'
       )
       return
     }
 
     setSubmitButtonState(true)
-    setToast(
-      'Generating proof',
-      'Hang tight, this might take a while',
-      'info'
-    )
+    setToast('Generating proof', 'Hang tight, this might take a while', 'info')
 
     const proof = await test.generateSolutionProof({
       recipient: address,
       openAnswers,
-      multipleChoiceAnswers
+      multipleChoiceAnswers,
     })
 
-    setToast(
-      'Proof generated!',
-      `Approve the transaction to earn your credential`,
-      'success'
-    )
+    setToast('Proof generated!', `Approve the transaction to earn your credential`, 'success')
 
     const signer = await fetchSigner()
-    await test.sendSolutionTransaction( 
-      signer,
-      proof
-    ).then( async (tx: any) => {
-      await tx.wait()
+    await test
+      .sendSolutionTransaction(signer, proof)
+      .then(async (tx: any) => {
+        await tx.wait()
 
-      setToast(
-        'Congratulations! You obtained this credential',
-        '',
-        'success'
-      )
-    }).catch(() => {})
+        setToast('Congratulations! You obtained this credential', '', 'success')
+      })
+      .catch(() => {})
 
     setSubmitButtonState(false)
   }
@@ -138,50 +129,61 @@ export function CertificationForm(props: Props) {
   async function handleForm(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
-    const multipleChoiceAnswers = props.item.questions.filter((i) => i.answers.length > 0).map((i) => {
-      const elements = event.currentTarget.elements
-      const element = elements.namedItem(i.title) as HTMLInputElement
-      return i.answers.indexOf(element.value) + 1
-    })
+    const multipleChoiceAnswers = props.item.questions
+      .filter((i) => i.answers.length > 0)
+      .map((i) => {
+        const elements = event.currentTarget.elements
+        const element = elements.namedItem(i.title) as HTMLInputElement
+        return i.answers.indexOf(element.value) + 1
+      })
 
-    const openAnswers = props.item.questions.filter((i) => i.answers.length === 0).map((i) => {
-      const elements = event.currentTarget.elements
-      const element = elements.namedItem(i.title) as HTMLInputElement
-      return element.value.toLowerCase()
-    })
+    const openAnswers = props.item.questions
+      .filter((i) => i.answers.length === 0)
+      .map((i) => {
+        const elements = event.currentTarget.elements
+        const element = elements.namedItem(i.title) as HTMLInputElement
+        return element.value.toLowerCase()
+      })
 
-    if (clickedButton === "grade") {
+    if (clickedButton === 'grade') {
       handleGrade(openAnswers, multipleChoiceAnswers)
-    } else if (clickedButton === "submit") {
+    } else if (clickedButton === 'submit') {
       handleSubmit(openAnswers, multipleChoiceAnswers)
     }
   }
 
   const TestInformation = () => {
-    return (
-      test ? 
-        <>
-          <PopoverArrow />
-          <PopoverCloseButton />
-          <PopoverHeader>{test.stats.credentialsGained}</PopoverHeader>
-          <PopoverBody>{'Credential type: '}
-            <Text as='b'>{test.stats.testType === 0 ? ' Open Answer' : test.stats.testType === 100 ? 'Multiple Choice' : 'Mixed'}</Text> 
-          </PopoverBody>
-          <PopoverBody>{'Minimum grade: '}<Text as='b'>{test.stats.minimumGrade}</Text> </PopoverBody>
-          <PopoverBody>{'Number of questions: '}
-            <Text as='b'>{props.item.questions.length}</Text>
-          </PopoverBody>
-          <PopoverBody>{'Number of solvers: '}<Text as='b'>{test.stats.solvers}</Text> </PopoverBody>
-        </>
-      :
-        <PopoverBody display='flex' justifyContent='center'>
-          <Spinner />
+    return test ? (
+      <>
+        <PopoverArrow />
+        <PopoverCloseButton />
+        <PopoverHeader>{test.stats.credentialsGained}</PopoverHeader>
+        <PopoverBody>
+          {'Credential type: '}
+          <Text as="b">{test.stats.testType === 0 ? ' Open Answer' : test.stats.testType === 100 ? 'Multiple Choice' : 'Mixed'}</Text>
         </PopoverBody>
+        <PopoverBody>
+          {'Minimum grade: '}
+          <Text as="b">{test.stats.minimumGrade}</Text>{' '}
+        </PopoverBody>
+        <PopoverBody>
+          {'Number of questions: '}
+          <Text as="b">{props.item.questions.length}</Text>
+        </PopoverBody>
+        <PopoverBody>
+          {'Number of solvers: '}
+          <Text as="b">{test.stats.solvers}</Text>{' '}
+        </PopoverBody>
+      </>
+    ) : (
+      <PopoverBody display="flex" justifyContent="center">
+        <Spinner />
+      </PopoverBody>
     )
   }
 
   return (
-    <Box mt='4'>
+    <Box mt="4">
       <Popover>
         <PopoverTrigger>
           <Button>Test Information</Button>
@@ -217,9 +219,22 @@ export function CertificationForm(props: Props) {
             )
           })}
 
-          <Stack spacing={4} direction='row' align='center'> 
-            <Button type="submit" onClick={()=>{setClickedButton("grade")}}>Grade</Button>
-            <Button type="submit" isLoading={submitButtonState} onClick={()=>{setClickedButton("submit")}}>Submit</Button>
+          <Stack spacing={4} direction="row" align="center">
+            <Button
+              type="submit"
+              onClick={() => {
+                setClickedButton('grade')
+              }}>
+              Grade
+            </Button>
+            <Button
+              type="submit"
+              isLoading={submitButtonState}
+              onClick={() => {
+                setClickedButton('submit')
+              }}>
+              Submit
+            </Button>
           </Stack>
         </section>
       </form>

@@ -1,6 +1,5 @@
 {
   "testId": 5,
-  "order": 5,
   "name": "Solidity Basics",
   "description": "Test your knowledge on the basics of Solidity programming language and the Ethereum Virtual Machine.",
   "level": "Intermediate",

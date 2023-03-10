@@ -1,6 +1,5 @@
 {
   "testId": 2,
-  "order": 2,
   "name": "Digital Wallets",
   "description": "This test evaluates your knowledge of crypto wallets, asymmetric (or public-key) cryptography and how those are used within the context of blockchains.",
   "info": "WARNING: The keys and seed phrases used in this quiz are purely for educational purposes. Never share, copy/paste or use your keys and seed phrases publicly, unless you know what you're doing! Check out the security page at https://ethereum.org/en/security/ for more information.",
@@ -138,7 +137,5 @@
       "answers": []
     }
   ],
-  "openAnswerHashes": [
-    "259448045474987998539256631817002319631836745276804933477164405439408711950"
-  ]
+  "openAnswerHashes": ["259448045474987998539256631817002319631836745276804933477164405439408711950"]
 }

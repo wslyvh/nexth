@@ -1,6 +1,5 @@
 {
   "testId": 4,
-  "order": 4,
   "name": "Smart Contracts",
   "description": "This module tests your knowledge on smart contracts, its benefits and how they've become a fundamental part of the Ethereum ecosystem.",
   "level": "Intermediate",

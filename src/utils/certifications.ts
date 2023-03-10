@@ -24,5 +24,5 @@ export function GetCertifications(folder: string = 'certifications') {
     }
   }
 
-  return files.sort((a, b) => a.order - b.order)
+  return files.sort((a, b) => a.testId - b.testId)
 }
