@@ -6,5 +6,103 @@
   "icon": "https://academy.useweb3.xyz/icons/solidity.png",
   "external_url": "https://academy.useweb3.xyz/certification/solidity",
   "image": "https://academy.useweb3.xyz/nfts/solidity.png",
-  "questions": []
+  "questions": [
+    {
+      "title": "The Solidity language is",
+      "answers": ["Object-oriented", "Statically-typed", "Supports inheritance", "Supports inline assembly", "All of the above", "None of the above"]
+    },
+    {
+      "title": "Which of the following types are a value type?",
+      "answers": ["int", "uint128", "bool", "address", "All of the above", "None of the above"]
+    },
+    {
+      "title": "Which of the following about structs is true",
+      "answers": [
+        "They are a user-defined type",
+        "They are a reference type",
+        "They can contain arrays and mappings",
+        "Arrays and mappings can contain structs",
+        "All of the above",
+        "None of the above"
+      ]
+    },
+    {
+      "title": "Which types can be assigned memory or storage locations?",
+      "answers": ["None", "Arrays only", "Arrays and structs", "Arrays, structs and mappings", "All"]
+    },
+    {
+      "title": "Which of the following are valid data locations?",
+      "answers": [
+        "Slot, Attestation and Epoch",
+        "Account state, Transaction Tree and Root node",
+        "Calldata, Memory and Storage",
+        "Transaction, Blob and Block"
+      ]
+    },
+    {
+      "title": "What is a constant function?",
+      "answers": [
+        "A function that always returns the same value",
+        "A function that can't be changed",
+        "A function that does not change the state of the blockchain",
+        "A function that is globally accessible"
+      ]
+    },
+    {
+      "title": "What is a function modifier?",
+      "answers": [
+        "A piece of code that can be attached to function",
+        "A function that consumes gas",
+        "A function that allows the owner to upgrade and modify code at a later date",
+        "A function that modifies the state of the blockchain"
+      ]
+    },
+    {
+      "title": "Which of the following statements about function visibility in Solidity are true",
+      "answers": [
+        "They go from the most restrictive private -> internal -> external -> public as the least restrictive",
+        "They go from the most restrictive internal -> private -> external -> public as the least restrictive",
+        "Making something private or internal prevents only the outside world from seeing it",
+        "Making something private or internal prevents other contracts and the outside world from seeing it"
+      ]
+    },
+    {
+      "title": "If contract A inherits from contract B and contract C inherits from contract A, is it then possible for contract C to access the internal functions of contract B?",
+      "answers": ["True", "False"]
+    },
+    {
+      "title": "In Solidity, how can you acquire the timestamp of the current block?",
+      "answers": ["block.time", "block.utc()", "block.timestamp", "block.datetime"]
+    },
+    {
+      "title": "Which of the following is not a global variable inside a Solidity smart contract?",
+      "answers": ["address.owner", "block.coinbase", "msg.sig", "tx.gasprice", "All of the above", "None of the above"]
+    },
+    {
+      "title": "In Solidity, what member of the address type returns its balance?",
+      "answers": ["address.balance", "address.amount", "address.ether", "address.gwei"]
+    },
+    {
+      "title": "How can I get a list of all the keys used within a mapping called myMap?",
+      "answers": ["myMap.toArray()", "myMap itself is an enumerable", "There is no such thing", "myMap.Keys()"]
+    },
+    {
+      "title": "What is the different between msg.sender and tx.origin",
+      "answers": [
+        "They are the same",
+        "msg.sender shows the address sendering the transaction, tx.origin is the address from who it is sent on behalf of",
+        "msg.sender shows the originator of the current function call, tx.origin is the sender of the original transaction",
+        "tx.origin shows the originator of the current function call, msg.sender is the sender of the original transaction"
+      ]
+    },
+    {
+      "title": "What effect does throwing an exception have?",
+      "answers": [
+        "It stops the execution of the transaction",
+        "It throws an error and pauses execution",
+        "It logs the error and continues execution",
+        "Nothing. Smart contracts are unstoppable"
+      ]
+    }
+  ]
 }

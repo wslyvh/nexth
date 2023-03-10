@@ -6,5 +6,10 @@
   "icon": "https://academy.useweb3.xyz/icons/smart-contracts.png",
   "external_url": "https://academy.useweb3.xyz/certification/smart-contracts",
   "image": "https://academy.useweb3.xyz/nfts/smart-contracts.png",
-  "questions": []
+  "questions": [
+    {
+      "title": "",
+      "answers": []
+    }
+  ]
 }

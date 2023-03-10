@@ -12,4 +12,5 @@ export interface Certification {
 export interface Question {
   title: string
   answers: string[]
+  type?: string
 }

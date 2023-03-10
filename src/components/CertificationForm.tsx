@@ -1,4 +1,4 @@
-import { Button, Flex, FormControl, FormLabel, Radio, RadioGroup, useToast } from '@chakra-ui/react'
+import { Button, Flex, FormControl, FormLabel, Input, Radio, RadioGroup, useToast } from '@chakra-ui/react'
 import { FormEvent } from 'react'
 import { Certification } from 'types/certifications'
 
@@ -15,7 +15,7 @@ export function CertificationForm(props: Props) {
     event.preventDefault()
     // const data = new FormData(event.currentTarget)
 
-    const values = props.item.questions.map((i) => {
+    const values = props.item.questions.map((i, index) => {
       const elements = event.currentTarget.elements
       const element = elements.namedItem(i.title) as HTMLInputElement
       return element.value
@@ -49,12 +49,15 @@ export function CertificationForm(props: Props) {
   return (
     <form className={className} onSubmit={handleSubmit} role="form">
       <section>
-        {props.item.questions.map((i) => {
+        {props.item.questions.map((i, index) => {
           return (
             <FormControl as="fieldset" key={i.title} isRequired my={4}>
               <FormLabel as="legend" fontSize="lg" fontWeight="semibold">
-                {i.title}
+                {`${index + 1}.`} {i.title}
               </FormLabel>
+
+              {i.answers.length === 0 && <Input name={i.title} placeholder="Enter your answer..." />}
+
               <RadioGroup name={i.title}>
                 <Flex direction="column">
                   {i.answers.map((a) => {
