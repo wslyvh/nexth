@@ -4,9 +4,5 @@ import { GetCertifications } from 'utils/certifications'
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const items = GetCertifications()
 
-  res.status(200).json({
-    status: 200,
-    message: '',
-    data: items,
-  })
+  res.status(200).json(items)
 }

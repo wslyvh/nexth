@@ -1,4 +1,4 @@
-import { Text } from '@chakra-ui/react'
+import { Alert, AlertIcon, Text } from '@chakra-ui/react'
 import { CertificationForm } from 'components/CertificationForm'
 import { HeadingComponent } from 'components/layout/HeadingComponent'
 import { LevelBadge } from 'components/LevelBadge'
@@ -31,6 +31,13 @@ export default function Home(props: Props) {
         <Text fontSize="sm" fontStyle="italic" my={4}>
           coming soon
         </Text>
+      )}
+
+      {item.info && (
+        <Alert status="info">
+          <AlertIcon />
+          {item.info}
+        </Alert>
       )}
       {item.questions.length > 0 && <CertificationForm item={item} />}
     </>

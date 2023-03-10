@@ -1,9 +1,140 @@
 {
   "order": 2,
   "name": "Digital Wallets",
-  "description": "This modules evaluates your knowledge of crypto wallets, public-private key cryptography and how those are used within the context of blockchains.",
+  "description": "This test evaluates your knowledge of crypto wallets, asymmetric (or public-key) cryptography and how those are used within the context of blockchains.",
+  "info": "WARNING: The keys and seed phrases used in this quiz are purely for educational purposes. Never share, copy/paste or use your keys and seed phrases publicly, unless you know what you're doing! Check out the security page at https://ethereum.org/en/security/ for more information.",
   "level": "Beginner",
-  "icon": "/icons/wallets.png",
+  "icon": "https://academy.useweb3.xyz/icons/wallets.png",
+  "external_url": "https://academy.useweb3.xyz/certification/wallets",
   "image": "https://academy.useweb3.xyz/nfts/wallets.png",
-  "questions": []
+  "questions": [
+    {
+      "title": "What is a wallet?",
+      "answers": [
+        "An account that protects my digital assets",
+        "A device with RFID technology",
+        "An app that proves my identity to the blockchain",
+        "An app that is connected to the blockchain to be able to accept transactions"
+      ]
+    },
+    {
+      "title": "Which of the following statements about seed phrases (sometimes also called 'mnemonic', 'secret words' or 'recovery phrase') is true?",
+      "answers": [
+        "Its a series of words that allow access to a crypto wallet",
+        "A single phrase allows to generate a large amount of deterministic keys",
+        "They leave less room for human error when it comes to backup and recovery",
+        "Each word of the secret phrase is selected from a limited dictionary of 2048 words (BIP39)",
+        "All of the above",
+        "None of the above"
+      ]
+    },
+    {
+      "title": "What happens if you lose access to your secret seed phrase or private key?",
+      "answers": [
+        "You can generate a new key from your corresponding public key",
+        "You can request a new key from the network's validators",
+        "You lose access and ownership of any assets belonging to the key",
+        "You can contact support to recover your funds"
+      ]
+    },
+    {
+      "title": "When signing data, what do you use your private key for?",
+      "answers": [
+        "Encrypt data so others can verify it using your private key",
+        "Generate a cryptographic signature with the private key of the recipient",
+        "Generate a cryptographic signature that others can verify using your public key",
+        "Encrypt a cryptographic signature which is shared along with your private key in the key registry"
+      ]
+    },
+    {
+      "title": "Every transaction on a blockchain is signed using",
+      "answers": [
+        "A smart contract",
+        "The private key of the person who sends the transaction",
+        "The public key of the person who will receive the transaction",
+        "OAuth 2.0 credentials"
+      ]
+    },
+    {
+      "title": "If you send a transaction by mistake, it can be reversed when",
+      "answers": [
+        "You cancel before the next block is created",
+        "You pay for the cancellation fee",
+        "You request a cancellation from the master node",
+        "It can't be reversed"
+      ]
+    },
+    {
+      "title": "You can use the same set of keys to sign any arbitrary (non-transaction) message",
+      "answers": ["True", "False"]
+    },
+    {
+      "title": "What is true about public addresses on Ethereum?",
+      "answers": [
+        "They are used as public identifiers for accounts",
+        "The public address is used to sign your transactions",
+        "They protect my digital assets",
+        "You should never share this with anyone"
+      ]
+    },
+    {
+      "title": "A wallet and an account on Ethereum are the same thing",
+      "answers": ["True", "False"]
+    },
+    {
+      "title": "The types of accounts on Ethereum are",
+      "answers": [
+        "All the same",
+        "User accounts and admin accounts",
+        "Permissionless accounts and permissioned accounts",
+        "Externally-Owned-Accounts and Contract Accounts"
+      ]
+    },
+    {
+      "title": "Which of the following statements about Ethereum's Digital Signature Algorithms are true?",
+      "answers": [
+        "They are generated using a Elliptic Curve Digital Signing Algorithm (ECDSA)",
+        "The development of quantum computers could break its security model in the future",
+        "The 3 components of the digital signature consist out of `v,r,s`",
+        "Ethereum uses the same, SECP256K1, elliptic curve as Bitcoin",
+        "All of the above",
+        "None of the above"
+      ]
+    },
+    {
+      "title": "Which of the following is a valid Ethereum public key?",
+      "answers": [
+        "23794D91C53AE875C8E247D72561E35D9D06EE07C70C9E0DBCC977A6D161504A",
+        "0x0299d278212b822bc2e18fda195d286c575ac96f08930c6d002f71c500c0992624",
+        "0xFFF8B8848E5043C678E850E519501029547BCDD7D81A27D5197FB96934942426",
+        "0xd8da6bf26964af9d7eed9e03e53415d37aa96045",
+        "All of the above",
+        "None of the above"
+      ]
+    },
+    {
+      "title": "What is a transaction nonce?",
+      "answers": [
+        "A hash that proves that the amount of computation is higher than the current difficulty level of the block",
+        "A value equal to the number of transactions sent by the sender",
+        "A value that corresponds to the amount of gas that needs be paid in Gwei",
+        "A hash of the transaction data signed by the sender"
+      ]
+    },
+    {
+      "title": "A transaction in Ethereum is defined as a RLP-encoded message. Which of the following is never part of the transaction envelope?",
+      "answers": [
+        "The gas limit",
+        "The 3 components of an ECDSA digital signature",
+        "The transaction nonce",
+        "The transaction value",
+        "The address of the receiver",
+        "The address of the sender"
+      ]
+    },
+    {
+      "title": "Considering the following secret phrase `candy maple cake sugar pudding cream honey rich smooth crumble sweet treat` what is the first public address on default derivation path most commonly used for Ethereum",
+      "answers": []
+    }
+  ]
 }

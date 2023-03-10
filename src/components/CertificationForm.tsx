@@ -1,4 +1,4 @@
-import { Stack, Button, Flex, FormControl, FormLabel, Radio, RadioGroup, useToast, Box, Text, Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, PopoverHeader, PopoverBody, Spinner } from '@chakra-ui/react'
+import { Stack, Button, Flex, FormControl, FormLabel, Input, Radio, RadioGroup, useToast, Box, Text, Popover, PopoverTrigger, PopoverContent, PopoverArrow, PopoverCloseButton, PopoverHeader, PopoverBody, Spinner } from '@chakra-ui/react'
 import { bqTest } from "bq-core"
 import { useEffect, FormEvent, useState } from 'react'
 import { useAccount } from "wagmi";
@@ -193,12 +193,15 @@ export function CertificationForm(props: Props) {
 
       <form className={className} onSubmit={handleForm} role="form">
         <section>
-          {props.item.questions.map((i) => {
+          {props.item.questions.map((i, index) => {
             return (
               <FormControl as="fieldset" key={i.title} isRequired my={4}>
                 <FormLabel as="legend" fontSize="lg" fontWeight="semibold">
-                  {i.title}
+                  {`${index + 1}.`} {i.title}
                 </FormLabel>
+
+                {i.answers.length === 0 && <Input name={i.title} placeholder="Enter your answer..." />}
+
                 <RadioGroup name={i.title}>
                   <Flex direction="column">
                     {i.answers.map((a) => {

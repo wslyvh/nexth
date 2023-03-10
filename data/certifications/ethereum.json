@@ -1,9 +1,122 @@
 {
   "order": 3,
   "name": "Ethereum 101",
-  "description": "Test your knowledge on the Ethereum blockchain protocol. Do you know what differentiates it with other blockchains?",
+  "description": "Test your knowledge on the Ethereum blockchain protocol, the EVM and what differentiates it with other blockchains.",
   "level": "Beginner",
-  "icon": "/icons/ethereum.png",
+  "icon": "https://academy.useweb3.xyz/icons/ethereum.png",
+  "external_url": "https://academy.useweb3.xyz/certification/ethereum",
   "image": "https://academy.useweb3.xyz/nfts/ethereum.png",
-  "questions": []
+  "questions": [
+    {
+      "title": "What major improvement differentiated Ethereum from its predecessors (such as Bitcoin) during launch?",
+      "answers": [
+        "It provided a Turing complete scripting language that allowed to execute code called smart contracts",
+        "It provided a more sustainable, energy-efficient consensus algorithm",
+        "It had less than 21M circulating supply of its base currency",
+        "It provides anonymity and private transactions"
+      ]
+    },
+    {
+      "title": "Who's the inventor of the Ethereum protocol?",
+      "answers": ["Satoshi Nakamoto", "Vitalik Buterin", "Hal Finney", "Alan Turing"]
+    },
+    {
+      "title": "What is a Smart contract?",
+      "answers": [
+        "A legal agreement between 2 parties",
+        "A type of cryptocurrency",
+        "A piece of self-executing code that runs on a blockchain",
+        "A protocol used for secure communication"
+      ]
+    },
+    {
+      "title": "On Ethereum, what is considered the truth?",
+      "answers": [
+        "The truth is what Vitalik Buterin says",
+        "The truth is what the Ethereum Foundation says",
+        "The truth is what the majority of the developer community says",
+        "The truth is the set of data that all participants eventually agree on"
+      ]
+    },
+    {
+      "title": "What is Ethereum's native currency?",
+      "answers": ["Ethereum", "USD", "ETC", "Ether"]
+    },
+    {
+      "title": "How many wei is 1 Ether?",
+      "answers": ["10^3 - 1.000", "10^6 - 1.000.000", "10^12 - 1.000.000.000.000", "10^18 - 1.000.000.000.000.000.000"]
+    },
+    {
+      "title": "What is the EVM?",
+      "answers": [
+        "Ethereum Virtual Machine",
+        "The master node that verifies all transactions",
+        "Eternal Virtual Money",
+        "A piece of software that you need to run to manage your digital assets"
+      ]
+    },
+    {
+      "title": "How are infinite loops handled in EVM code?",
+      "answers": [
+        "The EVM does not allow for infinite loops",
+        "Every computational step costs gas and execution stops when a transaction is running out of gas",
+        "The EVM only allows for 512 computation steps per transaction",
+        "The EVM continues to process and its output fills up disk space"
+      ]
+    },
+    {
+      "title": "How are transaction fees determined?",
+      "answers": [
+        "Validators decide how much you have to pay for each transaction",
+        "The fees depend on the amount of computational steps required to execute the transaction",
+        "The fees are based on a small percentage from the value of the transaction",
+        "Whatever the sender of the transaction wants to pay for it"
+      ]
+    },
+    {
+      "title": "What is the base transaction fee for sending a standard Ether transaction?",
+      "answers": ["It depends on market conditions", "It depends how much Ether you send", "21.000 gwei", "1559 gwei"]
+    },
+    {
+      "title": "If the gas price of a transaction is 40 gwei, this affects",
+      "answers": ["The transaction gasPrice", "The transaction gasLimit", "The transaction value", "All of the above", "None of the above"]
+    },
+    {
+      "title": "What of the following information is not part of a block?",
+      "answers": [
+        "The slot that the block belongs to",
+        "A hash of the preceding block so it can't be tampered with",
+        "All the transactions sent to the network since the last block",
+        "The transaction data that was included into the block",
+        "The base fee as gas",
+        "None of the above"
+      ]
+    },
+    {
+      "title": "How long does it take to finalize a block?",
+      "answers": ["12 seconds", "1 epoch", "32 seconds", "12.8 minutes"]
+    },
+    {
+      "title": "On Sept 15, 2022 Ethereum transitioned to proof-of-stake, officially deprecating proof-of-work, also called 'the merge'. Which of the following have been a direct consequence of the merge?",
+      "answers": [
+        "Reduced transaction costs",
+        "Increased transactions per second",
+        "Reduced supply of its base currency Ether",
+        "Reduced energy consumption than Proof of Work (up to 99,95%)",
+        "All of the above",
+        "None of the above"
+      ]
+    },
+    {
+      "title": "What are the primary benefits of Proof of Stake compared to Proof of Work?",
+      "answers": [
+        "It requires much less energy",
+        "It's more economically efficient resulting in higher security for a lower issuance",
+        "It provides options to recover from attacks inherit to the protocol itself",
+        "Lower hardware requirements",
+        "All of the above",
+        "None of the above"
+      ]
+    }
+  ]
 }
