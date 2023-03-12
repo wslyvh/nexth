@@ -21,10 +21,10 @@ import {
 } from '@chakra-ui/react'
 import { bqTest } from 'bq-core'
 import { useEffect, FormEvent, useState } from 'react'
-import { useAccount, useProvider } from 'wagmi'
+import { useAccount } from 'wagmi'
 import { fetchSigner } from '@wagmi/core'
 import { Certification } from 'types/certifications'
-import { DEPLOYED_CONTRACTS } from 'utils/config'
+import { DEPLOYED_CONTRACTS, ETHERS_PROVIDER } from 'utils/config'
 
 interface Props {
   className?: string
@@ -35,7 +35,6 @@ export function CertificationForm(props: Props) {
   const [test, setTest] = useState<any>()
   const [submitButtonState, setSubmitButtonState] = useState(false)
   const [clickedButton, setClickedButton] = useState<'grade' | 'submit' | ''>('')
-  const provider = useProvider()
 
   const { address } = useAccount()
 
@@ -44,7 +43,7 @@ export function CertificationForm(props: Props) {
 
   useEffect(() => {
     const loadTest = async () => {
-      const solveModeTest = await bqTest.solveMode(props.item.testId, provider, DEPLOYED_CONTRACTS.TestCreator, props.item.openAnswerHashes)
+      const solveModeTest = await bqTest.solveMode(props.item.testId, ETHERS_PROVIDER, DEPLOYED_CONTRACTS.TestCreator, props.item.openAnswerHashes)
       setTest(solveModeTest)
     }
     loadTest()
