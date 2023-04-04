@@ -1,16 +1,11 @@
+import { GetScore } from 'clients/passport'
 import { useState, useEffect } from 'react'
 import { State } from 'types'
 import { useAccount } from 'wagmi'
 
 export function usePassportScore(round?: boolean) {
-  const COMMUNITY_ID = process.env.NEXT_PUBLIC_GITCOIN_PASSPORT_COMMUNITY_ID
-  const API_KEY = process.env.NEXT_PUBLIC_GITCOIN_PASSPORT_API_KEY
-  if (!COMMUNITY_ID || !API_KEY) {
-    console.warn('Gitcoin passport Community ID or API Key not set')
-  }
-
   const { address, isConnected } = useAccount()
-  const [state, setState] = useState<State<Number>>({
+  const [state, setState] = useState<State<number>>({
     loading: true,
     error: undefined,
     data: undefined,
@@ -18,15 +13,8 @@ export function usePassportScore(round?: boolean) {
 
   useEffect(() => {
     const getPassport = async () => {
-      const response = await fetch(`https://api.scorer.gitcoin.co/registry/score/${COMMUNITY_ID}/${address}`, {
-        headers: {
-          'Content-Type': 'application/json',
-          'X-API-Key': API_KEY ?? '',
-        },
-      })
-
-      const data = await response.json()
-      if (response.status === 200) {
+      const data = await GetScore(address as string)
+      if (data) {
         setState({
           loading: false,
           error: undefined,
@@ -35,18 +23,17 @@ export function usePassportScore(round?: boolean) {
         return
       }
 
-      console.log('Unable to get passport score')
       setState({
         loading: false,
-        error: data.detail ?? 'Unable to get passport score',
+        error: 'Unable to get passport score',
         data: undefined,
       })
     }
 
-    if (API_KEY && COMMUNITY_ID && isConnected && address) {
+    if (isConnected && address) {
       getPassport()
     }
-  }, [API_KEY, COMMUNITY_ID, round, address, isConnected])
+  }, [address, isConnected, round])
 
   return state
 }
