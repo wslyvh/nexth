@@ -15,7 +15,7 @@ contract Passport is ERC721, ERC721Enumerable, Verifier {
 
   constructor() ERC721('Gitcoin Passport Score', 'GPS') {}
 
-  function safeMint(address to, uint16 score, bytes memory signature) public onlyOwner {
+  function safeMint(address to, uint16 score, bytes memory signature) public {
     verifySignature(to, score, signature);
 
     uint256 tokenId = _tokenIdCounter.current();
