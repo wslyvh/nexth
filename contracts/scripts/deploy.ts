@@ -1,26 +1,28 @@
 import { ethers, network, run } from 'hardhat'
 
 async function main() {
-  console.log('Deploying Message...')
+  console.log('Deploy Gitcoin Passport Score NFT...')
+  const [deployer, recipient] = await ethers.getSigners()
 
   const args: any[] = []
-  const Message = await ethers.getContractFactory('Message')
-  const message = await Message.deploy(...args)
+  const Passport = await ethers.getContractFactory('Passport')
+  const nft = await Passport.deploy(...args)
 
-  await message.deployed()
+  await nft.deployed()
 
-  console.log(`Message deployed to ${message.address}`)
+  console.log(`NFT deployed to ${nft.address}`)
 
   // no need to verify on localhost or hardhat
   if (network.config.chainId != 31337 && process.env.ETHERSCAN_API_KEY) {
     console.log(`Waiting for block confirmation...`)
-    await message.deployTransaction.wait(5)
+    await nft.deployTransaction.wait(10)
 
     console.log('Verifying contract...')
     try {
       run('verify:verify', {
-        address: message.address,
+        address: nft.address,
         constructorArguments: args,
+        contract: 'contracts/Passport.sol:Passport',
       })
     } catch (e) {
       console.log(e)

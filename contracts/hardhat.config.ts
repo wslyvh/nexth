@@ -25,7 +25,6 @@ const config: HardhatUserConfig = {
     apiKey: {
       mainnet: etherscanApiKey,
       sepolia: etherscanApiKey,
-      polygonMumbai: polygonApiKey,
     },
   },
   networks: {
@@ -39,11 +38,6 @@ const config: HardhatUserConfig = {
     sepolia: {
       chainId: 11155111,
       url: 'https://rpc.sepolia.org/',
-      accounts: [deployerKey as string],
-    },
-    mumbai: {
-      chainId: 80001,
-      url: 'https://rpc-mumbai.maticvigil.com/',
       accounts: [deployerKey as string],
     },
   },
