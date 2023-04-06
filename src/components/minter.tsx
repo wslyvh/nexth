@@ -1,10 +1,11 @@
 import React from 'react'
-import { Box, Button, Heading, Text } from '@chakra-ui/react'
+import { Box, Button, Heading, Text, useToast } from '@chakra-ui/react'
 import { LinkComponent } from './layout/LinkComponent'
 import { usePassportScore } from 'hooks/usePassportScore'
-import { useAccount, useNetwork, useSigner } from 'wagmi'
+import { useAccount, useSigner } from 'wagmi'
 import { GetNonce, SubmitPassport } from 'clients/passport'
 import { prepareWritePassport, writePassport } from 'abis'
+import { waitForTransaction } from '@wagmi/core'
 
 interface Props {
   className?: string
@@ -12,6 +13,7 @@ interface Props {
 
 export function Minter(props: Props) {
   const className = props.className ?? ''
+  const toast = useToast()
   const { address, isConnected } = useAccount()
   const { loading, data: score } = usePassportScore(true)
   const { data: signer } = useSigner()
@@ -36,7 +38,36 @@ export function Minter(props: Props) {
         args: [address, score, data.signature],
       })
 
-      const result = await writePassport(prepareWrite)
+      toast({
+        title: 'Confirm transaction',
+        description: 'Please confirm the the transaction in your wallet.',
+        status: 'info',
+        variant: 'solid',
+        position: 'bottom',
+        isClosable: true,
+      })
+      const tx = await writePassport(prepareWrite)
+
+      toast({
+        title: 'Please wait',
+        description: 'Please wait while your transaction is getting mined..',
+        status: 'info',
+        variant: 'solid',
+        position: 'bottom',
+        isClosable: true,
+      })
+      const result = await waitForTransaction({ hash: tx.hash })
+
+      if (result?.transactionHash) {
+        toast({
+          title: 'Completed',
+          description: 'Succesfully minted your Passport Score.',
+          status: 'success',
+          variant: 'solid',
+          position: 'bottom',
+          isClosable: true,
+        })
+      }
     } catch (ex) {
       console.error(ex)
     }

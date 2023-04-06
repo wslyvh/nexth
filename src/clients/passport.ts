@@ -19,7 +19,6 @@ export async function GetScore(address: string) {
 
     if (response.status === 200) {
       const data = await response.json()
-      console.log('data:', data, response.status)
       return data
     }
   } catch (err) {
@@ -34,7 +33,6 @@ export async function GetNonce() {
     })
     if (response.status === 200) {
       const data = await response.json()
-      console.log('data:', data)
       return data
     }
   } catch (err) {
@@ -56,7 +54,6 @@ export async function SubmitPassport(address: string, signature: string, nonce: 
     })
     if (response.status === 200) {
       const data = await response.json()
-      console.log('data:', data)
       return data
     }
   } catch (err) {

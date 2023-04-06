@@ -15,7 +15,7 @@ export default defineConfig({
       project: './contracts',
       deployments: {
         Passport: {
-          11155111: '0x555B9c3B79EF437776F7E0833c234c802D741771',
+          11155111: '0x416CC531d3409786825155168003a5d574c4aD75',
         },
       },
     }),

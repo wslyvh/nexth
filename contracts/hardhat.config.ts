@@ -19,7 +19,15 @@ if (!polygonApiKey) {
 }
 
 const config: HardhatUserConfig = {
-  solidity: '0.8.18',
+  solidity: {
+    version: '0.8.18',
+    settings: {
+      optimizer: {
+        enabled: true,
+        runs: 200,
+      },
+    },
+  },
   defaultNetwork: 'hardhat',
   etherscan: {
     apiKey: {
