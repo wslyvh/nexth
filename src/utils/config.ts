@@ -1,12 +1,12 @@
 import { ThemingProps } from '@chakra-ui/react'
 import { mainnet, sepolia, polygon, optimism, arbitrum } from '@wagmi/chains'
 
-export const SITE_NAME = 'Nexth'
-export const SITE_DESCRIPTION = 'Next.js + Ethereum starter kit'
-export const SITE_URL = 'https://nexth.vercel.app'
+export const SITE_NAME = 'Gitcoin Passport Score'
+export const SITE_DESCRIPTION = 'Built with Nexth - a Next.js + Ethereum starter kit'
+export const SITE_URL = 'https://passport-score.vercel.app/'
 
 export const THEME_INITIAL_COLOR = 'system'
-export const THEME_COLOR_SCHEME: ThemingProps['colorScheme'] = 'gray'
+export const THEME_COLOR_SCHEME: ThemingProps['colorScheme'] = 'teal'
 export const THEME_CONFIG = {
   initialColorMode: THEME_INITIAL_COLOR,
 }
@@ -14,7 +14,7 @@ export const THEME_CONFIG = {
 export const SOCIAL_TWITTER = 'wslyvh'
 export const SOCIAL_GITHUB = 'wslyvh/nexth'
 
-export const ETH_CHAINS = [mainnet, sepolia, optimism]
+export const ETH_CHAINS = [sepolia, optimism]
 
 export const SERVER_SESSION_SETTINGS = {
   cookieName: SITE_NAME,
