@@ -73,19 +73,23 @@ export function Minter(props: Props) {
   async function writeContract(method: 'safeMint' | 'update') {
     if (!isConnected || !address || !signer || !score) return
 
-    console.log('WRITE CONTRACT', method)
-
     try {
       const response = await fetch(`/api/verifier/sign?address=${address}&score=${score}`)
       const data = await response.json()
 
-      let args: any[] = []
-      if (method === 'safeMint') args = [address, score, data.signature]
-      if (method === 'update') args = [token, address, score, data.signature]
-      const prepareWrite = await prepareWritePassport({
-        functionName: method,
-        args: args,
-      })
+      let request
+      if (method === 'safeMint') {
+        request = await prepareWritePassport({
+          functionName: 'safeMint',
+          args: [address, score, data.signature],
+        })
+      }
+      if (method === 'update' && token) {
+        request = await prepareWritePassport({
+          functionName: 'update',
+          args: [token, address, score, data.signature],
+        })
+      }
 
       toast({
         title: 'Confirm transaction',
@@ -95,7 +99,7 @@ export function Minter(props: Props) {
         position: 'bottom',
         isClosable: true,
       })
-      const tx = await writePassport(prepareWrite)
+      const tx = await writePassport(request as any)
 
       toast({
         title: 'Please wait',
