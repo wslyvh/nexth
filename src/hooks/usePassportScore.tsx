@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import { State } from 'types'
 import { useAccount } from 'wagmi'
 
-export function usePassportScore(round?: boolean) {
+export function usePassportScore(round?: boolean, reloadData?: number) {
   const { address, isConnected } = useAccount()
   const [state, setState] = useState<State<number>>({
     loading: true,
@@ -33,7 +33,7 @@ export function usePassportScore(round?: boolean) {
     if (isConnected && address) {
       getPassport()
     }
-  }, [address, isConnected, round])
+  }, [address, isConnected, round, reloadData])
 
   return state
 }

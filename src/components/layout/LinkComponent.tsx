@@ -6,6 +6,7 @@ import { THEME_COLOR_SCHEME } from 'utils/config'
 interface Props {
   href: string
   children: ReactNode
+  removeUnderline?: boolean
   isExternal?: boolean
   className?: string
 }
@@ -17,14 +18,25 @@ export function LinkComponent(props: Props) {
 
   if (isExternal) {
     return (
-      <Link className={className} _hover={{ color: color }} href={props.href} target="_blank" rel="noopener noreferrer">
+      <Link
+        className={className}
+        style={!props.removeUnderline ? { textDecoration: 'underline' } : {}}
+        _hover={{ color: color }}
+        href={props.href}
+        target="_blank"
+        rel="noopener noreferrer">
         {props.children}
       </Link>
     )
   }
 
   return (
-    <Link as={NextLink} className={className} _hover={{ color: color }} href={props.href}>
+    <Link
+      as={NextLink}
+      className={className}
+      style={!props.removeUnderline ? { textDecoration: 'underline' } : {}}
+      _hover={{ color: color }}
+      href={props.href}>
       {props.children}
     </Link>
   )
