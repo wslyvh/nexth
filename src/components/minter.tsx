@@ -24,6 +24,7 @@ export function Minter(props: Props) {
   const { address, isConnected } = useAccount()
   const { loading, data: score } = usePassportScore(true, refresh)
   const { data: signer } = useSigner()
+  const { chain } = useNetwork()
 
   useEffect(() => {
     async function fetchToken() {
