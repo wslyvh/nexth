@@ -13,9 +13,13 @@ const etherscanApiKey = process.env.ETHERSCAN_API_KEY ?? ''
 if (!etherscanApiKey) {
   console.warn('ETHERSCAN_API_KEY not found in .env file. Will skip Etherscan verification')
 }
-const polygonApiKey = process.env.POLYSCAN_API_KEY ?? ''
+const polygonApiKey = process.env.POLYSCAN_API_KEY ?? etherscanApiKey ?? ''
 if (!polygonApiKey) {
   console.warn('POLYSCAN_API_KEY not found in .env file. Will skip Etherscan verification')
+}
+const optimisticApiKey = process.env.OPTIMISTIC_API_KEY ?? etherscanApiKey ?? ''
+if (!optimisticApiKey) {
+  console.warn('OPTIMISTIC_API_KEY not found in .env file. Will skip Etherscan verification')
 }
 
 const config: HardhatUserConfig = {
@@ -33,6 +37,7 @@ const config: HardhatUserConfig = {
     apiKey: {
       mainnet: etherscanApiKey,
       sepolia: etherscanApiKey,
+      optimisticEthereum: optimisticApiKey,
     },
   },
   networks: {
@@ -46,6 +51,11 @@ const config: HardhatUserConfig = {
     sepolia: {
       chainId: 11155111,
       url: 'https://rpc.sepolia.org/',
+      accounts: [deployerKey as string],
+    },
+    optimism: {
+      chainId: 10,
+      url: 'https://mainnet.optimism.io/',
       accounts: [deployerKey as string],
     },
   },

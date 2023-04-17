@@ -15,6 +15,8 @@ interface Props {
 
 export function Minter(props: Props) {
   const className = props.className ?? ''
+  const chainId = 10
+
   const toast = useToast()
   const [token, setToken] = useState<BigNumber | undefined>()
   const [image, setImage] = useState('')
@@ -22,7 +24,6 @@ export function Minter(props: Props) {
   const { address, isConnected } = useAccount()
   const { loading, data: score } = usePassportScore(true, refresh)
   const { data: signer } = useSigner()
-  const { chain } = useNetwork()
 
   useEffect(() => {
     async function fetchToken() {
@@ -81,12 +82,14 @@ export function Minter(props: Props) {
       if (method === 'safeMint') {
         request = await prepareWritePassport({
           functionName: 'safeMint',
+          chainId: 10,
           args: [address, score, data.signature],
         })
       }
       if (method === 'update' && token) {
         request = await prepareWritePassport({
           functionName: 'update',
+          chainId: 10,
           args: [token, address, score, data.signature],
         })
       }
@@ -177,7 +180,7 @@ export function Minter(props: Props) {
               <Flex flexDirection="column" gap={2}>
                 <Image src={image} width="512px" alt="Passport NFT" />
                 <Button onClick={update}>Update Score</Button>
-                <LinkComponent href={`${chain?.blockExplorers?.default.url}/nft/${passportAddress[11155111]}/${token}`} removeUnderline>
+                <LinkComponent href={`${chain?.blockExplorers?.default.url}/nft/${passportAddress[chainId]}/${token}`} removeUnderline>
                   <Button width="100%">More Details</Button>
                 </LinkComponent>
               </Flex>
