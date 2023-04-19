@@ -15,8 +15,6 @@ interface Props {
 
 export function Minter(props: Props) {
   const className = props.className ?? ''
-  const chainId = 10 // 11155111
-
   const toast = useToast()
   const [token, setToken] = useState<BigNumber | undefined>()
   const [image, setImage] = useState('')
@@ -25,6 +23,7 @@ export function Minter(props: Props) {
   const { loading, data: score } = usePassportScore(true, refresh)
   const { data: signer } = useSigner()
   const { chain } = useNetwork()
+  const chainId: 10 | 11155111 = (chain?.id as any) ?? 10
 
   useEffect(() => {
     async function fetchToken() {
@@ -52,7 +51,7 @@ export function Minter(props: Props) {
     }
 
     fetchToken()
-  }, [address, isConnected, refresh])
+  }, [address, isConnected, refresh, chainId])
 
   async function register() {
     if (!isConnected || !address || !signer) return
@@ -182,10 +181,17 @@ export function Minter(props: Props) {
             <Flex w="100%" justifyContent="center">
               <Flex flexDirection="column" gap={2}>
                 <Image src={image} width="512px" alt="Passport NFT" />
-                <Button onClick={update}>Update Score</Button>
-                <LinkComponent href={`${chain?.blockExplorers?.default.url}/nft/${passportAddress[chainId]}/${token}`} removeUnderline>
-                  <Button width="100%">More Details</Button>
+                {chainId === 10 && (
+                  <>
+                    <LinkComponent href={`https://qx.app/asset/${passportAddress[chainId]}/${token}`} removeUnderline>
+                      <Button width="100%">View on NFT Marketplace</Button>
+                    </LinkComponent>
+                  </>
+                )}
+                <LinkComponent href={`${chain?.blockExplorers?.default.url}/token/${passportAddress[chainId]}?a=${token}`} removeUnderline>
+                  <Button width="100%">View on Explorer</Button>
                 </LinkComponent>
+                <Button onClick={update}>Update Score</Button>
               </Flex>
             </Flex>
           </>
