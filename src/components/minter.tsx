@@ -77,7 +77,7 @@ export function Minter(props: Props) {
     if (!isConnected || !address || !signer || !score) return
 
     try {
-      const response = await fetch(`/api/verifier/sign?address=${address}&score=${score}`)
+      const response = await fetch(`/api/verifier/sign?address=${address}`)
       const data = await response.json()
 
       let request
