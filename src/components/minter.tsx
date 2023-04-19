@@ -15,7 +15,7 @@ interface Props {
 
 export function Minter(props: Props) {
   const className = props.className ?? ''
-  const chainId = 10
+  const chainId = 10 // 11155111
 
   const toast = useToast()
   const [token, setToken] = useState<BigNumber | undefined>()
@@ -33,10 +33,12 @@ export function Minter(props: Props) {
       try {
         const read = await readPassport({
           functionName: 'tokenOfOwnerByIndex',
+          chainId: chainId,
           args: [address, BigNumber.from(0)],
         })
         const image = await readPassport({
           functionName: 'generateSvg',
+          chainId: chainId,
           args: [read],
         })
 
@@ -83,14 +85,14 @@ export function Minter(props: Props) {
       if (method === 'safeMint') {
         request = await prepareWritePassport({
           functionName: 'safeMint',
-          chainId: 10,
+          chainId: chainId,
           args: [address, score, data.signature],
         })
       }
       if (method === 'update' && token) {
         request = await prepareWritePassport({
           functionName: 'update',
-          chainId: 10,
+          chainId: chainId,
           args: [token, address, score, data.signature],
         })
       }

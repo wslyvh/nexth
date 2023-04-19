@@ -1,5 +1,5 @@
 import { ThemingProps } from '@chakra-ui/react'
-import { optimism } from '@wagmi/chains'
+import { optimism, sepolia } from '@wagmi/chains'
 
 export const SITE_NAME = 'Gitcoin Passport Score'
 export const SITE_DESCRIPTION = 'Built with Nexth - a Next.js + Ethereum starter kit'
