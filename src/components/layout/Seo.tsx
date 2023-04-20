@@ -19,7 +19,7 @@ export function Seo() {
         url: origin,
         images: [
           {
-            url: `${origin}/og.png`,
+            url: `${origin}/passport-og.png`,
             alt: `${SITE_NAME} Open Graph Image`,
           },
         ],
