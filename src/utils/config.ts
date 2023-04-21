@@ -1,7 +1,7 @@
 import { ThemingProps } from '@chakra-ui/react'
 import { optimism, sepolia } from '@wagmi/chains'
 
-export const SITE_NAME = 'Gitcoin Passport Score'
+export const SITE_NAME = 'GPS'
 export const SITE_DESCRIPTION = 'Built with Nexth - a Next.js + Ethereum starter kit'
 export const SITE_URL = 'https://passport-score-nft.vercel.app/'
 
