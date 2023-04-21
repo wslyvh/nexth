@@ -1,0 +1,24 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Passport
+    network: optimism
+    source:
+      address: '0x1846fB181a12644dEc6af707b23B39d2D19C1879'
+      abi: Passport
+      startBlock: 91574322
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Token
+      abis:
+        - name: Passport
+          file: ./abis/Passport.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTransfer
+      file: ./src/passport.ts

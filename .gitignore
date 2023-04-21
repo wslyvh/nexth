@@ -49,3 +49,7 @@ contracts/artifacts
 
 # wagmi recommends to ignore their generated file
 # /src/abis.ts 
+
+# subgraph
+subgraph/node_modules
+subgraph/build
