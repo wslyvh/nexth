@@ -1,7 +1,13 @@
 type Token @entity(immutable: true) {
   id: Bytes!
+  index: BigInt!
   tokenId: BigInt! # uint256
   owner: Bytes! # address
   score: Int!
   transactionHash: Bytes!
+}
+
+type Global @entity {
+  id: ID!
+  tokens: BigInt!
 }

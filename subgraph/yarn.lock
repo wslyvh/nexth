@@ -440,6 +440,18 @@
   resolved "https://registry.yarnpkg.com/@protobufjs/utf8/-/utf8-1.1.0.tgz#a777360b5b39a1a2e5106f8e858f2fd2d060c570"
   integrity sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==
 
+"@protofire/subgraph-prettier-config@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@protofire/subgraph-prettier-config/-/subgraph-prettier-config-0.1.1.tgz#da616048f8d77f27446ac0298d8fdd9bbc4eb16a"
+  integrity sha512-XJNXRYotEcywkCMsUMsbpzbC5xZUwQGwdk2NS+NNMhwNhm24i3SSO2dqJgnWYscmBGwpVZJTGVYK6f8g/Gn16g==
+
+"@protofire/subgraph-toolkit@^0.1.2":
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/@protofire/subgraph-toolkit/-/subgraph-toolkit-0.1.2.tgz#1cbe96518b1d5e9b31ce878d8e37f0e4b43489e8"
+  integrity sha512-OyXa44LDjG766izmTLkkamfqw1tJbnQZTFL2/5S/0WbyhSxaPyO7xO+748dTvgdmlx2OWib5K7f7FcB2RtjZGQ==
+  dependencies:
+    "@protofire/subgraph-prettier-config" "^0.1.1"
+
 "@rescript/std@9.0.0":
   version "9.0.0"
   resolved "https://registry.yarnpkg.com/@rescript/std/-/std-9.0.0.tgz#df53f3fa5911cb4e85bd66b92e9e58ddf3e4a7e1"
@@ -1768,9 +1780,9 @@ globby@^11.1.0:
     merge2 "^1.4.1"
     slash "^3.0.0"
 
-"gluegun@git+https://github.com/edgeandnode/gluegun.git#v4.3.1-pin-colors-dep":
+"gluegun@https://github.com/edgeandnode/gluegun#v4.3.1-pin-colors-dep":
   version "4.3.1"
-  resolved "git+https://github.com/edgeandnode/gluegun.git#b34b9003d7bf556836da41b57ef36eb21570620a"
+  resolved "https://github.com/edgeandnode/gluegun#b34b9003d7bf556836da41b57ef36eb21570620a"
   dependencies:
     apisauce "^1.0.1"
     app-module-path "^2.2.0"

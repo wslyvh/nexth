@@ -3,7 +3,6 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "auth": "graph auth --product hosted-service 042f03094b82405daed8f3d74a9eaa78",
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/ wslyvh/gitcoin-passport-score",
     "create-local": "graph create --node http://localhost:8020/ wslyvh/gitcoin-passport-score",
     "remove-local": "graph remove --node http://localhost:8020/ wslyvh/gitcoin-passport-score",
@@ -12,7 +11,8 @@
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.47.0",
-    "@graphprotocol/graph-ts": "0.29.1"
+    "@graphprotocol/graph-ts": "0.29.1",
+    "@protofire/subgraph-toolkit": "^0.1.2"
   },
   "devDependencies": {
     "matchstick-as": "0.5.0"

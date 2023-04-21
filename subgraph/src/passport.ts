@@ -1,14 +1,29 @@
 import { Passport, Transfer } from '../generated/Passport/Passport'
-import { Token } from '../generated/schema'
+import { Global, Token } from '../generated/schema'
+import { BigInt } from '@graphprotocol/graph-ts'
+import { integer } from '@protofire/subgraph-toolkit'
+
+const globalkey = 'global'
 
 export function handleTransfer(event: Transfer): void {
-  let entity = new Token(event.transaction.hash.concatI32(event.logIndex.toI32()))
-  entity.tokenId = event.params.tokenId
-  entity.owner = event.params.to
-  entity.transactionHash = event.transaction.hash
+  let token = new Token(event.transaction.hash.concatI32(event.logIndex.toI32()))
+
+  // Globals
+  let global = Global.load(globalkey)
+  if (global == null) {
+    global = new Global(globalkey)
+    global.tokens = BigInt.zero()
+  }
+
+  token.index = global.tokens
+  token.tokenId = event.params.tokenId
+  token.owner = event.params.to
+  token.transactionHash = event.transaction.hash
 
   let contract = Passport.bind(event.address)
-  entity.score = contract.scores(event.params.tokenId)
+  token.score = contract.scores(event.params.tokenId)
+  token.save()
 
-  entity.save()
+  global.tokens = global.tokens.plus(integer.ONE)
+  global.save()
 }
