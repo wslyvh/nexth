@@ -6,10 +6,8 @@ import {
   Tbody,
   Td,
   Box,
-  Text,
   useColorModeValue,
   Stat,
-  StatHelpText,
   StatLabel,
   StatNumber,
   Flex,
@@ -18,6 +16,7 @@ import {
   CardBody,
 } from '@chakra-ui/react'
 import { passportAddress } from 'abis'
+import { Pagination } from 'components/Pagination'
 import { Head } from 'components/layout/Head'
 import { HeadingComponent } from 'components/layout/HeadingComponent'
 import { LinkComponent } from 'components/layout/LinkComponent'
@@ -37,6 +36,7 @@ interface Stats {
 }
 
 export default function Stats() {
+  const defaultPageSize = 25
   const bgColor = useColorModeValue(`gray.200`, `gray.900`)
   const { chain } = useNetwork()
   const chainId: 10 | 11155111 = (chain?.id as any) ?? 10
@@ -44,6 +44,7 @@ export default function Stats() {
   const [stats, setStats] = useState<Stats>()
   const [orderBy, setOrderBy] = useState('tokenId')
   const [orderDirection, setOrderDirection] = useState('asc')
+  const [skip, setSkip] = useState(0)
 
   useEffect(() => {
     async function getTokens() {
@@ -67,7 +68,7 @@ export default function Stats() {
               owner
               score
             }
-            tokens(first: 25 orderBy: ${orderBy} orderDirection: ${orderDirection}) {
+            tokens(first: ${defaultPageSize} skip: ${skip} orderBy: ${orderBy} orderDirection: ${orderDirection}) {
               tokenId
               owner
               score
@@ -77,16 +78,24 @@ export default function Stats() {
       })
 
       const body = await response.json()
-      setTokens(body.data.tokens)
-      setStats({
-        tokens: body.data.globals[0].tokens,
-        min: body.data.min[0].score,
-        max: body.data.max[0].score,
-      })
+
+      if (body.data) {
+        setTokens(body.data.tokens)
+        setStats({
+          tokens: body.data.globals[0].tokens,
+          min: body.data.min[0].score,
+          max: body.data.max[0].score,
+        })
+      }
     }
 
     getTokens()
-  }, [orderBy, orderDirection])
+  }, [orderBy, orderDirection, skip])
+
+  function onSelectPagination(nr: number) {
+    const skip = (nr - 1) * defaultPageSize
+    setSkip(skip)
+  }
 
   function order(orderBy: string) {
     setOrderBy(orderBy)
@@ -172,6 +181,18 @@ export default function Stats() {
           </Tbody>
         </Table>
       </Box>
+
+      {stats && (
+        <Box>
+          <Pagination
+            itemsPerPage={defaultPageSize}
+            totalItems={stats?.tokens}
+            selectedPage={Math.round(skip / defaultPageSize + 1)}
+            onSelectPage={onSelectPagination}
+            truncate={true}
+          />
+        </Box>
+      )}
     </>
   )
 }
