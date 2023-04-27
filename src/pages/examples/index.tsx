@@ -10,6 +10,7 @@ import CustomIcon from 'assets/icons/custom.png'
 import EtherIcon from 'assets/icons/ethereum.png'
 import TokenIcon from 'assets/icons/token.png'
 import NFTIcon from 'assets/icons/nft.png'
+import ENSIcon from 'assets/icons/ens.png'
 
 export const ExampleItems = [
   {
@@ -54,6 +55,13 @@ export const ExampleItems = [
     description: 'A Non-Fungible Token (NFT) is used to identify something or someone in a unique way. Use this ERC721 example to mint your own NFT.',
     image: NFTIcon.src,
     url: '/examples/mint-nft',
+  },
+  {
+    title: 'Fetch ENS',
+    description:
+      'Fetch Ethereum Name Service names to Ethereum addresses using a decentralized domain name system that maps human-readable names to addresses.',
+    image: ENSIcon.src,
+    url: '/examples/fetch-ens',
   },
 ]
 
