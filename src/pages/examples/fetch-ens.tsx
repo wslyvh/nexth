@@ -1,22 +1,35 @@
-import { useEnsAddress } from 'wagmi'
+import { useEnsAddress, useEnsName } from 'wagmi'
 import { Button, FormControl, FormLabel, Input, Textarea } from '@chakra-ui/react'
 import { useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { HeadingComponent } from 'components/layout/HeadingComponent'
 
 function FetchENS() {
-  let [name, setName] = useState('')
-  let [ensAddress, setEnsAddress] = useState('')
-  const ens = useEnsAddress({
-    name: name,
+  let [input, setInput] = useState('')
+  let [resolved, setResolved] = useState('')
+
+  const resolveAddress = useEnsName({
+    address: input as `0x${string}`,
     enabled: false,
     onSuccess(data) {
-      setEnsAddress(String(data))
+      setResolved(String(data))
+    },
+  })
+
+  const resolveEns = useEnsAddress({
+    name: input,
+    enabled: false,
+    onSuccess(data) {
+      setResolved(String(data))
     },
   })
 
   function submit() {
-    ens.refetch()
+    if (input.endsWith('.eth')) {
+      resolveEns.refetch()
+    } else {
+      resolveAddress.refetch()
+    }
   }
 
   return (
@@ -25,16 +38,16 @@ function FetchENS() {
 
       <FormControl>
         <FormLabel>ENS Name</FormLabel>
-        <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Enter a ENS Name" />
+        <Input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Enter a ENS Name/Address" />
 
         <Button mt={4} type="submit" onClick={submit}>
           Fetch
         </Button>
 
-        {ensAddress && (
+        {resolved && (
           <div>
-            <HeadingComponent as="h3">Address</HeadingComponent>
-            <p>{ensAddress}</p>
+            <HeadingComponent as="h3">Resolved Value</HeadingComponent>
+            <p>{resolved}</p>
           </div>
         )}
       </FormControl>
