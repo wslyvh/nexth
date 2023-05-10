@@ -37,7 +37,7 @@ function FetchENS() {
       <HeadingComponent as="h3">Fetch ENS Address</HeadingComponent>
 
       <FormControl>
-        <FormLabel>ENS Name</FormLabel>
+        <FormLabel>ENS Name/Address</FormLabel>
         <Input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Enter a ENS Name/Address" />
 
         <Button mt={4} type="submit" onClick={submit}>
