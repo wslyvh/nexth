@@ -10,7 +10,7 @@ export function usePassportScore(round?: boolean) {
   }
 
   const { address, isConnected } = useAccount()
-  const [state, setState] = useState<State<Number>>({
+  const [state, setState] = useState<State<number>>({
     loading: true,
     error: undefined,
     data: undefined,

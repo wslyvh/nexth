@@ -1,8 +1,8 @@
-import { useAccount, useBalance, usePrepareSendTransaction, useSendTransaction, useWaitForTransaction, useNetwork } from 'wagmi'
+import { useAccount, useBalance, useSendTransaction, useWaitForTransaction, useNetwork } from 'wagmi'
 import { Button, FormControl, FormLabel, Heading, Input, NumberInput, NumberInputField, Text } from '@chakra-ui/react'
 import { useState } from 'react'
 import { NextSeo } from 'next-seo'
-import { utils } from 'ethers'
+import { parseEther } from 'viem'
 import { LinkComponent } from 'components/layout/LinkComponent'
 import { useDebounce } from 'usehooks-ts'
 
@@ -19,13 +19,11 @@ function SendEther() {
     address,
   })
 
-  const prepareSendTransaction = usePrepareSendTransaction({
-    request: {
-      to: debouncedTo,
-      value: debouncedAmount ? utils.parseEther(debouncedAmount) : undefined,
-    },
+  const sendTransaction = useSendTransaction({
+    account: address,
+    to: debouncedTo,
+    value: debouncedAmount ? parseEther(debouncedAmount as `${number}`) : undefined,
   })
-  const sendTransaction = useSendTransaction(prepareSendTransaction.config)
   const waitForTransaction = useWaitForTransaction({ hash: sendTransaction.data?.hash, onSettled: () => balance.refetch() })
 
   const handleSendTransation = () => {
