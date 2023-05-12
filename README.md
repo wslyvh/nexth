@@ -12,9 +12,9 @@ Check-out the [example pages](./src/pages/examples/) or [live demo](https://next
 
 - [Next.js](https://nextjs.org/docs)
 - [Chakra UI](https://chakra-ui.com/)
-- [ethers.js](https://docs.ethers.org/)
+- [viem](https://viem.sh/)
 - [wagmi](https://wagmi.sh/)
-- [ConnectKit](https://docs.family.co/connectkit/)
+- [Web3Modal SDK from WalletConnect](https://docs.walletconnect.com/)
 - [Sign-In with Ethereum](https://www.login.xyz/)
 - [usehooks-ts](https://usehooks-ts.com/)
 - [next-SEO](https://github.com/garmeeh/next-seo)
