@@ -1,4 +1,4 @@
-import { useAccount, useSigner } from 'wagmi'
+import { useAccount, useWalletClient } from 'wagmi'
 import { Button, Text } from '@chakra-ui/react'
 import { useState } from 'react'
 import { NextSeo } from 'next-seo'
@@ -17,7 +17,7 @@ const headers = API_KEY
   : undefined
 
 export default function PassportExample() {
-  const { data: signer } = useSigner()
+  const { data: signer } = useWalletClient()
   const { address, isConnected } = useAccount()
   const [message, setMessage] = useState('')
   const { loading, data: score, error } = usePassportScore()
@@ -34,7 +34,9 @@ export default function PassportExample() {
     // Sign message
     let signature: string
     try {
-      signature = await signer.signMessage(message)
+      signature = await signer.signMessage({
+        message: message,
+      })
     } catch (e) {
       setMessage('Unable to sign message')
       return

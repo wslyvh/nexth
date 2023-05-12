@@ -2,7 +2,7 @@ import { useAccount, useBalance, useContractWrite, usePrepareContractWrite, useW
 import { Button, FormControl, FormLabel, Heading, Input, NumberInput, NumberInputField, Text } from '@chakra-ui/react'
 import { useState } from 'react'
 import { NextSeo } from 'next-seo'
-import { utils } from 'ethers'
+import { parseEther } from 'viem'
 import { LinkComponent } from 'components/layout/LinkComponent'
 import { useDebounce } from 'usehooks-ts'
 
@@ -27,7 +27,7 @@ function SendERC20() {
     address: debouncedTokenContract as `0x{string}`,
     abi: erc20ABI,
     functionName: 'transfer',
-    args: [(debouncedTo as `0x{string}`) ?? '0x0', debouncedAmount ? utils.parseEther(debouncedAmount) : utils.parseEther('0')],
+    args: [(debouncedTo as `0x{string}`) ?? '0x0', debouncedAmount ? parseEther(debouncedAmount as `${number}`) : parseEther('0')],
   })
   const contractWrite = useContractWrite(prepareContractWrite.config)
   const waitForTransaction = useWaitForTransaction({ hash: contractWrite.data?.hash, onSettled: () => balance.refetch() })

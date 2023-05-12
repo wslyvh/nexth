@@ -1,12 +1,13 @@
 import { useAccount, useSignMessage } from 'wagmi'
 import { Button, FormControl, FormLabel, Textarea } from '@chakra-ui/react'
 import { useState } from 'react'
-import { verifyMessage } from 'ethers/lib/utils'
+import { verifyMessage } from 'viem'
 import { SignMessageArgs } from '@wagmi/core'
 import { NextSeo } from 'next-seo'
 import { HeadingComponent } from 'components/layout/HeadingComponent'
 
 function SignMessage() {
+  const account = useAccount()
   let [message, setMessage] = useState('')
   let [address, setAddress] = useState('')
   const signMessage = useSignMessage({
@@ -18,9 +19,16 @@ function SignMessage() {
     signMessage.signMessage({ message })
   }
 
-  function verify(data: string, variables: SignMessageArgs) {
-    const address = verifyMessage(variables.message, data)
-    setAddress(address)
+  async function verify(data: `0x${string}`, variables: SignMessageArgs) {
+    if (!account.address) return
+
+    const verified = await verifyMessage({
+      address: account.address,
+      message: variables.message,
+      signature: data,
+    })
+
+    if (verified) setAddress(account.address)
   }
 
   return (
