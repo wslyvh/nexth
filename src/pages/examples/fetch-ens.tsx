@@ -1,34 +1,32 @@
-import { useEnsAddress, useEnsName } from 'wagmi'
-import { Button, FormControl, FormLabel, Input, Textarea } from '@chakra-ui/react'
+import { fetchEnsAddress, fetchEnsName } from '@wagmi/core'
+import { Button, FormControl, FormLabel, Input } from '@chakra-ui/react'
 import { useState } from 'react'
 import { NextSeo } from 'next-seo'
 import { HeadingComponent } from 'components/layout/HeadingComponent'
 
 function FetchENS() {
+  let [status, setStatus] = useState<'idle' | 'fetching'>('idle')
   let [input, setInput] = useState('')
   let [resolved, setResolved] = useState('')
 
-  const resolveAddress = useEnsName({
-    address: input as `0x${string}`,
-    enabled: false,
-    onSuccess(data) {
-      setResolved(String(data))
-    },
-  })
-
-  const resolveEns = useEnsAddress({
-    name: input,
-    enabled: false,
-    onSuccess(data) {
-      setResolved(String(data))
-    },
-  })
-
-  function submit() {
-    if (input.endsWith('.eth')) {
-      resolveEns.refetch()
-    } else {
-      resolveAddress.refetch()
+  async function submit() {
+    try {
+      setStatus('fetching')
+      if (input.endsWith('.eth')) {
+        let resolvedENS = await fetchEnsAddress({
+          name: input,
+        })
+        setResolved(String(resolvedENS))
+      } else {
+        let resolvedAddress = await fetchEnsName({
+          address: input as `0x{string}`,
+        })
+        setResolved(String(resolvedAddress))
+      }
+    } catch (error) {
+      console.log(error)
+    } finally {
+      setStatus('idle')
     }
   }
 
@@ -40,8 +38,8 @@ function FetchENS() {
         <FormLabel>ENS Name/Address</FormLabel>
         <Input value={input} onChange={(e) => setInput(e.target.value)} placeholder="Enter a ENS Name/Address" />
 
-        <Button mt={4} type="submit" onClick={submit}>
-          Fetch
+        <Button mt={4} type="submit" onClick={submit} disabled={status === 'fetching'}>
+          {status === 'idle' ? 'Fetch' : 'Fetching...'}
         </Button>
 
         {resolved && (
