@@ -26,6 +26,8 @@ export function usePassportStamps(withMetadata: boolean = false) {
 
       const data = await response.json()
 
+      console.log('data: ', data)
+
       if (response.status === 200) {
         // TODO: Check "next" property and paginate if necessary.
         setState({

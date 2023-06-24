@@ -31,4 +31,17 @@ export interface PassportStamp {
       provider: string
     }
   }
+  metadata?: {
+    description: string
+    group: string
+    hash: string
+    name: string
+    platform: {
+      id: string
+      icon: string
+      name: string
+      description: string
+      connectMessage: string
+    }
+  }
 }

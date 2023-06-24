@@ -57,7 +57,7 @@ export default function PassportExample() {
           <div>
             <HeadingComponent as="h3">Passport Stamps</HeadingComponent>
             {stamps.map((stamp) => (
-              <div>
+              <div key={stamp.credential.proof.jws}>
                 <div>Provider: {stamp.credential.credentialSubject.provider}</div>
                 <div>IssuanceDate: {stamp.credential.issuanceDate}</div>
                 <div>ExpirationDate: {stamp.credential.expirationDate}</div>
