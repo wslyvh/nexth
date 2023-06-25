@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { State, PassportStamp } from 'types'
 import { useAccount } from 'wagmi'
 
+//** Fetches all the stamps that are connected to the current account. */
 export function usePassportStamps(withMetadata: boolean = false) {
   const API_KEY = process.env.NEXT_PUBLIC_GITCOIN_PASSPORT_API_KEY
   if (!API_KEY) {
@@ -25,8 +26,6 @@ export function usePassportStamps(withMetadata: boolean = false) {
       })
 
       const data = await response.json()
-
-      console.log('data: ', data)
 
       if (response.status === 200) {
         // TODO: Check "next" property and paginate if necessary.

@@ -1,18 +1,19 @@
 import { useAccount } from 'wagmi'
-import { Button, Text } from '@chakra-ui/react'
-import { useState } from 'react'
+import { Button, Text, Card, CardBody, SimpleGrid, Image } from '@chakra-ui/react'
 import { NextSeo } from 'next-seo'
 import { LinkComponent } from 'components/layout/LinkComponent'
 import { usePassportScore } from 'hooks/passport/usePassportScore'
 import { usePassportSubmit } from 'hooks/passport/usePassportSubmit'
 import { usePassportStamps } from 'hooks/passport/usePassportStamps'
+import { usePassportStampsIndex } from 'hooks/passport/usePassportStampsIndex'
 import { HeadingComponent } from 'components/layout/HeadingComponent'
 
 export default function PassportExample() {
   const { address, isConnected } = useAccount()
   const { loading, data: score, error } = usePassportScore()
   const { submit, submitting, error: submitError } = usePassportSubmit()
-  const { loading: loadingStamps, data: stamps, error: stampsError } = usePassportStamps()
+  const { loading: loadingStamps, data: stamps, error: stampsError } = usePassportStamps(true)
+  const { data: availableStamps } = usePassportStampsIndex()
 
   if (isConnected) {
     return (
@@ -54,15 +55,45 @@ export default function PassportExample() {
         )}
 
         {!loadingStamps && !!stamps && stamps.length > 0 && (
-          <div>
-            <HeadingComponent as="h3">Passport Stamps</HeadingComponent>
+          <div style={{ marginTop: '30px' }}>
+            <HeadingComponent as="h3">Your Passport Stamps</HeadingComponent>
             {stamps.map((stamp) => (
-              <div key={stamp.credential.proof.jws}>
-                <div>Provider: {stamp.credential.credentialSubject.provider}</div>
-                <div>IssuanceDate: {stamp.credential.issuanceDate}</div>
-                <div>ExpirationDate: {stamp.credential.expirationDate}</div>
-              </div>
+              <Card key={stamp.credential.proof.jws} maxW="sm">
+                <CardBody>
+                  <Image src={stamp.metadata?.platform.icon} boxSize="50px" />
+                  <Text style={{ marginTop: '30px' }} fontSize="md">
+                    {stamp.credential.credentialSubject.provider}
+                  </Text>
+                  <Text style={{ marginTop: '5px' }} fontSize="sm">
+                    IssuanceDate: {new Date(stamp.credential.issuanceDate).toLocaleString()}
+                  </Text>
+                  <Text style={{ marginTop: '5px' }} fontSize="sm">
+                    ExpirationDate: {new Date(stamp.credential.expirationDate).toLocaleString()}
+                  </Text>
+                </CardBody>
+              </Card>
             ))}
+          </div>
+        )}
+
+        {!!availableStamps && availableStamps.length > 0 && (
+          <div style={{ marginTop: '30px' }}>
+            <HeadingComponent as="h3">Available Passport Stamps</HeadingComponent>
+            <SimpleGrid columns={3} spacing={5}>
+              {availableStamps.map((stamp) => (
+                <Card key={stamp.id} maxW="sm">
+                  <CardBody>
+                    <Image src={stamp.icon} boxSize="50px" />
+                    <Text style={{ marginTop: '30px' }} fontSize="md">
+                      {stamp.name}
+                    </Text>
+                    <Text style={{ marginTop: '10px' }} fontSize="sm">
+                      {stamp.description}
+                    </Text>
+                  </CardBody>
+                </Card>
+              ))}
+            </SimpleGrid>
           </div>
         )}
 
