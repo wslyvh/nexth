@@ -6,7 +6,7 @@ export function usePassportScore(round?: boolean) {
   const COMMUNITY_ID = process.env.NEXT_PUBLIC_GITCOIN_PASSPORT_COMMUNITY_ID
   const API_KEY = process.env.NEXT_PUBLIC_GITCOIN_PASSPORT_API_KEY
   if (!COMMUNITY_ID || !API_KEY) {
-    console.warn('Gitcoin passport Community ID or API Key not set')
+    console.warn('Gitcoin Passport Community ID or API Key not set')
   }
 
   const { address, isConnected } = useAccount()

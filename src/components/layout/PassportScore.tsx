@@ -13,7 +13,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { FaRobot } from 'react-icons/fa'
-import { usePassportScore } from 'hooks/usePassportScore'
+import { usePassportScore } from 'hooks/passport/usePassportScore'
 import { LinkComponent } from './LinkComponent'
 
 interface Props {

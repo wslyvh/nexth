@@ -1,64 +1,19 @@
-import { useAccount, useWalletClient } from 'wagmi'
-import { Button, Text } from '@chakra-ui/react'
-import { useState } from 'react'
+import { useAccount } from 'wagmi'
+import { Button, Text, Card, CardBody, SimpleGrid, Image } from '@chakra-ui/react'
 import { NextSeo } from 'next-seo'
 import { LinkComponent } from 'components/layout/LinkComponent'
-import { usePassportScore } from 'hooks/usePassportScore'
+import { usePassportScore } from 'hooks/passport/usePassportScore'
+import { usePassportSubmit } from 'hooks/passport/usePassportSubmit'
+import { usePassportStamps } from 'hooks/passport/usePassportStamps'
+import { usePassportStampsIndex } from 'hooks/passport/usePassportStampsIndex'
 import { HeadingComponent } from 'components/layout/HeadingComponent'
 
-const COMMUNITY_ID = process.env.NEXT_PUBLIC_GITCOIN_PASSPORT_COMMUNITY_ID
-const API_KEY = process.env.NEXT_PUBLIC_GITCOIN_PASSPORT_API_KEY
-
-const headers = API_KEY
-  ? {
-      'Content-Type': 'application/json',
-      'X-API-Key': API_KEY,
-    }
-  : undefined
-
 export default function PassportExample() {
-  const { data: signer } = useWalletClient()
   const { address, isConnected } = useAccount()
-  const [message, setMessage] = useState('')
   const { loading, data: score, error } = usePassportScore()
-
-  async function submit() {
-    if (!signer) return
-
-    // Get nonce from Gitcoin
-    const signResponse = await fetch(`https://api.scorer.gitcoin.co/registry/signing-message`, {
-      headers,
-    })
-    const { message, nonce } = await signResponse.json()
-
-    // Sign message
-    let signature: string
-    try {
-      signature = await signer.signMessage({
-        message: message,
-      })
-    } catch (e) {
-      setMessage('Unable to sign message')
-      return
-    }
-
-    // Submit Passport to Gitcoin
-    const response = await fetch(`https://api.scorer.gitcoin.co/registry/submit-passport`, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        address,
-        community: COMMUNITY_ID,
-        signature,
-        nonce,
-      }),
-    })
-
-    if (response.status !== 200) {
-      setMessage('Unable to submit passport')
-      return
-    }
-  }
+  const { submit, submitting, error: submitError } = usePassportSubmit()
+  const { loading: loadingStamps, data: stamps, error: stampsError } = usePassportStamps(true)
+  const { data: availableStamps } = usePassportStampsIndex()
 
   if (isConnected) {
     return (
@@ -76,10 +31,10 @@ export default function PassportExample() {
           Then, add your API key and community ID to your .env variables.
         </Text>
 
-        {message && (
+        {submitError && (
           <div>
             <HeadingComponent as="h3">Error</HeadingComponent>
-            <p>{message}</p>
+            <p>{submitError}</p>
           </div>
         )}
 
@@ -99,6 +54,49 @@ export default function PassportExample() {
           </div>
         )}
 
+        {!loadingStamps && !!stamps && stamps.length > 0 && (
+          <div style={{ marginTop: '30px' }}>
+            <HeadingComponent as="h3">Your Passport Stamps</HeadingComponent>
+            {stamps.map((stamp) => (
+              <Card key={stamp.credential.proof.jws} maxW="sm">
+                <CardBody>
+                  <Image src={stamp.metadata?.platform.icon} boxSize="50px" />
+                  <Text style={{ marginTop: '30px' }} fontSize="md">
+                    {stamp.credential.credentialSubject.provider}
+                  </Text>
+                  <Text style={{ marginTop: '5px' }} fontSize="sm">
+                    IssuanceDate: {new Date(stamp.credential.issuanceDate).toLocaleString()}
+                  </Text>
+                  <Text style={{ marginTop: '5px' }} fontSize="sm">
+                    ExpirationDate: {new Date(stamp.credential.expirationDate).toLocaleString()}
+                  </Text>
+                </CardBody>
+              </Card>
+            ))}
+          </div>
+        )}
+
+        {!!availableStamps && availableStamps.length > 0 && (
+          <div style={{ marginTop: '30px' }}>
+            <HeadingComponent as="h3">Available Passport Stamps</HeadingComponent>
+            <SimpleGrid columns={3} spacing={5}>
+              {availableStamps.map((stamp) => (
+                <Card key={stamp.id} maxW="sm">
+                  <CardBody>
+                    <Image src={stamp.icon} boxSize="50px" />
+                    <Text style={{ marginTop: '30px' }} fontSize="md">
+                      {stamp.name}
+                    </Text>
+                    <Text style={{ marginTop: '10px' }} fontSize="sm">
+                      {stamp.description}
+                    </Text>
+                  </CardBody>
+                </Card>
+              ))}
+            </SimpleGrid>
+          </div>
+        )}
+
         {!loading && score === undefined && (
           <div>
             <HeadingComponent as="h3">Submit your passport</HeadingComponent>
@@ -107,7 +105,7 @@ export default function PassportExample() {
               submitting your passport.
             </p>
             <p>
-              <Button mt={4} type="submit" onClick={submit}>
+              <Button mt={4} type="submit" isLoading={submitting} loadingText="Submitting" onClick={() => submit(true)}>
                 Submit
               </Button>
             </p>
