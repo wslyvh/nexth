@@ -34,6 +34,8 @@ npm run dev
 yarn dev
 ```
 
+If you want to add smart contracts to your project, check out the docs at [contracts folder](./contracts).
+
 ## Deploy on Vercel 🚢
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fwslyvh%2Fnexth)
