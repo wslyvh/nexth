@@ -1,7 +1,6 @@
 import { configureChains, WagmiConfig } from 'wagmi'
 import { publicProvider } from 'wagmi/providers/public'
 import { ETH_CHAINS, SITE_DESCRIPTION, SITE_NAME, SITE_URL, THEME_COLOR_SCHEME } from 'utils/config'
-import { useColorMode } from '@chakra-ui/react'
 import { ReactNode, useEffect, useState } from 'react'
 import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react'
 

@@ -1,5 +1,5 @@
 import { ThemingProps } from '@chakra-ui/react'
-import { mainnet, sepolia, polygon, optimism, arbitrum } from '@wagmi/chains'
+import { mainnet, sepolia, polygon, optimism, arbitrum } from '@wagmi/core/chains'
 
 export const SITE_NAME = 'Nexth'
 export const SITE_DESCRIPTION = 'Next.js + Ethereum starter kit'
