@@ -9,9 +9,6 @@ import {
   WriteContractUnpreparedArgs,
   prepareWriteContract,
   PrepareWriteContractConfig,
-  watchContractEvent,
-  WatchContractEventConfig,
-  WatchContractEventCallback,
   WriteContractMode,
 } from 'wagmi/actions'
 
@@ -1064,16 +1061,6 @@ export function prepareWriteErc721<TAbi extends readonly unknown[] = typeof erc7
 }
 
 /**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc721ABI}__.
- */
-export function watchErc721Event<TAbi extends readonly unknown[] = typeof erc721ABI, TEventName extends string = string>(
-  config: Omit<WatchContractEventConfig<TAbi, TEventName>, 'abi'>,
-  callback: WatchContractEventCallback<TAbi, TEventName>
-) {
-  return watchContractEvent({ abi: erc721ABI, ...config } as WatchContractEventConfig<TAbi, TEventName>, callback)
-}
-
-/**
  * Wraps __{@link getContract}__ with `abi` set to __{@link erc721EnumerableABI}__.
  */
 export function getErc721Enumerable(config: Omit<GetContractArgs, 'abi'>) {
@@ -1107,16 +1094,6 @@ export function prepareWriteErc721Enumerable<TAbi extends readonly unknown[] = t
   config: Omit<PrepareWriteContractConfig<TAbi, TFunctionName>, 'abi'>
 ) {
   return prepareWriteContract({ abi: erc721EnumerableABI, ...config } as unknown as PrepareWriteContractConfig<TAbi, TFunctionName>)
-}
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link erc721EnumerableABI}__.
- */
-export function watchErc721EnumerableEvent<TAbi extends readonly unknown[] = typeof erc721EnumerableABI, TEventName extends string = string>(
-  config: Omit<WatchContractEventConfig<TAbi, TEventName>, 'abi'>,
-  callback: WatchContractEventCallback<TAbi, TEventName>
-) {
-  return watchContractEvent({ abi: erc721EnumerableABI, ...config } as WatchContractEventConfig<TAbi, TEventName>, callback)
 }
 
 /**
@@ -1172,16 +1149,6 @@ export function prepareWriteIerc721<TAbi extends readonly unknown[] = typeof ier
 }
 
 /**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ierc721ABI}__.
- */
-export function watchIerc721Event<TAbi extends readonly unknown[] = typeof ierc721ABI, TEventName extends string = string>(
-  config: Omit<WatchContractEventConfig<TAbi, TEventName>, 'abi'>,
-  callback: WatchContractEventCallback<TAbi, TEventName>
-) {
-  return watchContractEvent({ abi: ierc721ABI, ...config } as WatchContractEventConfig<TAbi, TEventName>, callback)
-}
-
-/**
  * Wraps __{@link getContract}__ with `abi` set to __{@link ierc721EnumerableABI}__.
  */
 export function getIerc721Enumerable(config: Omit<GetContractArgs, 'abi'>) {
@@ -1218,16 +1185,6 @@ export function prepareWriteIerc721Enumerable<TAbi extends readonly unknown[] = 
 }
 
 /**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ierc721EnumerableABI}__.
- */
-export function watchIerc721EnumerableEvent<TAbi extends readonly unknown[] = typeof ierc721EnumerableABI, TEventName extends string = string>(
-  config: Omit<WatchContractEventConfig<TAbi, TEventName>, 'abi'>,
-  callback: WatchContractEventCallback<TAbi, TEventName>
-) {
-  return watchContractEvent({ abi: ierc721EnumerableABI, ...config } as WatchContractEventConfig<TAbi, TEventName>, callback)
-}
-
-/**
  * Wraps __{@link getContract}__ with `abi` set to __{@link ierc721MetadataABI}__.
  */
 export function getIerc721Metadata(config: Omit<GetContractArgs, 'abi'>) {
@@ -1261,16 +1218,6 @@ export function prepareWriteIerc721Metadata<TAbi extends readonly unknown[] = ty
   config: Omit<PrepareWriteContractConfig<TAbi, TFunctionName>, 'abi'>
 ) {
   return prepareWriteContract({ abi: ierc721MetadataABI, ...config } as unknown as PrepareWriteContractConfig<TAbi, TFunctionName>)
-}
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ierc721MetadataABI}__.
- */
-export function watchIerc721MetadataEvent<TAbi extends readonly unknown[] = typeof ierc721MetadataABI, TEventName extends string = string>(
-  config: Omit<WatchContractEventConfig<TAbi, TEventName>, 'abi'>,
-  callback: WatchContractEventCallback<TAbi, TEventName>
-) {
-  return watchContractEvent({ abi: ierc721MetadataABI, ...config } as WatchContractEventConfig<TAbi, TEventName>, callback)
 }
 
 /**
@@ -1357,18 +1304,6 @@ export function prepareWriteMessage<TAbi extends readonly unknown[] = typeof mes
 }
 
 /**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link messageABI}__.
- *
- * [__View Contract on Sepolia Etherscan__](https://sepolia.etherscan.io/address/0xcc5a0d6268d70811edad77799f2168afe6382e89)
- */
-export function watchMessageEvent<TAbi extends readonly unknown[] = typeof messageABI, TEventName extends string = string>(
-  config: Omit<WatchContractEventConfig<TAbi, TEventName>, 'abi' | 'address'> & { chainId?: keyof typeof messageAddress },
-  callback: WatchContractEventCallback<TAbi, TEventName>
-) {
-  return watchContractEvent({ abi: messageABI, address: messageAddress[11155111], ...config } as WatchContractEventConfig<TAbi, TEventName>, callback)
-}
-
-/**
  * Wraps __{@link getContract}__ with `abi` set to __{@link nexthFtABI}__.
  */
 export function getNexthFt(config: Omit<GetContractArgs, 'abi'>) {
@@ -1405,16 +1340,6 @@ export function prepareWriteNexthFt<TAbi extends readonly unknown[] = typeof nex
 }
 
 /**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link nexthFtABI}__.
- */
-export function watchNexthFtEvent<TAbi extends readonly unknown[] = typeof nexthFtABI, TEventName extends string = string>(
-  config: Omit<WatchContractEventConfig<TAbi, TEventName>, 'abi'>,
-  callback: WatchContractEventCallback<TAbi, TEventName>
-) {
-  return watchContractEvent({ abi: nexthFtABI, ...config } as WatchContractEventConfig<TAbi, TEventName>, callback)
-}
-
-/**
  * Wraps __{@link getContract}__ with `abi` set to __{@link ownableABI}__.
  */
 export function getOwnable(config: Omit<GetContractArgs, 'abi'>) {
@@ -1448,14 +1373,4 @@ export function prepareWriteOwnable<TAbi extends readonly unknown[] = typeof own
   config: Omit<PrepareWriteContractConfig<TAbi, TFunctionName>, 'abi'>
 ) {
   return prepareWriteContract({ abi: ownableABI, ...config } as unknown as PrepareWriteContractConfig<TAbi, TFunctionName>)
-}
-
-/**
- * Wraps __{@link watchContractEvent}__ with `abi` set to __{@link ownableABI}__.
- */
-export function watchOwnableEvent<TAbi extends readonly unknown[] = typeof ownableABI, TEventName extends string = string>(
-  config: Omit<WatchContractEventConfig<TAbi, TEventName>, 'abi'>,
-  callback: WatchContractEventCallback<TAbi, TEventName>
-) {
-  return watchContractEvent({ abi: ownableABI, ...config } as WatchContractEventConfig<TAbi, TEventName>, callback)
 }
