@@ -4,7 +4,7 @@ pragma solidity >=0.6.0 <0.9.0;
 // import "hardhat/console.sol";
 
 contract Message {
-    string public message = "Quickly ship Web3 Apps!";
+    string public message = "Quickly ship Web3 Apps";
 
     event SetMessage(address sender, string purpose);
 
