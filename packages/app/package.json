@@ -1,0 +1,58 @@
+{
+  "name": "nexth",
+  "version": "0.2.0",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "test": "echo \"Error: no tests specified\"",
+    "start": "next start",
+    "lint": "next lint --fix",
+    "prettier": "prettier './src' --write",
+    "wagmi": "wagmi generate"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "./src": [
+      "lint",
+      "prettier"
+    ]
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.0.18",
+    "@web3modal/wagmi": "^3.0.2",
+    "dayjs": "^1.11.10",
+    "iron-session": "^6.3.1",
+    "next": "13.5.4",
+    "react": "^18",
+    "react-dom": "^18",
+    "react-icons": "^4.11.0",
+    "siwe": "^2.1.4",
+    "viem": "^1.15.3",
+    "wagmi": "^1.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.10",
+    "@tsconfig/next": "^2.0.0",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "@wagmi/cli": "^1.5.2",
+    "autoprefixer": "^10",
+    "daisyui": "^3.9.1",
+    "eslint": "^8",
+    "eslint-config-next": "13.5.4",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.1",
+    "postcss": "^8",
+    "prettier": "^3.0.3",
+    "tailwindcss": "^3",
+    "typescript": "^5"
+  }
+}
