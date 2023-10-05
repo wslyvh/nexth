@@ -4,27 +4,10 @@ A Next.js + Ethereum starter kit to quickly ship Web3 Apps ⚡
 
 ![Nexth Readme Image](./readme.png)
 
-## Getting Started 👀
+## Packages 📦
 
-Check-out the [example pages](./src/pages/examples/) or [live demo](https://nexth.vercel.app/) to see how you can use this starter kit.
-
-## Features ✅
-
-- [Next.js](https://nextjs.org/docs)
-- [Chakra UI](https://chakra-ui.com/)
-- [viem](https://viem.sh/)
-- [wagmi](https://wagmi.sh/)
-- [Web3Modal SDK from WalletConnect](https://docs.walletconnect.com/)
-- [Sign-In with Ethereum](https://www.login.xyz/)
-- [usehooks-ts](https://usehooks-ts.com/)
-- [next-SEO](https://github.com/garmeeh/next-seo)
-
-## Developer Experience 🧰
-
-- [TypeScript](https://www.typescriptlang.org/)
-- [eslint](https://eslint.org/)
-- [prettier](https://prettier.io/)
-- [Husky](https://typicode.github.io/husky/)
+- [App](./packages/app) - Next.js 13, with App router
+- [Contracts](./packages/contracts/) - Hardhat projects
 
 ## Development 🛠️
 
@@ -33,10 +16,6 @@ npm run dev
 # or
 yarn dev
 ```
-
-### Smart Contracts
-
-If you want to add smart contracts to your project, check out the docs at [contracts folder](./contracts).
 
 ## Deploy on Vercel 🚢
 
