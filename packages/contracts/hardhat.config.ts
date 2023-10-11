@@ -1,10 +1,28 @@
 import { HardhatUserConfig } from 'hardhat/config'
+import fs from 'fs'
 import { join } from 'path'
 import dotenv from 'dotenv'
+import 'hardhat-preprocessor'
 import '@nomicfoundation/hardhat-toolbox'
 
 dotenv.config() // project root
 dotenv.config({ path: join(process.cwd(), '../../.env') }) // workspace root
+
+type Remapping = [string, string]
+
+const getRemappings: () => Remapping[] = () => {
+  return fs
+    .readFileSync('remappings.txt', 'utf8')
+    .split('\n')
+    .filter(Boolean)
+    .map((line) => {
+      const [key, value] = line.trim().split('=')
+      if (!key || !value) {
+        throw new Error(`Invalid mapping format: "${line}". Each mapping must be in "key=value" format.`)
+      }
+      return [key, value]
+    })
+}
 
 const deployerKey = process.env.DEPLOYER_KEY
 if (!deployerKey) {
@@ -47,6 +65,25 @@ const config: HardhatUserConfig = {
       url: 'https://rpc-mumbai.maticvigil.com/',
       accounts: [deployerKey as string],
     },
+  },
+  paths: {
+    sources: './src', // Use ./src rather than ./contracts as Hardhat expects
+    cache: './cache_hardhat', // Use a different cache for Hardhat than Foundry
+  },
+  // This fully resolves paths for imports in the ./lib directory for Hardhat
+  preprocess: {
+    eachLine: (hre) => ({
+      transform: (line: string) => {
+        if (line.match(/^\s*import /i)) {
+          getRemappings().forEach(([find, replace]) => {
+            if (line.match(find)) {
+              line = line.replace(find, replace)
+            }
+          })
+        }
+        return line
+      },
+    }),
   },
 }
 
