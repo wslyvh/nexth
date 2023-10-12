@@ -1,66 +1,52 @@
-## Foundry
+# Smart Contracts
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This project demonstrates how to add smart contracts to your project using [Hardhat](https://hardhat.org/docs) or [Foundry](https://book.getfoundry.sh/). It provides a sample `Message` contract, a test and deployment scripts.
 
-Foundry consists of:
+Try running some of the following tasks:
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+```shell
+$ yarn build
+$ yarn deploy
+$ yarn test
+$ yarn coverage
+```
 
-## Documentation
-
-https://book.getfoundry.sh/
-
-## Usage
-
-### Build
+or
 
 ```shell
 $ forge build
-```
-
-### Test
-
-```shell
 $ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
 $ forge snapshot
 ```
 
-### Anvil
+## Deploy
+
+Once you're ready to deploy your contracts, setup a deployer account using `DEPLOYER_KEY` and try to run e.g.
 
 ```shell
-$ anvil
+$ yarn deploy --network sepolia
 ```
 
-### Deploy
+or
 
 ```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
+$ forge script scripts/Message.s.sol:MessageScript --rpc-url <your_rpc_url> --private-key <your_private_key>
 ```
 
-### Cast
+Note that you need testnet Ethers for that. More info and faucet links can be found on [Sepolia Dev](https://sepolia.dev/). You can set up different networks using [Hardhat's network configuration](https://hardhat.org/hardhat-runner/docs/config#networks-configuration).
+
+## Verify
+
+Contracts are automatically verified on Etherscan if you've set up the `ETHERSCAN_API_KEY` environment variable. You can also verify contracts manually using
 
 ```shell
-$ cast <subcommand>
+$ yarn verify
 ```
 
-### Help
+## Wagmi CLI
+
+The front-end uses the [Wagmi CLI](https://wagmi.sh/cli/getting-started) to automatically generate types and default hooks for your contracts. You can find the generated files in `src/abi.test`.
 
 ```shell
-$ forge --help
-$ anvil --help
-$ cast --help
+$ yarn wagmi
 ```

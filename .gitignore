@@ -47,6 +47,12 @@ next-env.d.ts
 **/contracts/cache
 **/contracts/artifacts
 
+# forge
+
+# Compiler files
+**/contracts/cache/
+**/contracts/out/
+
 # wagmi recommends to ignore their generated file
 # /src/abis.ts 
 
