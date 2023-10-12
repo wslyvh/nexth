@@ -6,8 +6,8 @@ A Next.js + Ethereum starter kit to quickly ship Web3 Apps ⚡
 
 ## Packages 📦
 
-- [App](./packages/app) - Next.js 13, with App router
-- [Contracts](./packages/contracts/) - Hardhat projects
+-   [App](./packages/app) - Next.js 13, with App router
+-   [Contracts](./packages/contracts/) - Hardhat or Foundry projects
 
 ## Development 🛠️
 
