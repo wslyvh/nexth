@@ -8,7 +8,7 @@ contract Message {
 
     event SetMessage(address sender, string purpose);
 
-    constructor() { }
+    constructor() {}
 
     function setMessage(string memory _message) public payable {
         message = _message;
