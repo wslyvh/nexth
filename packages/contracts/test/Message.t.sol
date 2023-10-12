@@ -7,9 +7,29 @@ import {Message} from '../src/Message.sol';
 //import "forge-std/console.sol";
 
 contract MessageTest is Test {
+  event SetMessage(address sender, string purpose);
+
   Message public message;
 
   function setUp() public {
     message = new Message();
+  }
+
+  function testCorrectDefaultMessage() public {
+    assertEq(message.message(), 'Quickly ship Web3 Apps');
+  }
+
+  function testUpdateMessage() public {
+    message.setMessage('Build unstoppable Apps');
+    assertEq(message.message(), 'Build unstoppable Apps');
+  }
+
+  function testEmitEvent() public {
+    address owner = address(1);
+    vm.startPrank(owner);
+    vm.expectEmit(true, true, true, true);
+    emit SetMessage(owner, 'Build unstoppable Apps');
+    message.setMessage('Build unstoppable Apps');
+    vm.stopPrank();
   }
 }
