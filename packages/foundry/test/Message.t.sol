@@ -24,7 +24,7 @@ contract MessageTest is Test {
     assertEq(message.message(), 'Build unstoppable Apps');
   }
 
-  function testEmitEvent() public {
+  function testEmitMessageEvent() public {
     address owner = address(1);
     vm.startPrank(owner);
     vm.expectEmit(true, true, true, true);

@@ -2,6 +2,7 @@ import { HardhatUserConfig } from "hardhat/config"
 import { join } from "path"
 import dotenv from "dotenv"
 import "@nomicfoundation/hardhat-toolbox"
+import path from "path";
 
 dotenv.config() // project root
 dotenv.config({ path: join(process.cwd(), "../../.env") }) // workspace root
@@ -22,6 +23,10 @@ if (!polygonApiKey) {
 const config: HardhatUserConfig = {
     solidity: "0.8.21",
     defaultNetwork: "hardhat",
+    paths: {
+        sources: path.resolve(__dirname, "./"),
+        artifacts: path.resolve(__dirname, "./artifacts"), 
+    },
     etherscan: {
         apiKey: {
             mainnet: etherscanApiKey,
