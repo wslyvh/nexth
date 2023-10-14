@@ -1,12 +1,12 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.13;
 
-import {Script} from "forge-std/Script.sol";
+import {Script} from 'forge-std/Script.sol';
 
 contract MessageScript is Script {
-    function setUp() public {}
+  function setUp() public {}
 
-    function run() public {
-        vm.broadcast();
-    }
+  function run() public {
+    vm.broadcast();
+  }
 }

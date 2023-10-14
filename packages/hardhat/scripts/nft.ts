@@ -22,7 +22,7 @@ async function main() {
       run('verify:verify', {
         address: nft.address,
         constructorArguments: args,
-        contract: 'contracts/NFT.sol:NexthFT',
+        contract: 'hardhat/NFT.sol:NexthFT',
       })
     } catch (e) {
       console.log(e)
