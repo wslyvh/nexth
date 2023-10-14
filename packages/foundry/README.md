@@ -53,3 +53,32 @@ $ forge --help
 $ anvil --help
 $ cast --help
 ```
+
+### Working with a local network
+
+Foundry comes with local network [anvil](https://book.getfoundry.sh/anvil/index.html) baked in, and allows us to deploy to our local network for quick testing locally.
+
+To start a local network run:
+
+```
+make anvil
+```
+
+This will spin up a local blockchain with a determined private key, so you can use the same private key each time.
+
+Then, you can deploy to it with:
+
+```
+make deploy-anvil contract=<CONTRACT_NAME>
+```
+
+Similar to `deploy-sepolia` or `deploy-mumbai`
+
+### Working with other chains
+
+To add a chain, you'd just need to make a new entry in the `Makefile`, and replace `<YOUR_CHAIN>` with whatever your chain's information is.
+
+```
+deploy-<YOUR_CHAIN> :; @forge script script/${contract}.s.sol --rpc-url ${<YOUR_CHAIN>_RPC_URL}  --private-key ${PRIVATE_KEY} --broadcast -vvvv
+
+```
