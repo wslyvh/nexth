@@ -21,4 +21,4 @@ A Next.js + Ethereum starter kit to quickly ship Web3 Apps ⚡
 
 ### Smart Contracts
 
-If you want to add smart contracts to your project, check out the docs at [contracts folder](./contracts).
+If you want to add smart contracts to your project, check out the docs at [hardhat folder](./hardhat) or [foundry folder](./foundry).

@@ -18,10 +18,10 @@ describe('Message', function () {
 
   describe('Deployment', function () {
     it('Should have correct default message', async function () {
-      const defaultMesage = 'Quickly ship Web3 Apps'
+      const defaultMessage = 'Quickly ship Web3 Apps'
       const { message } = await loadFixture(deployMessageFixture)
 
-      expect(await message.message()).to.equal(defaultMesage)
+      expect(await message.message()).to.equal(defaultMessage)
     })
   })
 
