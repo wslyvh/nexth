@@ -4,6 +4,7 @@ import { SITE_DESCRIPTION, SITE_NAME } from '@/utils/site'
 import { Layout } from '@/components/Layout'
 import { Web3Provider } from '@/context/Web3'
 import '../assets/globals.css'
+import { ToastContainer } from 'react-toastify'
 
 export const metadata: Metadata = {
   title: SITE_NAME,
@@ -15,6 +16,7 @@ export default function RootLayout(props: PropsWithChildren) {
     <html lang='en'>
       <body>
         <Web3Provider>
+          <ToastContainer />
           <Layout>{props.children}</Layout>
         </Web3Provider>
       </body>
