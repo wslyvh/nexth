@@ -5,12 +5,7 @@ export default defineConfig({
   out: 'src/abis.ts',
   contracts: [],
   plugins: [
-    actions({
-      getContract: true,
-      readContract: true,
-      prepareWriteContract: true,
-      watchContractEvent: false,
-    }),
+    actions(),
     hardhat({
       project: '../hardhat',
       deployments: {

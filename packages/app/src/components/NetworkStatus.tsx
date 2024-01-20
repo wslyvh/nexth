@@ -1,15 +1,15 @@
 'use client'
 
 import React from 'react'
-import { useBlockNumber, useNetwork } from 'wagmi'
+import { useBlockNumber, useAccount } from 'wagmi'
 import { GetNetworkColor } from '@/utils/network'
 import { LinkComponent } from './LinkComponent'
 
 export function NetworkStatus() {
   const block = useBlockNumber({ watch: true })
-  const network = useNetwork()
-  const explorerUrl = network.chain?.blockExplorers?.default.url
-  const networkName = network.chain?.name ?? 'Ethereum'
+  const { chain } = useAccount()
+  const explorerUrl = chain?.blockExplorers?.default.url
+  const networkName = chain?.name ?? 'Ethereum'
   const color = GetNetworkColor(networkName)
 
   return (

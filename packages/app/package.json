@@ -24,7 +24,8 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.0.18",
-    "@web3modal/wagmi": "^3.0.2",
+    "@tanstack/react-query": "^5.17.15",
+    "@web3modal/wagmi": "4.0.0-alpha.0",
     "dayjs": "^1.11.10",
     "iron-session": "^6.3.1",
     "next": "13.5.4",
@@ -32,8 +33,8 @@
     "react-dom": "^18",
     "react-icons": "^4.11.0",
     "siwe": "^2.1.4",
-    "viem": "^1.15.3",
-    "wagmi": "^1.4.3"
+    "viem": "^2.4.0",
+    "wagmi": "^2.3.1"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
@@ -41,7 +42,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@wagmi/cli": "^1.5.2",
+    "@wagmi/cli": "^2.0.4",
     "autoprefixer": "^10",
     "daisyui": "^3.9.1",
     "eslint": "^8",

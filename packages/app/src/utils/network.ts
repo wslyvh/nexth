@@ -1,6 +1,6 @@
-import { mainnet, sepolia, polygon, optimism, arbitrum } from '@wagmi/core/chains'
+import { mainnet, sepolia, polygon, optimism, arbitrum, Chain } from 'viem/chains'
 
-export const ETH_CHAINS = [mainnet, sepolia, polygon, optimism, arbitrum]
+export const ETH_CHAINS = [mainnet, sepolia, polygon, optimism, arbitrum] as [Chain, ...Chain[]]
 
 export function GetNetworkColor(chain?: string) {
   if (chain === 'homestead') return 'green'
