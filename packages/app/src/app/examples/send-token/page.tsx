@@ -2,11 +2,9 @@
 import { useAccount, useBalance, useSimulateContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import { erc20Abi } from 'viem'
 import { useState, useEffect } from 'react'
-import { toast } from 'react-toastify'
 import { ethers } from 'ethers'
 import { parseEther } from 'viem'
-import 'react-toastify/dist/ReactToastify.css'
-
+import { useToast } from '@/context/Toaster'
 import Token from '../../../assets/icons/token.png'
 
 type Address = `0x${string}` | undefined
@@ -17,6 +15,8 @@ export default function SendToken() {
   const [tokenAddress, setTokenAddress] = useState<Address>(undefined)
   const [isValidTokenAddress, setIsValidTokenAddress] = useState<boolean>(false)
   const [isValidToAddress, setIsValidToAddress] = useState<boolean>(false)
+
+  const { showToast } = useToast()
 
   const { address } = useAccount()
   const { data: balanceData } = useBalance({
@@ -43,7 +43,9 @@ export default function SendToken() {
 
   const handleSendTransation = () => {
     if (estimateError) {
-      toast.error(`Transaction failed: ${estimateError.cause}`)
+      showToast(`Transaction failed: ${estimateError.cause}`, {
+        type: 'error',
+      })
       return
     }
     writeContract({
@@ -68,9 +70,13 @@ export default function SendToken() {
 
   useEffect(() => {
     if (txSuccess) {
-      toast.success('Transaction successful')
+      showToast(`Transaction sucessful`, {
+        type: 'success',
+      })
     } else if (txError) {
-      toast.error(`Transaction failed: ${txError.message}`)
+      showToast(`Transaction failed: ${txError.cause}`, {
+        type: 'error',
+      })
     }
   }, [txSuccess, txError])
 

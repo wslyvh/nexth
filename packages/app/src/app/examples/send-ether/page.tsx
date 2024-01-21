@@ -3,10 +3,9 @@ import { useAccount, useBalance, useEstimateGas, useSendTransaction, useWaitForT
 import { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
 import { parseEther } from 'viem'
-import { toast } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
 import Ethereum from '../../../assets/icons/ethereum.png'
+import { useToast } from '@/context/Toaster'
 
 type Address = `0x${string}` | undefined
 
@@ -14,6 +13,8 @@ export default function SendEther() {
   const [to, setTo] = useState<Address>(undefined)
   const [isValidToAddress, setIsValidToAddress] = useState<boolean>(false)
   const [amount, setAmount] = useState('0.01')
+
+  const { showToast } = useToast()
 
   const { address } = useAccount()
   const balance = useBalance({
@@ -37,7 +38,9 @@ export default function SendEther() {
 
   const handleSendTransation = () => {
     if (estimateError) {
-      toast.error(`Transaction failed: ${estimateError.cause}`)
+      showToast(`Transaction failed: ${estimateError.cause}`, {
+        type: 'error',
+      })
       return
     }
     sendTransaction({
@@ -55,10 +58,14 @@ export default function SendEther() {
 
   useEffect(() => {
     if (txSuccess) {
-      toast.success('Transaction successful')
+      showToast(`Transaction sucessful`, {
+        type: 'success',
+      })
       balance.refetch()
     } else if (txError) {
-      toast.error(`Transaction failed : ${txError.message}`)
+      showToast(`Transaction failed: ${txError.cause}`, {
+        type: 'error',
+      })
     }
   }, [txSuccess, txError])
 
