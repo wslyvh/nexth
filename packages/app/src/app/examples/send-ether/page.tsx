@@ -1,5 +1,5 @@
 'use client'
-import { useAccount, useBalance, useSendTransaction, useWaitForTransaction, usePrepareSendTransaction } from 'wagmi'
+import { useAccount, useBalance, useEstimateGas, useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
 import { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
 import { parseEther } from 'viem'
@@ -8,8 +8,10 @@ import 'react-toastify/dist/ReactToastify.css'
 
 import Ethereum from '../../../assets/icons/ethereum.png'
 
+type Address = `0x${string}` | undefined
+
 export default function SendEther() {
-  const [to, setTo] = useState('')
+  const [to, setTo] = useState<Address>(undefined)
   const [isValidToAddress, setIsValidToAddress] = useState<boolean>(false)
   const [amount, setAmount] = useState('0.01')
 
@@ -18,27 +20,31 @@ export default function SendEther() {
     address,
   })
 
-  const { config, error: prepareError } = usePrepareSendTransaction({
-    to: isValidToAddress ? to : undefined,
+  const { data: estimateData, error: estimateError } = useEstimateGas({
+    to: isValidToAddress ? (to as Address) : undefined,
     value: parseEther(amount),
   })
 
-  const { data, isLoading, sendTransaction } = useSendTransaction(config)
+  const { data, sendTransaction } = useSendTransaction()
 
   const {
-    isSuccess: txSuccess,
+    isLoading,
     error: txError,
-    isLoading: txLoading,
-  } = useWaitForTransaction({
-    hash: data?.hash,
+    isSuccess: txSuccess,
+  } = useWaitForTransactionReceipt({
+    hash: data,
   })
 
   const handleSendTransation = () => {
-    if (prepareError) {
-      toast.error(`Transaction failed: ${prepareError.cause}`)
+    if (estimateError) {
+      toast.error(`Transaction failed: ${estimateError.cause}`)
       return
     }
-    sendTransaction?.()
+    sendTransaction({
+      gas: estimateData,
+      value: parseEther(amount),
+      to: (to as Address)!,
+    })
   }
 
   const handleToAdressInput = (to: string) => {
@@ -85,6 +91,7 @@ export default function SendEther() {
             <input
               type='text'
               placeholder='0.01'
+              value={amount}
               className='input input-bordered w-full max-w-xs'
               onChange={(e) => setAmount(e.target.value)}
             />
@@ -108,8 +115,8 @@ export default function SendEther() {
           <button
             className='btn btn-wide '
             onClick={handleSendTransation}
-            disabled={!isValidToAddress || !address || txLoading || isLoading || to === '' || amount === ''}>
-            {isLoading || txLoading ? <span className='loading loading-dots loading-sm'></span> : 'Send ethers'}
+            disabled={!isValidToAddress || !address || Boolean(estimateError) || amount === ''}>
+            {isLoading ? <span className='loading loading-dots loading-sm'></span> : 'Send ethers'}
           </button>
         </div>
       </div>

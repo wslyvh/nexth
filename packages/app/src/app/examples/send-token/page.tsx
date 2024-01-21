@@ -1,12 +1,6 @@
 'use client'
-import {
-  useAccount,
-  useBalance,
-  useSendTransaction,
-  useWaitForTransaction,
-  usePrepareContractWrite,
-  erc20ABI,
-} from 'wagmi'
+import { useAccount, useBalance, useSimulateContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
+import { erc20Abi } from 'viem'
 import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { ethers } from 'ethers'
@@ -30,29 +24,34 @@ export default function SendToken() {
     address,
   })
 
-  const { config, error: prepareError } = usePrepareContractWrite({
+  const { error: estimateError } = useSimulateContract({
     address: balanceData && isValidToAddress ? tokenAddress : undefined,
-    abi: erc20ABI,
+    abi: erc20Abi,
     functionName: 'transfer',
     args: [to!, parseEther(amount)],
   })
 
-  const { data, isLoading, sendTransaction } = useSendTransaction(config)
+  const { data, writeContract } = useWriteContract()
 
   const {
-    isSuccess: txSuccess,
+    isLoading,
     error: txError,
-    isLoading: txLoading,
-  } = useWaitForTransaction({
-    hash: data?.hash,
+    isSuccess: txSuccess,
+  } = useWaitForTransactionReceipt({
+    hash: data,
   })
 
   const handleSendTransation = () => {
-    if (prepareError) {
-      toast.error(`Transaction failed: ${prepareError.cause}`)
+    if (estimateError) {
+      toast.error(`Transaction failed: ${estimateError.cause}`)
       return
     }
-    sendTransaction?.()
+    writeContract({
+      address: tokenAddress!,
+      abi: erc20Abi,
+      functionName: 'transfer',
+      args: [to!, parseEther(amount)],
+    })
   }
 
   const handleTokenAddressInput = (token: string) => {
@@ -73,7 +72,7 @@ export default function SendToken() {
     } else if (txError) {
       toast.error(`Transaction failed: ${txError.message}`)
     }
-  }, [txSuccess, txError, prepareError])
+  }, [txSuccess, txError])
 
   const formatBalance = (balance: string) => {
     return Number.parseFloat(Number.parseFloat(balance).toFixed(2)).toExponential()
@@ -114,11 +113,12 @@ export default function SendToken() {
             </label>
             <label className='form-control w-full max-w-xs'>
               <div className='label'>
-                <span className='label-text'>Number of ethers to send</span>
+                <span className='label-text'>Number of tokens to send</span>
               </div>
               <input
                 type='text'
                 placeholder='0.01'
+                value={amount}
                 className='input input-bordered w-full max-w-xs'
                 onChange={(e) => setAmount(e.target.value)}
               />
@@ -142,8 +142,8 @@ export default function SendToken() {
             <button
               className='btn btn-wide '
               onClick={handleSendTransation}
-              disabled={txLoading || isLoading || !isValidToAddress || amount === ''}>
-              {isLoading || txLoading ? <span className='loading loading-dots loading-sm'></span> : 'Send ethers'}
+              disabled={!isValidToAddress || !address || Boolean(estimateError) || amount === ''}>
+              {isLoading ? <span className='loading loading-dots loading-sm'></span> : 'Send ethers'}
             </button>
           </div>
         </div>
