@@ -1,6 +1,6 @@
 'use client'
 import { useAccount, useBalance, useSimulateContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
-import { erc20Abi } from 'viem'
+import { erc20Abi, formatEther } from 'viem'
 import { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
 import { parseEther } from 'viem'
@@ -80,8 +80,8 @@ export default function SendToken() {
     }
   }, [txSuccess, txError])
 
-  const formatBalance = (balance: string) => {
-    return Number.parseFloat(Number.parseFloat(balance).toFixed(2)).toExponential()
+  const formatBalance = (balance: bigint) => {
+    return formatEther(balance, 'wei')
   }
 
   return (
@@ -131,22 +131,22 @@ export default function SendToken() {
             </label>
           </div>
           <div className='flex-col justify-end m-2'>
-            <div className='stats shadow join-item w-[256px] mb-2 bg-[#282c33]'>
+            <div className='stats shadow join-item mb-2 bg-[#282c33]'>
               <div className='stat '>
                 <div className='stat-figure text-secondary'>
-                  <img className='opacity-25' width={50} src={Token.src} alt='token' />
+                  <img className='opacity-25 ml-10' width={50} src={Token.src} alt='token' />
                 </div>
                 <div className='stat-title '>Your balance</div>
 
-                {balanceData.formatted ? (
-                  <div className='stat-value text-lg w-[150px]'>{formatBalance(balanceData.formatted)}</div>
+                {balanceData ? (
+                  <div className='stat-value text-lg w-[150px]'>{formatBalance(balanceData.value)}</div>
                 ) : (
                   <p>Please connect your wallet</p>
                 )}
               </div>
             </div>
             <button
-              className='btn btn-wide '
+              className='btn btn-wide w-[100%] '
               onClick={handleSendTransation}
               disabled={!isValidToAddress || !address || Boolean(estimateError) || amount === ''}>
               {isLoading ? <span className='loading loading-dots loading-sm'></span> : 'Send ethers'}

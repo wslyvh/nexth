@@ -2,7 +2,7 @@
 import { useAccount, useBalance, useEstimateGas, useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
 import { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
-import { parseEther } from 'viem'
+import { parseEther, formatEther } from 'viem'
 
 import Ethereum from '../../../assets/icons/ethereum.png'
 import { useToast } from '@/context/Toaster'
@@ -69,8 +69,8 @@ export default function SendEther() {
     }
   }, [txSuccess, txError])
 
-  const formatBalance = (balance: string) => {
-    return Number.parseFloat(Number.parseFloat(balance).toFixed(2)).toExponential()
+  const formatBalance = (balance: bigint) => {
+    return formatEther(balance, 'wei')
   }
 
   return (
@@ -105,22 +105,22 @@ export default function SendEther() {
           </label>
         </div>
         <div className='flex-col justify-end m-2'>
-          <div className='stats shadow join-item w-[256px] mb-2 bg-[#282c33]'>
+          <div className='stats shadow join-item mb-2 bg-[#282c33]'>
             <div className='stat '>
               <div className='stat-figure text-secondary'>
-                <img width={50} className='opacity-25' src={Ethereum.src} alt='ethereum' />
+                <img width={50} className='opacity-25 ml-10' src={Ethereum.src} alt='ethereum' />
               </div>
               <div className='stat-title '>Your balance</div>
 
-              {balance.data?.formatted ? (
-                <div className='stat-value text-lg w-[150px]'>{formatBalance(balance.data!.formatted)}</div>
+              {balance.data ? (
+                <div className='stat-value text-lg w-[150px]'>{formatBalance(balance.data!.value)}</div>
               ) : (
                 <p>Please connect your wallet</p>
               )}
             </div>
           </div>
           <button
-            className='btn btn-wide '
+            className='btn btn-wide w-[100%] '
             onClick={handleSendTransation}
             disabled={!isValidToAddress || !address || Boolean(estimateError) || amount === ''}>
             {isLoading ? <span className='loading loading-dots loading-sm'></span> : 'Send ethers'}
