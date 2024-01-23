@@ -1,6 +1,10 @@
-import { mainnet, sepolia, polygon, optimism, arbitrum, Chain } from 'viem/chains'
+import { mainnet, sepolia, polygon, optimism, arbitrum, Chain, hardhat } from 'viem/chains'
 
-export const ETH_CHAINS = [mainnet, sepolia, polygon, optimism, arbitrum] as [Chain, ...Chain[]]
+let chains = [mainnet, sepolia, polygon, optimism, arbitrum] as [Chain, ...Chain[]]
+
+if (process.env.NODE_ENV !== 'production') chains.push(hardhat)
+
+export const ETH_CHAINS = chains
 
 export function GetNetworkColor(chain?: string) {
   if (chain === 'homestead') return 'green'
