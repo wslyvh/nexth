@@ -70,7 +70,7 @@ export default function SendToken() {
 
   useEffect(() => {
     if (txSuccess) {
-      showToast(`Transaction sucessful`, {
+      showToast(`Transaction successful`, {
         type: 'success',
       })
     } else if (txError) {
