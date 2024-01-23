@@ -58,7 +58,7 @@ export default function SendEther() {
 
   useEffect(() => {
     if (txSuccess) {
-      showToast(`Transaction sucessful`, {
+      showToast(`Transaction successful`, {
         type: 'success',
       })
       balance.refetch()
@@ -70,7 +70,7 @@ export default function SendEther() {
   }, [txSuccess, txError])
 
   const formatBalance = (balance: bigint) => {
-    return formatEther(balance, 'wei')
+    return parseFloat(formatEther(balance, 'wei')).toFixed(4)
   }
 
   return (

@@ -81,7 +81,7 @@ export default function SendToken() {
   }, [txSuccess, txError])
 
   const formatBalance = (balance: bigint) => {
-    return formatEther(balance, 'wei')
+    return parseFloat(formatEther(balance, 'wei')).toFixed(4)
   }
 
   return (
