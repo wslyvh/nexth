@@ -19,6 +19,7 @@ export const ToastProvider = ({ children }: any) => {
   const showToast = (message: string, options = {}) => {
     toast(message, options)
   }
+
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}

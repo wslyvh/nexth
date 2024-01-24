@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
 import { parseEther } from 'viem'
 import { useToast } from '@/context/Toaster'
-import Token from '../../../assets/icons/token.png'
+import Token from '@/assets/icons/token.png'
 
 type Address = `0x${string}` | undefined
 

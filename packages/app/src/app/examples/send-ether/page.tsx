@@ -3,9 +3,8 @@ import { useAccount, useBalance, useEstimateGas, useSendTransaction, useWaitForT
 import { useState, useEffect } from 'react'
 import { ethers } from 'ethers'
 import { parseEther, formatEther } from 'viem'
-
-import Ethereum from '../../../assets/icons/ethereum.png'
 import { useToast } from '@/context/Toaster'
+import Ethereum from '@/assets/icons/ethereum.png'
 
 type Address = `0x${string}` | undefined
 
@@ -108,7 +107,7 @@ export default function SendEther() {
           <div className='stats shadow join-item mb-2 bg-[#282c33]'>
             <div className='stat '>
               <div className='stat-figure text-secondary'>
-                <img width={50} className='opacity-25 ml-10' src={Ethereum.src} alt='ethereum' />
+                <img width={50} className='opacity-50 ml-10' src={Ethereum.src} alt='ethereum' />
               </div>
               <div className='stat-title '>Your balance</div>
 
