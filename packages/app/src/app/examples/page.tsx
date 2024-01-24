@@ -3,7 +3,7 @@ import { CardList } from '@/components/CardList'
 import EtherIcon from '@/assets/icons/ethereum.png'
 import TokenIcon from '@/assets/icons/token.png'
 
-export const ExampleItems = [
+const ExampleItems = [
   {
     title: 'Send Ether',
     description: 'Sending Ether to another address is the most basic, common transaction that you can do.',
