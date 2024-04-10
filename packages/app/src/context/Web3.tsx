@@ -16,6 +16,7 @@ createWeb3Modal({
   wagmiConfig: WALLETCONNECT_CONFIG,
   projectId: WALLETCONNECT_PROJECT_ID,
   enableAnalytics: false, // Optional - defaults to your Cloud configuration
+  enableOnramp: true,
 })
 
 export function Web3Provider(props: Props) {
