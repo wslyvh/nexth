@@ -13,12 +13,12 @@ export const NETWORK_COLORS = {
     bgVariant: 'bg-green-600',
   },
   arbitrum: {
-    color: 'blue',
-    bgVariant: 'bg-blue-600',
-  },
-  base: {
     color: 'sky',
     bgVariant: 'bg-sky-600',
+  },
+  base: {
+    color: 'blue',
+    bgVariant: 'bg-blue-600',
   },
   linea: {
     color: 'slate',
