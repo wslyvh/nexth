@@ -1,16 +1,56 @@
-import { mainnet, sepolia, polygon, optimism, arbitrum, Chain, hardhat } from 'viem/chains'
+import { mainnet, arbitrum, base, linea, polygon, optimism, scroll } from 'viem/chains'
+import { Chain, hardhat, sepolia } from 'viem/chains'
 
-let chains = [mainnet, sepolia, polygon, optimism, arbitrum] as [Chain, ...Chain[]]
+let chains = [mainnet, arbitrum, base, linea, polygon, optimism, scroll] as [Chain, ...Chain[]]
 
-if (process.env.NODE_ENV !== 'production') chains.push(hardhat)
+if (process.env.NODE_ENV !== 'production') chains.push(sepolia, hardhat)
 
 export const ETH_CHAINS = chains
 
-export function GetNetworkColor(chain?: string) {
-  if (chain === 'homestead') return 'green'
-  if (chain === 'arbitrum') return 'blue'
-  if (chain === 'optimism') return 'red'
-  if (chain === 'matic') return 'purple'
+export const NETWORK_COLORS = {
+  ethereum: {
+    color: 'green',
+    bgVariant: 'bg-green-600',
+  },
+  arbitrum: {
+    color: 'blue',
+    bgVariant: 'bg-blue-600',
+  },
+  base: {
+    color: 'sky',
+    bgVariant: 'bg-sky-600',
+  },
+  linea: {
+    color: 'slate',
+    bgVariant: 'bg-slate-600',
+  },
+  polygon: {
+    color: 'purple',
+    bgVariant: 'bg-purple-600',
+  },
+  optimism: {
+    color: 'red',
+    bgVariant: 'bg-red-600',
+  },
+  scroll: {
+    color: 'amber',
+    bgVariant: 'bg-amber-600',
+  },
+  other: {
+    color: 'gray',
+    bgVariant: 'bg-gray-600',
+  },
+}
 
-  return 'grey'
+export function GetNetworkColor(chain?: string, type: 'color' | 'bgVariant' = 'color') {
+  chain = chain?.toLocaleLowerCase()
+  if (chain === 'ethereum' || chain === 'mainnet' || chain === 'homestead') return NETWORK_COLORS.ethereum[type]
+  if (chain?.includes('arbitrum')) return NETWORK_COLORS.arbitrum[type]
+  if (chain?.includes('base')) return NETWORK_COLORS.base[type]
+  if (chain?.includes('linea')) return NETWORK_COLORS.linea[type]
+  if (chain?.includes('polygon') || chain?.includes('matic')) return NETWORK_COLORS.polygon[type]
+  if (chain?.includes('optimism') || chain?.startsWith('op')) return NETWORK_COLORS.optimism[type]
+  if (chain?.includes('scroll')) return NETWORK_COLORS.scroll[type]
+
+  return NETWORK_COLORS.other[type]
 }

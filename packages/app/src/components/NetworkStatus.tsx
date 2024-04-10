@@ -10,11 +10,11 @@ export function NetworkStatus() {
   const { chain } = useAccount()
   const explorerUrl = chain?.blockExplorers?.default.url
   const networkName = chain?.name ?? 'Ethereum'
-  const color = GetNetworkColor(networkName)
+  const color = GetNetworkColor(networkName, 'bgVariant')
 
   return (
     <div className='flex items-center gap-2 p-4'>
-      <div className={`badge badge-info`}>{networkName}</div>
+      <div className={`badge badge-info ${color}`}>{networkName}</div>
       {explorerUrl && (
         <LinkComponent href={explorerUrl}>
           <p className='text-xs'># {block.data?.toString()}</p>
