@@ -1,12 +1,12 @@
 # Nexth
 
-A Next.js + Ethereum starter kit to quickly ship Web3 Apps ⚡
+A Next.js + Ethereum starter kit with Viem, Wagmi, Web3Modal, SIWE, Tailwind, daisyUI and more to quickly ship production-ready Web3 Apps ⚡
 
-![Nexth Readme Image](./readme.png)
+![Nexth Readme Image](https://nexth.vercel.app/opengraph-image)
 
 ## Packages 📦
 
-- [App](./packages/app) - Next.js 13, with App router
+- [App](./packages/app) - Next.js 14, with App router
 - [Hardhat](./packages/hardhat/) - Hardhat projects
 - [Foundry](./packages/foundry/) - Foundry projects
 
