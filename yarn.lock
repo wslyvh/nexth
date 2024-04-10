@@ -1851,7 +1851,7 @@
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.29.0.tgz#d0b3d12c07d5a47f42ab0c1ed4f317106f3d4b20"
   integrity sha512-WgPTRs58hm9CMzEr5jpISe8HXa3qKQ8CxewdYZeVnA54JrPY9B1CZiwsCoLpLkf0dGRZq+LcX5OiJb0bEsOFww==
 
-"@tanstack/react-query@^5.18.1":
+"@tanstack/react-query@^5.29.0":
   version "5.29.0"
   resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.29.0.tgz#42b3a2de4ed1d63666f0af04392a34b5e70d49c0"
   integrity sha512-yxlhHB73jaBla6h5B6zPaGmQjokkzAhMHN4veotkPNiQ3Ac/mCxgABRZPsJJrgCTvhpcncBZcDBFxaR2B37vug==
@@ -2634,7 +2634,7 @@
     "@web3modal/wallet" "4.1.6"
     lit "3.1.0"
 
-"@web3modal/siwe@4.1.6":
+"@web3modal/siwe@4.1.6", "@web3modal/siwe@^4.1.6":
   version "4.1.6"
   resolved "https://registry.yarnpkg.com/@web3modal/siwe/-/siwe-4.1.6.tgz#41b5f519cca60a5b3de6683453644268f3520171"
   integrity sha512-LcbR5VLDBEI/ZEAME9c+8BPbkXhsg2MQTlN3P+RICZyDiKB4Rj0536L9hL8J2UMv6HCiVTurfHdSJkAIOqyVWw==
@@ -2652,7 +2652,7 @@
     lit "3.1.0"
     qrcode "1.5.3"
 
-"@web3modal/wagmi@^4.0.0":
+"@web3modal/wagmi@^4.1.6":
   version "4.1.6"
   resolved "https://registry.yarnpkg.com/@web3modal/wagmi/-/wagmi-4.1.6.tgz#8be832f14588df43888e8854600a4d5deb850e2d"
   integrity sha512-NfXNL8HktiLAvO2n6pSJNYYgBr7BMR3Y22XzcMx2+8O/i8mLrLEGx1GLugmu1fNNgSPuGl6WXh6bY2kPtPon4A==
@@ -9073,7 +9073,7 @@ valtio@1.11.2:
     proxy-compare "2.5.1"
     use-sync-external-store "1.2.0"
 
-viem@2.*, viem@^2.7.6:
+viem@2.*, viem@^2.9.15:
   version "2.9.15"
   resolved "https://registry.yarnpkg.com/viem/-/viem-2.9.15.tgz#a176f3c3504a6785333ac0f948666854c3a29e30"
   integrity sha512-7kcmHqybc3JhpjL8gKY7YxBYpZt1//qhoTZIU5Ez9JdyRCnYMMnJu20s7wd7Gv6a3zPbq8jV8dCp94a/NLJJcA==
@@ -9106,7 +9106,7 @@ void-elements@3.1.0:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-3.1.0.tgz#614f7fbf8d801f0bb5f0661f5b2f5785750e4f09"
   integrity sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==
 
-wagmi@^2.5.6:
+wagmi@^2.5.19:
   version "2.5.19"
   resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-2.5.19.tgz#9b8f14d926b88a682fd191824a0c1971ed077f82"
   integrity sha512-fy6s3qTuXpfrrghhoNXuV92yqOqJI7m/9iLIejHxEYxiddVDTR8BVdkt0BuBQZzoXSAutDkyIlJbtFcpX5dfrQ==
