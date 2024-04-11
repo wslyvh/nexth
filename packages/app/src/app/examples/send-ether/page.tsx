@@ -1,8 +1,7 @@
 'use client'
 import { useAccount, useBalance, useEstimateGas, useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
 import { useState, useEffect } from 'react'
-import { ethers } from 'ethers'
-import { parseEther, formatEther } from 'viem'
+import { parseEther, formatEther, isAddress } from 'viem'
 import { useToast } from '@/context/Toaster'
 import Ethereum from '@/assets/icons/ethereum.png'
 
@@ -52,7 +51,7 @@ export default function SendEther() {
   const handleToAdressInput = (to: string) => {
     if (to.startsWith('0x')) setTo(to as `0x${string}`)
     else setTo(`0x${to}`)
-    setIsValidToAddress(ethers.utils.isAddress(to))
+    setIsValidToAddress(isAddress(to))
   }
 
   useEffect(() => {

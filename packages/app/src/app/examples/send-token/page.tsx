@@ -1,8 +1,7 @@
 'use client'
 import { useAccount, useBalance, useSimulateContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
-import { erc20Abi, formatEther } from 'viem'
+import { erc20Abi, formatEther, isAddress } from 'viem'
 import { useState, useEffect } from 'react'
-import { ethers } from 'ethers'
 import { parseEther } from 'viem'
 import { useToast } from '@/context/Toaster'
 import Token from '@/assets/icons/token.png'
@@ -59,13 +58,13 @@ export default function SendToken() {
   const handleTokenAddressInput = (token: string) => {
     if (token.startsWith('0x')) setTokenAddress(token as `0x${string}`)
     else setTokenAddress(`0x${token}`)
-    setIsValidTokenAddress(ethers.utils.isAddress(token))
+    setIsValidTokenAddress(isAddress(token))
   }
 
   const handleToAdressInput = (to: string) => {
     if (to.startsWith('0x')) setTo(to as `0x${string}`)
     else setTo(`0x${to}`)
-    setIsValidToAddress(ethers.utils.isAddress(to))
+    setIsValidToAddress(isAddress(to))
   }
 
   useEffect(() => {
