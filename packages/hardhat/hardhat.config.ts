@@ -1,58 +1,50 @@
-import { HardhatUserConfig } from "hardhat/config"
-import { join } from "path"
-import dotenv from "dotenv"
-import "@nomicfoundation/hardhat-toolbox"
-import path from "path";
-
-dotenv.config() // project root
-dotenv.config({ path: join(process.cwd(), "../../.env") }) // workspace root
-
-const deployerKey = process.env.DEPLOYER_KEY
-if (!deployerKey) {
-    console.warn("DEPLOYER_KEY not found in .env file. Running with default config")
-}
-const etherscanApiKey = process.env.ETHERSCAN_API_KEY ?? ""
-if (!etherscanApiKey) {
-    console.warn("ETHERSCAN_API_KEY not found in .env file. Will skip Etherscan verification")
-}
-const polygonApiKey = process.env.POLYSCAN_API_KEY ?? ""
-if (!polygonApiKey) {
-    console.warn("POLYSCAN_API_KEY not found in .env file. Will skip Etherscan verification")
-}
+import { HardhatUserConfig } from 'hardhat/config'
+import '@nomicfoundation/hardhat-toolbox-viem'
+import '@nomicfoundation/hardhat-verify'
+import { CONFIG } from './utils/config'
 
 const config: HardhatUserConfig = {
-    solidity: "0.8.21",
-    defaultNetwork: "hardhat",
-    paths: {
-        sources: path.resolve(__dirname, "./"),
-        artifacts: path.resolve(__dirname, "./artifacts"), 
+  solidity: '0.8.24',
+  defaultNetwork: 'hardhat',
+  etherscan: {
+    apiKey: {
+      mainnet: CONFIG.ETHERSCAN_API_KEY,
+      sepolia: CONFIG.ETHERSCAN_API_KEY,
+      optimisticEthereum: CONFIG.OPTIMISTIC_API_KEY,
     },
-    etherscan: {
-        apiKey: {
-            mainnet: etherscanApiKey,
-            sepolia: etherscanApiKey,
-            polygonMumbai: polygonApiKey,
-        },
+  },
+  sourcify: {
+    enabled: true,
+  },
+  networks: {
+    hardhat: {
+      chainId: 31337,
     },
-    networks: {
-        hardhat: {
-            chainId: 31337,
-        },
-        localhost: {
-            chainId: 31337,
-            url: "http://127.0.0.1:8545",
-        },
-        sepolia: {
-            chainId: 11155111,
-            url: "https://rpc.sepolia.org/",
-            accounts: [deployerKey as string],
-        },
-        mumbai: {
-            chainId: 80001,
-            url: "https://rpc-mumbai.maticvigil.com/",
-            accounts: [deployerKey as string],
-        },
+    localhost: {
+      chainId: 31337,
+      url: 'http://127.0.0.1:8545',
     },
+    sepolia: {
+      chainId: 11155111,
+      url: 'https://rpc.sepolia.org/',
+      accounts: [CONFIG.DEPLOYER_KEY],
+    },
+    mainnet: {
+      chainId: 1,
+      url: `https://mainnet.infura.io/v3/${CONFIG.INFURA_API_KEY}`,
+      accounts: [CONFIG.DEPLOYER_KEY],
+    },
+    optimism: {
+      chainId: 10,
+      url: 'https://mainnet.optimism.io/',
+      accounts: [CONFIG.DEPLOYER_KEY],
+    },
+    base: {
+      chainId: 8453,
+      url: 'https://mainnet.base.org',
+      accounts: [CONFIG.DEPLOYER_KEY],
+    },
+  },
 }
 
 export default config

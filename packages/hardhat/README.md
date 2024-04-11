@@ -26,12 +26,16 @@ Note that you need testnet Ethers for that. More info and faucet links can be fo
 Contracts are automatically verified on Etherscan if you've set up the `ETHERSCAN_API_KEY` environment variable. You can also verify contracts manually using
 
 ```
-yarn verify
+yarn verify <address> --network <network>
 ```
+
+It is recommend to verifying manually after deployment as it also automatically verifies contracts on [Sourcify](https://sourcify.dev/).
 
 ## Wagmi CLI
 
-The front-end uses the [Wagmi CLI](https://wagmi.sh/cli/getting-started) to automatically generate types and default hooks for your contracts. You can find the generated files in `src/abi.test`.
+The front-end uses the [Wagmi CLI](https://wagmi.sh/cli/getting-started) to automatically generate types and default hooks for your contracts.
+
+You need to run the following command from `packages/app`, which will generate the files in the same package at `src/abi.test`.
 
 ```
 yarn wagmi

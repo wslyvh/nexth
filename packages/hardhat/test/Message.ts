@@ -1,55 +1,54 @@
 import { loadFixture } from '@nomicfoundation/hardhat-network-helpers'
 import { expect } from 'chai'
-import { ethers } from 'hardhat'
+import hre from 'hardhat'
 
 describe('Message', function () {
-  // We define a fixture to reuse the same setup in every test.
-  // We use loadFixture to run this setup once, snapshot that state,
-  // and reset Hardhat Network to that snapshot in every test.
   async function deployMessageFixture() {
-    // Contracts are deployed using the first signer/account by default
-    const [owner, otherAccount] = await ethers.getSigners()
+    const [owner, otherAccount] = await hre.viem.getWalletClients()
 
-    const Message = await ethers.getContractFactory('Message')
-    const message = await Message.deploy()
+    const defaultMessage = 'Quickly ship Web3 Apps'
+    const newMessage = 'Updated Message'
+    const message = await hre.viem.deployContract('Message')
 
-    return { message, owner, otherAccount }
+    const publicClient = await hre.viem.getPublicClient()
+
+    return { message, defaultMessage, newMessage, owner, otherAccount, publicClient }
   }
 
   describe('Deployment', function () {
     it('Should have correct default message', async function () {
-      const defaultMessage = 'Quickly ship Web3 Apps'
-      const { message } = await loadFixture(deployMessageFixture)
+      const { message, defaultMessage } = await loadFixture(deployMessageFixture)
 
-      expect(await message.message()).to.equal(defaultMessage)
+      expect(await message.read.message()).to.equal(defaultMessage)
     })
   })
 
   describe('Update', function () {
-    it('Should be able to update message', async function () {
-      const newMessage = 'Build unstoppable Apps'
-      const { message } = await loadFixture(deployMessageFixture)
+    it('Should have correct message set', async function () {
+      const { message, defaultMessage } = await loadFixture(deployMessageFixture)
 
-      expect(await message.setMessage(newMessage)).not.to.be.reverted
+      expect(await message.read.message()).to.equal(defaultMessage)
     })
 
-    it('Should have correct message set', async function () {
-      const newMessage = 'Build unstoppable Apps'
-      const { message } = await loadFixture(deployMessageFixture)
+    it('Should be able to update message', async function () {
+      const { message, defaultMessage, newMessage } = await loadFixture(deployMessageFixture)
 
-      await message.setMessage(newMessage)
+      expect(await message.read.message()).to.equal(defaultMessage)
 
-      expect(await message.message()).to.equal(newMessage)
+      await message.write.setMessage([newMessage])
+
+      expect(await message.read.message()).to.equal(newMessage)
     })
 
     describe('Events', function () {
       it('Should emit an event when message is set', async function () {
-        const newMessage = 'Build unstoppable Apps'
-        const { message, owner } = await loadFixture(deployMessageFixture)
+        const { message, newMessage, publicClient } = await loadFixture(deployMessageFixture)
 
-        expect(await message.setMessage(newMessage))
-          .to.emit(message, 'SetMessage')
-          .withArgs(owner, message)
+        const hash = await message.write.setMessage([newMessage])
+        await publicClient.waitForTransactionReceipt({ hash })
+
+        const messageEvents = await message.getEvents.SetMessage()
+        expect(messageEvents).to.have.lengthOf(1)
       })
     })
   })
