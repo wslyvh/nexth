@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { parseEther, formatEther, isAddress } from 'viem'
 import { useToast } from '@/context/Toaster'
 import Ethereum from '@/assets/icons/ethereum.png'
+import { AddressInput } from '@/components/AddressInput'
 
 type Address = `0x${string}` | undefined
 
@@ -76,19 +77,16 @@ export default function SendEther() {
       <h1 className='text-xl'>Send Ether</h1>
       <div className='flex align-end grid md:grid-cols-1 lg:grid-cols-2 gap-4 '>
         <div className='flex-col m-2 '>
-          <label className='form-control w-full max-w-xs'>
-            <div className='label'>
-              <span className='label-text'>Recipient address</span>
-            </div>
-            <input
-              type='text'
-              placeholder='0x...'
-              className={`input input-bordered w-full max-w-xs ${
-                !isValidToAddress && to != undefined ? 'input-error' : ''
-              }`}
-              onChange={(e) => handleToAdressInput(e.target.value)}
-            />
-          </label>
+          <AddressInput
+            onRecipientChange={handleToAdressInput}
+            type='text'
+            placeholder='0x...'
+            className={`input input-bordered w-full max-w-xs ${
+              !isValidToAddress && to != undefined ? 'input-error' : ''
+            }`}
+            value={to ?? ''}
+            label='Recipient address'
+          />
           <label className='form-control w-full max-w-xs'>
             <div className='label'>
               <span className='label-text'>Number of ethers to send</span>
