@@ -104,16 +104,20 @@ export default function SendToken() {
       {isValidTokenAddress && balanceData && (
         <div className='flex align-end grid md:grid-cols-1 lg:grid-cols-2 gap-4 mt-10'>
           <div className='flex-col m-2 '>
-            <AddressInput
-              onRecipientChange={handleToAdressInput}
-              type='text'
-              placeholder='0x...'
-              className={`input input-bordered w-full max-w-xs ${
-                !isValidToAddress && to != undefined ? 'input-error' : ''
-              }`}
-              value={to ?? ''}
-              label='Recipient address'
-            />
+            <label className='form-control w-full max-w-xs'>
+              <div className='label py-2'>
+                <span className='label-text'>Recipient address</span>
+              </div>
+              <AddressInput
+                onRecipientChange={handleToAdressInput}
+                type='text'
+                placeholder='0x...'
+                className={`input input-bordered w-full max-w-xs ${
+                  !isValidToAddress && to != undefined ? 'input-error' : ''
+                }`}
+                value={to ?? ''}
+              />
+            </label>
             <label className='form-control w-full max-w-xs'>
               <div className='label'>
                 <span className='label-text'>Number of tokens to send</span>
