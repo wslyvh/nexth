@@ -75,7 +75,7 @@ export const AddressInput = ({ onRecipientChange, onRawInputChange }: AddressInp
             onRecipientChange(ensAddy ?? '', true)
             setIsValidToAddress(true)
           }}
-          className={`flex flex-row relative z-40 w-full max-w-80 md:px-4 justify-between px-4 py-2 rounded-b-[40px] shadow-lg bg-[#282c33] text-neutral-content items-center hover:cursor-pointer `}>
+          className={`flex flex-row relative z-40 w-full max-w-80 md:px-4 justify-between px-4 py-2 rounded-b-[8px] shadow-lg bg-[#282c33] text-neutral-content items-center hover:cursor-pointer `}>
           {ensAvatar ? (
             <div className='avatar'>
               <div className='w-8 rounded-full'>
