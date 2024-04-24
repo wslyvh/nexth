@@ -20,7 +20,7 @@ export const config = createConfig({
 })
 
 function truncateAddress(address: string) {
-  return `${address.slice(0, 8)}...${address.slice(-8)}`
+  return `${address.slice(0, 9)}...${address.slice(-9)}`
 }
 
 export const AddressInput = ({ onRecipientChange, onRawInputChange }: AddressInputProps) => {
@@ -59,7 +59,8 @@ export const AddressInput = ({ onRecipientChange, onRawInputChange }: AddressInp
   }
 
   return (
-    <div className='relative flex flex-col gap-2'>
+    <div
+      className={`relative flex flex-col gap-2 bg-[#282c33] rounded-b-[8px] transition-all duration-300 ${ensAddy ? 'h-[96px]' : 'h-[48px]'}`}>
       <input
         type='text'
         placeholder='0x...'
@@ -68,42 +69,37 @@ export const AddressInput = ({ onRecipientChange, onRawInputChange }: AddressInp
         onChange={(e) => handleToAdressInput(e.target.value)}
       />
       {ensAddy ? (
-        <>
-          {' '}
-          {/* separator */}
-          <div className='absolute bottom-[46px] right-0 h-[1px] w-full bg-gray-300' />
-          <button
-            onClick={() => {
-              setRawTokenAddress(ensAddy ?? '')
-              onRecipientChange(ensAddy ?? '', true)
-              setIsValidToAddress(true)
-            }}
-            className={`flex flex-row relative top-2 z-40 w-full max-w-[240px] justify-between px-4 py-2 rounded shadow-lg bg-gray-50 text-black items-center hover:cursor-pointer hover:bg-gray-100 transition duration-300 ease-in-out transform hover:scale-105`}>
-            {ensAvatar ? (
-              <div className='avatar'>
-                <div className='w-8 rounded-full'>
-                  <Image
-                    width={320}
-                    height={320}
-                    content='responsive'
-                    src={ensAvatar ?? ''}
-                    alt='avatar'
-                    placeholder='blur'
-                    blurDataURL='/assets/icons/ethereum.png'
-                    className={`${ensAvatar ? 'block' : 'hidden'} rounded-full min-w-8 min-h-8 w-8 h-8 object-cover relative`}
-                  />
-                </div>
+        <button
+          onClick={() => {
+            setRawTokenAddress(ensAddy ?? '')
+            onRecipientChange(ensAddy ?? '', true)
+            setIsValidToAddress(true)
+          }}
+          className={`flex flex-row relative z-40 w-full max-w-80 md:px-4 justify-between px-4 py-2 rounded-b-[40px] shadow-lg bg-[#282c33] text-neutral-content items-center hover:cursor-pointer `}>
+          {ensAvatar ? (
+            <div className='avatar'>
+              <div className='w-8 rounded-full'>
+                <Image
+                  width={320}
+                  height={320}
+                  content='responsive'
+                  src={ensAvatar ?? ''}
+                  alt='avatar'
+                  placeholder='blur'
+                  blurDataURL='/assets/icons/ethereum.png'
+                  className={`${ensAvatar ? 'block' : 'hidden'} rounded-full min-w-8 min-h-8 w-8 h-8 object-cover relative`}
+                />
               </div>
-            ) : (
-              <div className='avatar placeholder'>
-                <div className='bg-neutral text-neutral-content items-start rounded-full w-8'>
-                  <span className='text-lg relative bottom-0'>{rawTokenAddress[0]}</span>
-                </div>
+            </div>
+          ) : (
+            <div className='avatar placeholder'>
+              <div className='bg-neutral text-neutral-content items-start rounded-full w-8'>
+                <span className='text-lg relative bottom-0'>{rawTokenAddress[0]}</span>
               </div>
-            )}
-            <span>{truncateAddress(ensAddy ?? '')}</span>
-          </button>
-        </>
+            </div>
+          )}
+          <span>{truncateAddress(ensAddy ?? '')}</span>
+        </button>
       ) : null}
     </div>
   )
