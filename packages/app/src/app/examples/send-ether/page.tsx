@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { parseEther, formatEther, isAddress } from 'viem'
 import { useToast } from '@/context/Toaster'
 import Ethereum from '@/assets/icons/ethereum.png'
+import { TokenQuantityInput } from '@/components/TokenQuantityInput'
 
 type Address = `0x${string}` | undefined
 
@@ -93,12 +94,10 @@ export default function SendEther() {
             <div className='label'>
               <span className='label-text'>Number of ethers to send</span>
             </div>
-            <input
-              type='text'
-              placeholder='0.01'
-              value={amount}
-              className='input input-bordered w-full max-w-xs'
-              onChange={(e) => setAmount(e.target.value)}
+            <TokenQuantityInput
+              onChange={setAmount}
+              quantity={amount}
+              maxValue={formatBalance(balance?.data?.value ?? BigInt(0))}
             />
           </label>
         </div>
