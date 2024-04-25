@@ -1,42 +1,23 @@
 'use client'
 import { useBalance, useReadContract } from 'wagmi'
-import { formatEther } from 'viem'
 import { toBigInt } from 'ethers'
 import { useEffect } from 'react'
-
-const abi = [
-  {
-    type: 'function',
-    name: 'balanceOf',
-    stateMutability: 'view',
-    inputs: [{ name: 'account', type: 'address' }],
-    outputs: [{ type: 'uint256' }],
-  },
-] as const
+import { formatBalance } from '@/utils/formatBalance'
+import { erc20Abi } from 'viem'
 
 interface TokenBalanceProps {
   readonly address: `0x${string}`
   readonly tokenAddress?: `0x${string}`
   readonly className?: string
   readonly toFixed?: number
-  readonly onBalanceChange?: ({
-    balance,
-    formattedBalance,
-  }: {
-    balance: bigint
-    formattedBalance: string | null
-  }) => void
-}
-
-const formatBalance = (balance: bigint, toFixed?: number) => {
-  if (!balance) return null
-  return parseFloat(formatEther(balance, 'wei')).toFixed(toFixed ?? 4)
+  readonly onBalanceChange?: ({ balance, formattedBalance }: { balance: bigint; formattedBalance?: string }) => void
 }
 
 export const TokenBalance = ({ address, tokenAddress, toFixed, onBalanceChange, className }: TokenBalanceProps) => {
   const ETHBalance = useBalance({ address })
+
   const tokenBalance = useReadContract({
-    abi,
+    abi: erc20Abi,
     address: tokenAddress,
     functionName: 'balanceOf',
     args: [address],
