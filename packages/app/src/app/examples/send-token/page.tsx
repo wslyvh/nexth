@@ -1,11 +1,13 @@
 'use client'
 import { useAccount, useBalance, useSimulateContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
-import { erc20Abi, formatEther, isAddress } from 'viem'
+import { erc20Abi, isAddress } from 'viem'
 import { useState, useEffect } from 'react'
 import { parseEther } from 'viem'
 import { useToast } from '@/context/Toaster'
 import Token from '@/assets/icons/token.png'
+import { TokenBalance } from '@/components/TokenBalance'
 import { TokenQuantityInput } from '@/components/TokenQuantityInput'
+import { formatBalance } from '@/utils/formatBalance'
 
 type Address = `0x${string}` | undefined
 
@@ -80,10 +82,6 @@ export default function SendToken() {
     }
   }, [txSuccess, txError])
 
-  const formatBalance = (balance: bigint) => {
-    return parseFloat(formatEther(balance, 'wei')).toFixed(4)
-  }
-
   return (
     <div className='flex-column align-center '>
       <h1 className='text-xl'>Send ERC-20 Token</h1>
@@ -135,9 +133,8 @@ export default function SendToken() {
                   <img className='opacity-25 ml-10' width={50} src={Token.src} alt='token' />
                 </div>
                 <div className='stat-title '>Your balance</div>
-
-                {balanceData ? (
-                  <div className='stat-value text-lg w-[150px]'>{formatBalance(balanceData.value)}</div>
+                {tokenAddress && address ? (
+                  <TokenBalance address={address} tokenAddress={tokenAddress} />
                 ) : (
                   <p>Please connect your wallet</p>
                 )}

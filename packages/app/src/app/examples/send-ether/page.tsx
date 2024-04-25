@@ -1,10 +1,12 @@
 'use client'
 import { useAccount, useBalance, useEstimateGas, useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
 import { useState, useEffect } from 'react'
-import { parseEther, formatEther, isAddress } from 'viem'
+import { parseEther, isAddress } from 'viem'
 import { useToast } from '@/context/Toaster'
 import Ethereum from '@/assets/icons/ethereum.png'
+import { TokenBalance } from '@/components/TokenBalance'
 import { TokenQuantityInput } from '@/components/TokenQuantityInput'
+import { formatBalance } from '@/utils/formatBalance'
 
 type Address = `0x${string}` | undefined
 
@@ -68,10 +70,6 @@ export default function SendEther() {
     }
   }, [txSuccess, txError])
 
-  const formatBalance = (balance: bigint) => {
-    return parseFloat(formatEther(balance, 'wei')).toFixed(4)
-  }
-
   return (
     <div className='flex-column align-center '>
       <h1 className='text-xl'>Send Ether</h1>
@@ -108,12 +106,7 @@ export default function SendEther() {
                 <img width={50} className='opacity-50 ml-10' src={Ethereum.src} alt='ethereum' />
               </div>
               <div className='stat-title '>Your balance</div>
-
-              {balance.data ? (
-                <div className='stat-value text-lg w-[150px]'>{formatBalance(balance.data!.value)}</div>
-              ) : (
-                <p>Please connect your wallet</p>
-              )}
+              {address ? <TokenBalance address={address} /> : <p>Please connect your wallet</p>}
             </div>
           </div>
           <button
