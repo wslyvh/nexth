@@ -43,7 +43,7 @@ export const TokenBalance = ({ address, tokenAddress, toFixed, onBalanceChange, 
   })
 
   useEffect(() => {
-    // pass the vaule of the balance to the parent component
+    // pass the value of the balance to the parent component on change
     if (tokenBalance.data && onBalanceChange) {
       onBalanceChange({ balance: tokenBalance.data, formattedBalance: formatBalance(tokenBalance.data, toFixed) })
       return
