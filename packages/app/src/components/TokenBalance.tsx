@@ -2,6 +2,7 @@
 import { useBalance, useReadContract } from 'wagmi'
 import { formatEther } from 'viem'
 import { toBigInt } from 'ethers'
+import { useEffect } from 'react'
 
 const abi = [
   {
@@ -18,9 +19,21 @@ interface TokenBalanceProps {
   readonly tokenAddress?: `0x${string}`
   readonly className?: string
   readonly toFixed?: number
+  readonly onBalanceChange?: ({
+    balance,
+    formattedBalance,
+  }: {
+    balance: bigint
+    formattedBalance: string | null
+  }) => void
 }
 
-export const TokenBalance = ({ address, tokenAddress, toFixed, className }: TokenBalanceProps) => {
+const formatBalance = (balance: bigint, toFixed?: number) => {
+  if (!balance) return null
+  return parseFloat(formatEther(balance, 'wei')).toFixed(toFixed ?? 4)
+}
+
+export const TokenBalance = ({ address, tokenAddress, toFixed, onBalanceChange, className }: TokenBalanceProps) => {
   const ETHBalance = useBalance({ address })
   const tokenBalance = useReadContract({
     abi,
@@ -29,21 +42,29 @@ export const TokenBalance = ({ address, tokenAddress, toFixed, className }: Toke
     args: [address],
   })
 
-  const formatBalance = (balance: bigint) => {
-    if (!balance) return null
-    return parseFloat(formatEther(balance, 'wei')).toFixed(toFixed ?? 4)
-  }
+  useEffect(() => {
+    // pass the vaule of the balance to the parent component
+    if (tokenBalance.data && onBalanceChange) {
+      onBalanceChange({ balance: tokenBalance.data, formattedBalance: formatBalance(tokenBalance.data, toFixed) })
+      return
+    } else if (ETHBalance.data && onBalanceChange) {
+      onBalanceChange({
+        balance: ETHBalance.data.value,
+        formattedBalance: formatBalance(ETHBalance.data.value, toFixed),
+      })
+      return
+    }
+  }, [ETHBalance.data, tokenBalance.data, onBalanceChange, toFixed])
+
   if (!ETHBalance.data && !tokenBalance.data) return null
-  if (tokenAddress) {
+  if (tokenAddress && tokenBalance.data) {
     return (
-      <div className={`stat-value text-lg w-[150px] ${className}`}>
-        {tokenBalance.data ? formatBalance(tokenBalance.data) : 0}
-      </div>
+      <div className={`stat-value text-lg w-[150px] ${className}`}>{formatBalance(tokenBalance.data, toFixed)}</div>
     )
   }
   return (
     <div className={`stat-value text-lg w-[150px] ${className}`}>
-      {formatBalance(ETHBalance.data?.value ?? toBigInt(0))}
+      {formatBalance(ETHBalance.data?.value ?? toBigInt(0), toFixed)}
     </div>
   )
 }
