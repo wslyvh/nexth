@@ -6,6 +6,7 @@ import { parseEther } from 'viem'
 import { useToast } from '@/context/Toaster'
 import Token from '@/assets/icons/token.png'
 import { AddressInput } from '@/components/AddressInput'
+import { TokenQuantityInput } from '@/components/TokenQuantityInput'
 
 type Address = `0x${string}` | undefined
 
@@ -122,12 +123,10 @@ export default function SendToken() {
               <div className='label'>
                 <span className='label-text'>Number of tokens to send</span>
               </div>
-              <input
-                type='text'
-                placeholder='0.01'
-                value={amount}
-                className='input input-bordered w-full max-w-xs'
-                onChange={(e) => setAmount(e.target.value)}
+              <TokenQuantityInput
+                onChange={setAmount}
+                quantity={amount}
+                maxValue={formatBalance(balanceData?.value ?? BigInt(0))}
               />
             </label>
           </div>
