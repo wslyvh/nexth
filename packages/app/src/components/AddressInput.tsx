@@ -1,47 +1,23 @@
 'use client'
 import { useState } from 'react'
 import { isAddress } from 'viem'
-import { normalize } from 'viem/ens'
-import { mainnet, sepolia } from 'wagmi/chains'
-import { createConfig, useEnsAddress, http, useEnsAvatar } from 'wagmi'
 import Image from 'next/image'
+import useEnsProfile from '@/app/hooks/useEnsProfile'
 
 interface AddressInputProps extends React.HTMLProps<HTMLInputElement> {
   onRecipientChange: (address: string, isValid: boolean) => void
   onRawInputChange?: (address: string) => void
 }
-// wagmi config
-export const config = createConfig({
-  chains: [mainnet, sepolia],
-  transports: {
-    [mainnet.id]: http(),
-    [sepolia.id]: http(),
-  },
-})
 
 function truncateAddress(address: string) {
+  if (!address) return ''
   return `${address.slice(0, 9)}...${address.slice(-9)}`
 }
 
 export const AddressInput = ({ onRecipientChange, onRawInputChange }: AddressInputProps) => {
   const [isValidToAddress, setIsValidToAddress] = useState<boolean>(false)
   const [rawTokenAddress, setRawTokenAddress] = useState<string>('')
-  let name
-
-  try {
-    name = normalize(rawTokenAddress)
-  } catch (e) {
-    console.error(e)
-  }
-  const { data: ensAddy } = useEnsAddress({
-    name: name,
-    config: config,
-  })
-
-  const { data: ensAvatar } = useEnsAvatar({
-    name: name,
-    config: config,
-  })
+  const { ensAddress: ensAddy, ensAvatar } = useEnsProfile({ ensName: rawTokenAddress })
 
   // Handle input change for recipient address
   const handleToAdressInput = (_to: string) => {
