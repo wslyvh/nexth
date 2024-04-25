@@ -7,6 +7,7 @@ import { useToast } from '@/context/Toaster'
 import Token from '@/assets/icons/token.png'
 import { TokenBalance } from '@/components/TokenBalance'
 import { TokenQuantityInput } from '@/components/TokenQuantityInput'
+import { formatBalance } from '@/utils/formatBalance'
 
 type Address = `0x${string}` | undefined
 

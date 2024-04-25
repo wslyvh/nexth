@@ -6,6 +6,7 @@ import { useToast } from '@/context/Toaster'
 import Ethereum from '@/assets/icons/ethereum.png'
 import { TokenBalance } from '@/components/TokenBalance'
 import { TokenQuantityInput } from '@/components/TokenQuantityInput'
+import { formatBalance } from '@/utils/formatBalance'
 
 type Address = `0x${string}` | undefined
 
