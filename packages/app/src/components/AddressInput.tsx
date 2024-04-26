@@ -3,18 +3,15 @@ import { useState } from 'react'
 import { isAddress } from 'viem'
 import Image from 'next/image'
 import useEnsProfile from '@/app/hooks/useEnsProfile'
+import { truncateAddress } from '../utils/helpers/formatTools'
 
 interface AddressInputProps extends React.HTMLProps<HTMLInputElement> {
   onRecipientChange: (address: string, isValid: boolean) => void
   onRawInputChange?: (address: string) => void
+  disabled?: boolean
 }
 
-function truncateAddress(address: string) {
-  if (!address) return ''
-  return `${address.slice(0, 9)}...${address.slice(-9)}`
-}
-
-export const AddressInput = ({ onRecipientChange, onRawInputChange }: AddressInputProps) => {
+export const AddressInput = ({ onRecipientChange, onRawInputChange, disabled = false }: AddressInputProps) => {
   const [isValidToAddress, setIsValidToAddress] = useState<boolean>(false)
   const [rawTokenAddress, setRawTokenAddress] = useState<string>('')
   const { ensAddress: ensAddy, ensAvatar } = useEnsProfile({ ensName: rawTokenAddress })
@@ -40,6 +37,7 @@ export const AddressInput = ({ onRecipientChange, onRawInputChange }: AddressInp
       <input
         type='text'
         placeholder='0x...'
+        disabled={disabled}
         className={`input input-bordered relative z-40 w-full min-h-12 max-w-xs ${!isValidToAddress && rawTokenAddress && !ensAddy ? 'input-error' : isValidToAddress ? 'input-success' : ''}`}
         value={rawTokenAddress}
         onChange={(e) => handleToAdressInput(e.target.value)}
