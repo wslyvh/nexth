@@ -3,7 +3,7 @@ import { useAccount, useBalance, useSimulateContract, useWriteContract, useWaitF
 import { erc20Abi, isAddress } from 'viem'
 import { useState, useEffect } from 'react'
 import { parseEther } from 'viem'
-import { useToast } from '@/context/Toaster'
+import { useNotifications } from '@/context/Notifications'
 import Token from '@/assets/icons/token.png'
 import { TokenBalance } from '@/components/TokenBalance'
 import { TokenQuantityInput } from '@/components/TokenQuantityInput'
@@ -18,7 +18,7 @@ export default function SendToken() {
   const [isValidTokenAddress, setIsValidTokenAddress] = useState<boolean>(false)
   const [isValidToAddress, setIsValidToAddress] = useState<boolean>(false)
 
-  const { showToast } = useToast()
+  const { Add } = useNotifications()
 
   const { address } = useAccount()
   const { data: balanceData } = useBalance({
@@ -45,7 +45,7 @@ export default function SendToken() {
 
   const handleSendTransation = () => {
     if (estimateError) {
-      showToast(`Transaction failed: ${estimateError.cause}`, {
+      Add(`Transaction failed: ${estimateError.cause}`, {
         type: 'error',
       })
       return
@@ -72,11 +72,11 @@ export default function SendToken() {
 
   useEffect(() => {
     if (txSuccess) {
-      showToast(`Transaction successful`, {
+      Add(`Transaction successful`, {
         type: 'success',
       })
     } else if (txError) {
-      showToast(`Transaction failed: ${txError.cause}`, {
+      Add(`Transaction failed: ${txError.cause}`, {
         type: 'error',
       })
     }

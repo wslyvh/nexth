@@ -1,0 +1,8 @@
+:root {
+  --toastify-color-info: oklch(var(--in));
+  --toastify-color-success: oklch(var(--su));
+  --toastify-color-warning: oklch(var(--wa));
+  --toastify-color-error: oklch(var(--er));
+
+  --toastify-toast-width: 24rem;
+}

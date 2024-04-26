@@ -2,7 +2,7 @@
 import { useAccount, useBalance, useEstimateGas, useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
 import { useState, useEffect } from 'react'
 import { parseEther, isAddress } from 'viem'
-import { useToast } from '@/context/Toaster'
+import { useNotifications } from '@/context/Notifications'
 import Ethereum from '@/assets/icons/ethereum.png'
 import { TokenBalance } from '@/components/TokenBalance'
 import { TokenQuantityInput } from '@/components/TokenQuantityInput'
@@ -15,7 +15,7 @@ export default function SendEther() {
   const [isValidToAddress, setIsValidToAddress] = useState<boolean>(false)
   const [amount, setAmount] = useState('0.01')
 
-  const { showToast } = useToast()
+  const { Add } = useNotifications()
 
   const { address } = useAccount()
   const balance = useBalance({
@@ -39,7 +39,7 @@ export default function SendEther() {
 
   const handleSendTransation = () => {
     if (estimateError) {
-      showToast(`Transaction failed: ${estimateError.cause}`, {
+      Add(`Transaction failed: ${estimateError.cause}`, {
         type: 'error',
       })
       return
@@ -59,12 +59,12 @@ export default function SendEther() {
 
   useEffect(() => {
     if (txSuccess) {
-      showToast(`Transaction successful`, {
+      Add(`Transaction successful`, {
         type: 'success',
       })
       balance.refetch()
     } else if (txError) {
-      showToast(`Transaction failed: ${txError.cause}`, {
+      Add(`Transaction failed: ${txError.cause}`, {
         type: 'error',
       })
     }
