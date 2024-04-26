@@ -17,7 +17,7 @@ export default function SendEther() {
 
   const { Add } = useNotifications()
 
-  const { address } = useAccount()
+  const { address, chain } = useAccount()
   const balance = useBalance({
     address,
   })
@@ -61,6 +61,7 @@ export default function SendEther() {
     if (txSuccess) {
       Add(`Transaction successful`, {
         type: 'success',
+        href: chain?.blockExplorers?.default.url ? `${chain.blockExplorers.default.url}/tx/${data}` : undefined,
       })
       balance.refetch()
     } else if (txError) {

@@ -20,7 +20,7 @@ export default function SendToken() {
 
   const { Add } = useNotifications()
 
-  const { address } = useAccount()
+  const { address, chain } = useAccount()
   const { data: balanceData } = useBalance({
     token: isValidTokenAddress ? tokenAddress : undefined,
     address,
@@ -74,6 +74,7 @@ export default function SendToken() {
     if (txSuccess) {
       Add(`Transaction successful`, {
         type: 'success',
+        href: chain?.blockExplorers?.default.url ? `${chain.blockExplorers.default.url}/tx/${data}` : undefined,
       })
     } else if (txError) {
       Add(`Transaction failed: ${txError.cause}`, {
