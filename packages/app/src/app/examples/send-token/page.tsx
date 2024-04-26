@@ -1,11 +1,13 @@
 'use client'
 import { useAccount, useBalance, useSimulateContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
-import { erc20Abi, formatEther, isAddress } from 'viem'
+import { erc20Abi, isAddress } from 'viem'
 import { useState, useEffect } from 'react'
 import { parseEther } from 'viem'
-import { useToast } from '@/context/Toaster'
+import { useNotifications } from '@/context/Notifications'
 import Token from '@/assets/icons/token.png'
+import { TokenBalance } from '@/components/TokenBalance'
 import { TokenQuantityInput } from '@/components/TokenQuantityInput'
+import { formatBalance } from '@/utils/formatBalance'
 
 type Address = `0x${string}` | undefined
 
@@ -16,9 +18,9 @@ export default function SendToken() {
   const [isValidTokenAddress, setIsValidTokenAddress] = useState<boolean>(false)
   const [isValidToAddress, setIsValidToAddress] = useState<boolean>(false)
 
-  const { showToast } = useToast()
+  const { Add } = useNotifications()
 
-  const { address } = useAccount()
+  const { address, chain } = useAccount()
   const { data: balanceData } = useBalance({
     token: isValidTokenAddress ? tokenAddress : undefined,
     address,
@@ -43,7 +45,7 @@ export default function SendToken() {
 
   const handleSendTransation = () => {
     if (estimateError) {
-      showToast(`Transaction failed: ${estimateError.cause}`, {
+      Add(`Transaction failed: ${estimateError.cause}`, {
         type: 'error',
       })
       return
@@ -70,19 +72,16 @@ export default function SendToken() {
 
   useEffect(() => {
     if (txSuccess) {
-      showToast(`Transaction successful`, {
+      Add(`Transaction successful`, {
         type: 'success',
+        href: chain?.blockExplorers?.default.url ? `${chain.blockExplorers.default.url}/tx/${data}` : undefined,
       })
     } else if (txError) {
-      showToast(`Transaction failed: ${txError.cause}`, {
+      Add(`Transaction failed: ${txError.cause}`, {
         type: 'error',
       })
     }
   }, [txSuccess, txError])
-
-  const formatBalance = (balance: bigint) => {
-    return parseFloat(formatEther(balance, 'wei')).toFixed(4)
-  }
 
   return (
     <div className='flex-column align-center '>
@@ -135,9 +134,8 @@ export default function SendToken() {
                   <img className='opacity-25 ml-10' width={50} src={Token.src} alt='token' />
                 </div>
                 <div className='stat-title '>Your balance</div>
-
-                {balanceData ? (
-                  <div className='stat-value text-lg w-[150px]'>{formatBalance(balanceData.value)}</div>
+                {tokenAddress && address ? (
+                  <TokenBalance address={address} tokenAddress={tokenAddress} />
                 ) : (
                   <p>Please connect your wallet</p>
                 )}
