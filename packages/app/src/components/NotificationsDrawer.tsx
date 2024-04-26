@@ -40,8 +40,9 @@ export function NotificationsDrawer() {
           </div>
           {notifications.length > 0 && (
             <div className='flex flex-col gap-2'>
-              {notifications.map((notification) => (
+              {notifications.map((notification, index) => (
                 <Alert
+                  key={`notification_${index}_${notification.timestamp}`}
                   type={notification.type}
                   message={notification.message}
                   href={notification.href}
