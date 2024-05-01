@@ -31,7 +31,4 @@ export const WALLETCONNECT_CONFIG = defaultWagmiConfig({
   storage: createStorage({
     storage: cookieStorage,
   }),
-  transports: {
-    [baseSepolia.id]: http(),
-  },
 })
