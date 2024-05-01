@@ -1,15 +1,15 @@
 'use client'
+import { nexthFtAbi } from '@/abis'
 import { useSWWriteContracts } from '@/app/hooks/useSWWriteContract'
 import useWalletCapabilities from '@/app/hooks/useWalletCapabilities'
 import React from 'react'
-import { erc721Abi } from 'viem'
 import { useAccount, useConnect, useDisconnect } from 'wagmi'
 
 export default function SmartWallet() {
   const account = useAccount()
   const { connectors, connect, status, error } = useConnect()
   const { disconnect } = useDisconnect()
-  const { capabilities } = useWalletCapabilities({ chainId: account.chainId })
+  const { capabilities } = useWalletCapabilities({ chainId: 84532 })
   const { id, writeContracts } = useSWWriteContracts()
 
   const coinbaseConnector = connectors.find((connector) => connector.name === 'Coinbase Wallet') ?? connectors[0]
@@ -30,11 +30,39 @@ export default function SmartWallet() {
               </>
             ) : null}
           </div>
-
-          {account.status === 'connected' && (
-            <button className='btn btn-outline btn-wide' type='button' onClick={() => disconnect()}>
-              Disconnect
-            </button>
+          {account.address && (
+            <div className='flex flex-col gap-2'>
+              <h1 className='text-xl'>Transact</h1>
+              <div>
+                <button
+                  className='btn btn-outline btn-wide'
+                  onClick={() =>
+                    writeContracts({
+                      contracts: [
+                        {
+                          address: '0x119Ea671030FBf79AB93b436D2E20af6ea469a19',
+                          abi: nexthFtAbi,
+                          functionName: 'safeMint',
+                          args: [account.address],
+                        },
+                        {
+                          address: '0x119Ea671030FBf79AB93b436D2E20af6ea469a19',
+                          abi: nexthFtAbi,
+                          functionName: 'safeMint',
+                          args: [account.address],
+                        },
+                      ],
+                    })
+                  }>
+                  Mint
+                </button>
+                {id && (
+                  <div className='max-w-80'>
+                    <p className='w-full whitespace-pre-wrap'> ID: {id}</p>
+                  </div>
+                )}
+              </div>
+            </div>
           )}
         </div>
 
@@ -51,38 +79,13 @@ export default function SmartWallet() {
 
           <div>{status}</div>
           <div>{error?.message}</div>
+          {account.status === 'connected' && (
+            <button className='btn btn-outline btn-wide' type='button' onClick={() => disconnect()}>
+              Disconnect
+            </button>
+          )}
         </div>
       </div>
-      {account.address && (
-        <div className='flex flex-col gap-2'>
-          <h1 className='text-xl'>Transact</h1>
-          <div>
-            <button
-              className='btn btn-outline btn-wide'
-              onClick={() =>
-                writeContracts({
-                  contracts: [
-                    {
-                      address: '0x119Ea671030FBf79AB93b436D2E20af6ea469a19',
-                      abi: erc721Abi,
-                      functionName: 'safeMint',
-                      args: [account.address],
-                    },
-                    {
-                      address: '0x119Ea671030FBf79AB93b436D2E20af6ea469a19',
-                      abi: erc721Abi,
-                      functionName: 'safeMint',
-                      args: [account.address],
-                    },
-                  ],
-                })
-              }>
-              Mint
-            </button>
-            {id && <div> ID: {id}</div>}
-          </div>
-        </div>
-      )}
     </>
   )
 }
