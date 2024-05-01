@@ -45,7 +45,7 @@ export const TokenBalance = ({ address, tokenAddress, toFixed, onBalanceChange, 
   }
   return (
     <div className={`stat-value text-lg w-[150px] ${className}`}>
-      {formatBalance(ETHBalance.data?.value ?? toBigInt(0), toFixed)}
+      {formatBalance(ETHBalance.data?.value ?? toBigInt(0), toFixed) ?? '0.00'}
     </div>
   )
 }
