@@ -12,13 +12,17 @@ export default function SmartWallet() {
   const { capabilities } = useWalletCapabilities({ chainId: 84532 })
   const { id, writeContracts } = useSWWriteContracts()
 
-  const coinbaseConnector = connectors.find((connector) => connector.name === 'Coinbase Wallet') ?? connectors[0]
   return (
     <>
       <div className='flex flex-col sm:flex-row justify-between gap-8'>
         <div className='flex-col flex gap-8 justify-between h-full align-center '>
           <h1 className='text-xl'>Smart wallet demo</h1>
-
+          <div className='flex flex-col gap-2 align-self-end'>
+            <p className='label-text max-w-60'>
+              Click &apos; connect &apos; and select the &apos;Coinbase Wallet&apos; to demo the smart wallet
+              capabilities
+            </p>
+          </div>
           <div className='flex flex-col gap-2 justify-between h-full'>
             <p>status: {account.status}</p>
 
@@ -57,32 +61,12 @@ export default function SmartWallet() {
                   Mint
                 </button>
                 {id && (
-                  <div className='max-w-80'>
+                  <div className='max-w-full'>
                     <p className='w-full whitespace-pre-wrap'> ID: {id}</p>
                   </div>
                 )}
               </div>
             </div>
-          )}
-        </div>
-
-        <div className='flex flex-col gap-2'>
-          <h1 className='text-xl'>Connect</h1>
-
-          <button
-            className='btn btn-primary btn-wide'
-            key={coinbaseConnector.uid}
-            onClick={() => connect({ connector: coinbaseConnector })}
-            type='button'>
-            {coinbaseConnector.name}
-          </button>
-
-          <div>{status}</div>
-          <div>{error?.message}</div>
-          {account.status === 'connected' && (
-            <button className='btn btn-outline btn-wide' type='button' onClick={() => disconnect()}>
-              Disconnect
-            </button>
           )}
         </div>
       </div>
