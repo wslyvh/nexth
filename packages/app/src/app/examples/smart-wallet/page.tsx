@@ -3,12 +3,10 @@ import { nexthFtAbi } from '@/abis'
 import { useSWWriteContracts } from '@/app/hooks/useSWWriteContract'
 import useWalletCapabilities from '@/app/hooks/useWalletCapabilities'
 import React from 'react'
-import { useAccount, useConnect, useDisconnect } from 'wagmi'
+import { useAccount } from 'wagmi'
 
 export default function SmartWallet() {
   const account = useAccount()
-  const { connectors, connect, status, error } = useConnect()
-  const { disconnect } = useDisconnect()
   const { capabilities } = useWalletCapabilities({ chainId: 84532 })
   const { id, writeContracts } = useSWWriteContracts()
 
@@ -35,9 +33,13 @@ export default function SmartWallet() {
             ) : null}
           </div>
           {account.address && (
-            <div className='flex flex-col gap-2'>
+            <div className='flex flex-col gap-4'>
               <h1 className='text-xl'>Transact</h1>
-              <div>
+              <div className='flex-flex-col space-y-4'>
+                <p className='label-text max-w-60'>
+                  This transaction demonstrates the smart wallet multicall capabilities. It will mint 2 NFT tokens to
+                  your address using a multicall transaction.
+                </p>
                 <button
                   className='btn btn-outline btn-wide'
                   onClick={() =>
@@ -68,6 +70,18 @@ export default function SmartWallet() {
               </div>
             </div>
           )}
+        </div>
+
+        <div className='flex flex-col gap-4 justify-between h-full'>
+          <h1 className='text-xl'>Links:</h1>
+          <ol className='flex flex-col gap-4'>
+            <a className='link link-primary  btn-wide' href='https://github.com/coinbase/smart-wallet'>
+              <li>Coinbase Smart Wallet Github</li>
+            </a>
+            <a className='link link-primary  btn-wide' href='https://docs.cloud.coinbase.com/wallet-sdk/docs/sw-setup'>
+              <li>Coinbase Smart Wallet Documentation</li>
+            </a>
+          </ol>
         </div>
       </div>
     </>
