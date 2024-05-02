@@ -1,9 +1,10 @@
-import { WriteContractsParameters } from 'viem/experimental'
-import { useEIP5792WalletClient } from './useEIP5792WalletClient'
+import { WriteContractsParameters, walletActionsEip5792 } from 'viem/experimental'
 import { useState } from 'react'
+import { useWalletClient } from 'wagmi'
+import { writeContracts as writeContractsExperimental } from 'viem/experimental'
 
 export function useSWWriteContracts() {
-  const { data: walletClient } = useEIP5792WalletClient()
+  const { data: walletClient } = useWalletClient()
   const [id, setId] = useState<string | undefined>(undefined)
 
   const writeContracts = (parameters: Omit<WriteContractsParameters, 'account' | 'chain'>) => {
@@ -11,15 +12,13 @@ export function useSWWriteContracts() {
       throw new Error('Wallet client not available')
     }
     // TODO better types on useEIP5792WalletClient should give us account and chain "for free"
-    walletClient
-      .writeContracts({
-        account: walletClient.account,
-        chain: walletClient.chain,
-        ...parameters,
-      })
-      .then((id) => {
-        setId(id)
-      })
+    writeContractsExperimental(walletClient.extend(walletActionsEip5792()), {
+      account: walletClient.account,
+      chain: walletClient.chain,
+      ...parameters,
+    }).then((id) => {
+      setId(id)
+    })
   }
 
   return { id, writeContracts }

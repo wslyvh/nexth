@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react'
 import { WalletCapabilities } from 'viem'
-import { useEIP5792WalletClient } from './useEIP5792WalletClient'
+import { getCapabilities, walletActionsEip5792 } from 'viem/experimental'
+import { useWalletClient } from 'wagmi'
 
 function useWalletCapabilities({ chainId }: { chainId?: number }) {
-  const { data: walletClient } = useEIP5792WalletClient()
+  const { data: walletClient } = useWalletClient()
   const [capabilities, setCapabilities] = useState<{ [chainId: number]: WalletCapabilities }>({})
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (walletClient) {
-      walletClient
-        .getCapabilities()
+      getCapabilities((walletClient as any).extend(walletActionsEip5792()), {
+        account: walletClient.account,
+      })
         .then((capabilities) => {
           setCapabilities(capabilities)
           setLoading(false)
