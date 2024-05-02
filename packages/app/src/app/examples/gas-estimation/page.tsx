@@ -1,55 +1,50 @@
 'use client'
-import { useAccount, useBalance, useEstimateGas, useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
+
+import { useAccount, useBalance, useEstimateGas } from 'wagmi'
 import { useState, useEffect } from 'react'
-import { parseEther, isAddress } from 'viem'
-import { useNotifications } from '@/context/Notifications'
+import { parseEther, isAddress, parseGwei } from 'viem'
 import Ethereum from '@/assets/icons/ethereum.png'
+import { useNotifications } from '@/context/Notifications'
+import { formatBalance } from '@/utils/formatBalance'
 import { TokenBalance } from '@/components/TokenBalance'
 import { TokenQuantityInput } from '@/components/TokenQuantityInput'
-import { formatBalance } from '@/utils/formatBalance'
 import { BackLinkComponent } from '@/components/BackLinkComponent'
 
 type Address = `0x${string}` | undefined
 
-export default function SendEther() {
+export default function GasEstimation() {
   const [to, setTo] = useState<Address>(undefined)
   const [isValidToAddress, setIsValidToAddress] = useState<boolean>(false)
   const [amount, setAmount] = useState('0.01')
+  const [gasPrice, setGasPrice] = useState('20')
+  const [estimatedGas, setEstimatedGas] = useState<bigint | undefined>(undefined)
 
   const { Add } = useNotifications()
 
-  const { address, chain } = useAccount()
+  const { address } = useAccount()
+
   const balance = useBalance({
     address,
   })
 
-  const { data: estimateData, error: estimateError } = useEstimateGas({
+  const {
+    data: estimateGasData,
+    error: estimateGasError,
+    isLoading,
+    isSuccess: estimateGasSuccess,
+  } = useEstimateGas({
     to: isValidToAddress ? (to as Address) : undefined,
     value: parseEther(amount),
+    maxFeePerGas: parseGwei(gasPrice),
+    // gasPrice: parseGwei(gasPrice),
   })
 
-  const { data, sendTransaction } = useSendTransaction()
-
-  const {
-    isLoading,
-    error: txError,
-    isSuccess: txSuccess,
-  } = useWaitForTransactionReceipt({
-    hash: data,
-  })
-
-  const handleSendTransation = () => {
-    if (estimateError) {
-      Add(`Transaction failed: ${estimateError.cause}`, {
-        type: 'error',
-      })
-      return
+  const estimateGas = async () => {
+    try {
+      setEstimatedGas(estimateGasData)
+    } catch (error) {
+      console.error('Error estimating gas:', error)
     }
-    sendTransaction({
-      gas: estimateData,
-      value: parseEther(amount),
-      to: (to as Address)!,
-    })
   }
 
   const handleToAdressInput = (to: string) => {
@@ -59,24 +54,23 @@ export default function SendEther() {
   }
 
   useEffect(() => {
-    if (txSuccess) {
-      Add(`Transaction successful`, {
+    if (estimateGasSuccess) {
+      Add(`Gas Estimated successful`, {
         type: 'success',
-        href: chain?.blockExplorers?.default.url ? `${chain.blockExplorers.default.url}/tx/${data}` : undefined,
       })
       balance.refetch()
-    } else if (txError) {
-      Add(`Transaction failed: ${txError.cause}`, {
+    } else if (estimateGasError) {
+      Add(`Gas Estimated failed: ${estimateGasError.cause}`, {
         type: 'error',
       })
     }
-  }, [txSuccess, txError])
+  }, [estimateGasSuccess, estimateGasError])
 
   return (
     <>
       <BackLinkComponent />
       <div className='flex-column align-center '>
-        <h1 className='text-xl'>Send Ether</h1>
+        <h1 className='text-xl'>Gas Estimation Tool</h1>
         <div className='flex align-end grid md:grid-cols-1 lg:grid-cols-2 gap-4 '>
           <div className='flex-col m-2 '>
             <label className='form-control w-full max-w-xs'>
@@ -94,7 +88,7 @@ export default function SendEther() {
             </label>
             <label className='form-control w-full max-w-xs'>
               <div className='label'>
-                <span className='label-text'>Number of ethers to send</span>
+                <span className='label-text'>Amount (ETH)</span>
               </div>
               <TokenQuantityInput
                 onChange={setAmount}
@@ -102,7 +96,19 @@ export default function SendEther() {
                 maxValue={formatBalance(balance?.data?.value ?? BigInt(0))}
               />
             </label>
+            <label className='form-control w-full max-w-xs'>
+              <div className='label'>
+                <span className='label-text'>Gas Price (Gwei)</span>
+              </div>
+              <input
+                type='text'
+                className={`input input-bordered w-full max-w-xs`}
+                value={gasPrice}
+                onChange={(e) => setGasPrice(e.target.value)}
+              />
+            </label>
           </div>
+
           <div className='flex-col justify-end m-2'>
             <div className='stats shadow join-item mb-2 bg-[#282c33]'>
               <div className='stat '>
@@ -114,11 +120,15 @@ export default function SendEther() {
               </div>
             </div>
             <button
+              onClick={estimateGas}
               className='btn btn-wide w-[100%] '
-              onClick={handleSendTransation}
-              disabled={!isValidToAddress || !address || Boolean(estimateError) || amount === ''}>
-              {isLoading ? <span className='loading loading-dots loading-sm'></span> : 'Send ethers'}
+              disabled={!isValidToAddress || !address || Boolean(estimateGasError) || amount === ''}>
+              {isLoading ? <span className='loading loading-dots loading-sm'></span> : 'Estimate Gas'}
             </button>
+
+            {estimatedGas !== undefined && (
+              <p className='mt-4 text-lg'>Estimated Gas Cost: {estimatedGas.toString()}</p>
+            )}
           </div>
         </div>
       </div>

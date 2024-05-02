@@ -1,5 +1,6 @@
 import EtherIcon from '@/assets/icons/ethereum.png'
 import NotificationIcon from '@/assets/icons/notification.png'
+import GasIcon from '@/assets/icons/gas.png'
 import TokenIcon from '@/assets/icons/token.png'
 
 export const EXAMPLE_ITEMS = [
@@ -18,8 +19,14 @@ export const EXAMPLE_ITEMS = [
   },
   {
     title: 'Notifications',
-    description: 'This example is demonstrates how to use the notification system within Nexth.',
+    description: 'This example demonstrates how to use the notification system within Nexth.',
     image: NotificationIcon.src,
     url: '/examples/notifications',
+  },
+  {
+    title: 'Gas Estimation',
+    description: 'This example demonstrates way to estimate the gas cost of Ethereum transactions before execution.',
+    image: GasIcon.src,
+    url: '/examples/gas-estimation',
   },
 ]
