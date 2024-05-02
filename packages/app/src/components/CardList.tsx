@@ -25,7 +25,7 @@ export function CardList(props: Props) {
       <div className='flex flex-col gap-4'>
         {props.items.map((i, index) => {
           return (
-            <div key={`${index}_${i.title}`} className='flex flex-row rounded-xl bg-base-200'>
+            <div key={`${index}_${i.title}`} className='flex flex-row rounded-xl bg-base-200 px-4'>
               <div className='flex items-center justify-center shrink-0'>
                 <figure>
                   <Image

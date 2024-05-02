@@ -1,7 +1,7 @@
 import EtherIcon from '@/assets/icons/ethereum.png'
 import NotificationIcon from '@/assets/icons/notification.png'
 import TokenIcon from '@/assets/icons/token.png'
-
+import AuthIcon from '@/assets/icons/auth.png'
 export const EXAMPLE_ITEMS = [
   {
     title: 'Send Ether',
@@ -21,5 +21,11 @@ export const EXAMPLE_ITEMS = [
     description: 'This example is demonstrates how to use the notification system within Nexth.',
     image: NotificationIcon.src,
     url: '/examples/notifications',
+  },
+  {
+    title: 'Smart Wallet',
+    description: 'This example is demonstrates how to use the Coinbase Smart Wallet within Nexth.',
+    image: AuthIcon.src,
+    url: '/examples/smart-wallet',
   },
 ]
