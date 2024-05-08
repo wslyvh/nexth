@@ -8,7 +8,6 @@ import Token from '@/assets/icons/token.png'
 import { TokenBalance } from '@/components/TokenBalance'
 import { TokenQuantityInput } from '@/components/TokenQuantityInput'
 import { formatBalance } from '@/utils/formatBalance'
-import { BackLinkComponent } from '@/components/BackLinkComponent'
 
 type Address = `0x${string}` | undefined
 
@@ -85,75 +84,72 @@ export default function SendToken() {
   }, [txSuccess, txError])
 
   return (
-    <>
-      <BackLinkComponent />
-      <div className='flex-column align-center '>
-        <h1 className='text-xl'>Send ERC-20 Token</h1>
-        <label className='form-control w-full mt-10'>
-          <div className='label'>
-            <span className='label-text'>ERC-20 Token address</span>
-          </div>
-          <input
-            type='text'
-            placeholder='0x...'
-            className={`input input-bordered w-full ${
-              !isValidTokenAddress && tokenAddress != undefined ? 'input-error' : ''
-            }`}
-            onChange={(e) => handleTokenAddressInput(e.target.value)}
-          />
-        </label>
+    <div className='flex-column align-center '>
+      <h1 className='text-xl'>Send ERC-20 Token</h1>
+      <label className='form-control w-full mt-10'>
+        <div className='label'>
+          <span className='label-text'>ERC-20 Token address</span>
+        </div>
+        <input
+          type='text'
+          placeholder='0x...'
+          className={`input input-bordered w-full ${
+            !isValidTokenAddress && tokenAddress != undefined ? 'input-error' : ''
+          }`}
+          onChange={(e) => handleTokenAddressInput(e.target.value)}
+        />
+      </label>
 
-        {isValidTokenAddress && balanceData && (
-          <div className='flex align-end grid md:grid-cols-1 lg:grid-cols-2 gap-4 mt-10'>
-            <div className='flex-col m-2 '>
-              <label className='form-control w-full max-w-xs'>
-                <div className='label'>
-                  <span className='label-text'>Recipient address</span>
-                </div>
-                <input
-                  type='text'
-                  placeholder='0x...'
-                  className={`input input-bordered w-full max-w-xs ${
-                    !isValidToAddress && to != undefined ? 'input-error' : ''
-                  }`}
-                  onChange={(e) => handleToAdressInput(e.target.value)}
-                />
-              </label>
-              <label className='form-control w-full max-w-xs'>
-                <div className='label'>
-                  <span className='label-text'>Number of tokens to send</span>
-                </div>
-                <TokenQuantityInput
-                  onChange={setAmount}
-                  quantity={amount}
-                  maxValue={formatBalance(balanceData?.value ?? BigInt(0))}
-                />
-              </label>
-            </div>
-            <div className='flex-col justify-end m-2'>
-              <div className='stats shadow join-item mb-2 bg-[#282c33]'>
-                <div className='stat '>
-                  <div className='stat-figure text-secondary'>
-                    <img className='opacity-25 ml-10' width={50} src={Token.src} alt='token' />
-                  </div>
-                  <div className='stat-title '>Your balance</div>
-                  {tokenAddress && address ? (
-                    <TokenBalance address={address} tokenAddress={tokenAddress} />
-                  ) : (
-                    <p>Please connect your wallet</p>
-                  )}
-                </div>
+      {isValidTokenAddress && balanceData && (
+        <div className='flex align-end grid md:grid-cols-1 lg:grid-cols-2 gap-4 mt-10'>
+          <div className='flex-col m-2 '>
+            <label className='form-control w-full max-w-xs'>
+              <div className='label'>
+                <span className='label-text'>Recipient address</span>
               </div>
-              <button
-                className='btn btn-wide w-[100%] '
-                onClick={handleSendTransation}
-                disabled={!isValidToAddress || !address || Boolean(estimateError) || amount === ''}>
-                {isLoading ? <span className='loading loading-dots loading-sm'></span> : 'Send ethers'}
-              </button>
-            </div>
+              <input
+                type='text'
+                placeholder='0x...'
+                className={`input input-bordered w-full max-w-xs ${
+                  !isValidToAddress && to != undefined ? 'input-error' : ''
+                }`}
+                onChange={(e) => handleToAdressInput(e.target.value)}
+              />
+            </label>
+            <label className='form-control w-full max-w-xs'>
+              <div className='label'>
+                <span className='label-text'>Number of tokens to send</span>
+              </div>
+              <TokenQuantityInput
+                onChange={setAmount}
+                quantity={amount}
+                maxValue={formatBalance(balanceData?.value ?? BigInt(0))}
+              />
+            </label>
           </div>
-        )}
-      </div>
-    </>
+          <div className='flex-col justify-end m-2'>
+            <div className='stats shadow join-item mb-2 bg-[#282c33]'>
+              <div className='stat '>
+                <div className='stat-figure text-secondary'>
+                  <img className='opacity-25 ml-10' width={50} src={Token.src} alt='token' />
+                </div>
+                <div className='stat-title '>Your balance</div>
+                {tokenAddress && address ? (
+                  <TokenBalance address={address} tokenAddress={tokenAddress} />
+                ) : (
+                  <p>Please connect your wallet</p>
+                )}
+              </div>
+            </div>
+            <button
+              className='btn btn-wide w-[100%]'
+              onClick={handleSendTransation}
+              disabled={!isValidToAddress || !address || Boolean(estimateError) || amount === ''}>
+              {isLoading ? <span className='loading loading-dots loading-sm'></span> : 'Send ethers'}
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   )
 }
