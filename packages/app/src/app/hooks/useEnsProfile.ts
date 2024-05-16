@@ -11,9 +11,11 @@ const useEnsProfile = ({ ensName, key }: { ensName: string; key?: string }) => {
     }
   }, [ensName])
 
-  const { data: ensAddress } = useEnsAddress({ name: normalizedName(), chainId: 1 })
-  const { data: ensAvatar } = useEnsAvatar({ name: normalizedName(), chainId: 1 })
-  const { data: ensTextData } = useEnsText({ name: normalizedName(), chainId: 1, key: key ?? 'text' })
+  const name = normalizedName()
+
+  const { data: ensAddress } = useEnsAddress({ name, chainId: 1 })
+  const { data: ensAvatar } = useEnsAvatar({ name, chainId: 1 })
+  const { data: ensTextData } = useEnsText({ name, chainId: 1, key: key ?? 'text' })
 
   return { ensAddress, ensAvatar, ensTextData }
 }
