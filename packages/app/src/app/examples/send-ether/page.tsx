@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { parseEther, isAddress } from 'viem'
 import { useNotifications } from '@/context/Notifications'
 import Ethereum from '@/assets/icons/ethereum.png'
+import { AddressInput } from '@/components/AddressInput'
 import { TokenBalance } from '@/components/TokenBalance'
 import { TokenQuantityInput } from '@/components/TokenQuantityInput'
 import { formatBalance } from '@/utils/formatBalance'
@@ -77,16 +78,17 @@ export default function SendEther() {
       <div className='flex align-end grid md:grid-cols-1 lg:grid-cols-2 gap-4 '>
         <div className='flex-col m-2 '>
           <label className='form-control w-full max-w-xs'>
-            <div className='label'>
+            <div className='label py-2'>
               <span className='label-text'>Recipient address</span>
             </div>
-            <input
+            <AddressInput
+              onRecipientChange={handleToAdressInput}
               type='text'
               placeholder='0x...'
               className={`input input-bordered w-full max-w-xs ${
                 !isValidToAddress && to != undefined ? 'input-error' : ''
               }`}
-              onChange={(e) => handleToAdressInput(e.target.value)}
+              value={to ?? ''}
             />
           </label>
           <label className='form-control w-full max-w-xs'>
