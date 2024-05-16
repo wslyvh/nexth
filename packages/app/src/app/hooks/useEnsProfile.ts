@@ -1,22 +1,19 @@
-import { useState, useEffect } from 'react'
+import { useCallback } from 'react'
 import { normalize } from 'viem/ens'
 import { useEnsAddress, useEnsAvatar, useEnsText } from 'wagmi'
 
 const useEnsProfile = ({ ensName, key }: { ensName: string; key?: string }) => {
-  const [name, setName] = useState<string>('')
-
-  useEffect(() => {
+  const normalizedName = useCallback(() => {
     try {
-      const normalized = normalize(ensName)
-      setName(normalized)
+      return normalize(ensName)
     } catch (e) {
-      console.error(e)
+      return ''
     }
   }, [ensName])
 
-  const { data: ensAddress } = useEnsAddress({ name, chainId: 1 })
-  const { data: ensAvatar } = useEnsAvatar({ name, chainId: 1 })
-  const { data: ensTextData } = useEnsText({ name, chainId: 1, key: key ?? 'text' })
+  const { data: ensAddress } = useEnsAddress({ name: normalizedName(), chainId: 1 })
+  const { data: ensAvatar } = useEnsAvatar({ name: normalizedName(), chainId: 1 })
+  const { data: ensTextData } = useEnsText({ name: normalizedName(), chainId: 1, key: key ?? 'text' })
 
   return { ensAddress, ensAvatar, ensTextData }
 }
