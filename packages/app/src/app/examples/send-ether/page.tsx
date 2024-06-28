@@ -1,5 +1,5 @@
 'use client'
-import { useAccount, useBalance, useEstimateGas, useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
+import { useAccount, useBalance, useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
 import { useState, useEffect } from 'react'
 import { parseEther, isAddress } from 'viem'
 import { useNotifications } from '@/context/Notifications'
@@ -8,6 +8,7 @@ import { AddressInput } from '@/components/AddressInput'
 import { TokenBalance } from '@/components/TokenBalance'
 import { TokenQuantityInput } from '@/components/TokenQuantityInput'
 import { formatBalance } from '@/utils/formatBalance'
+import { useGasEstimation } from '@/utils/useGasEstimation'
 
 type Address = `0x${string}` | undefined
 
@@ -15,6 +16,7 @@ export default function SendEther() {
   const [to, setTo] = useState<Address>(undefined)
   const [isValidToAddress, setIsValidToAddress] = useState<boolean>(false)
   const [amount, setAmount] = useState('0.01')
+  const [estimatedGas, setEstimatedGas] = useState<bigint | undefined>(undefined)
 
   const { Add } = useNotifications()
 
@@ -23,10 +25,7 @@ export default function SendEther() {
     address,
   })
 
-  const { data: estimateData, error: estimateError } = useEstimateGas({
-    to: isValidToAddress ? (to as Address) : undefined,
-    value: parseEther(amount),
-  })
+  const { estimateGasData, estimateGasError } = useGasEstimation(isValidToAddress ? (to as Address) : undefined, amount)
 
   const { data, sendTransaction } = useSendTransaction()
 
@@ -39,14 +38,14 @@ export default function SendEther() {
   })
 
   const handleSendTransation = () => {
-    if (estimateError) {
-      Add(`Transaction failed: ${estimateError.cause}`, {
+    if (estimateGasError) {
+      Add(`Transaction failed: ${estimateGasError.cause}`, {
         type: 'error',
       })
       return
     }
     sendTransaction({
-      gas: estimateData,
+      gas: estimateGasData,
       value: parseEther(amount),
       to: (to as Address)!,
     })
@@ -65,12 +64,24 @@ export default function SendEther() {
         href: chain?.blockExplorers?.default.url ? `${chain.blockExplorers.default.url}/tx/${data}` : undefined,
       })
       balance.refetch()
+
+      //****Reset state after successful transaction
+      setTo(undefined)
+      setIsValidToAddress(false)
+      setAmount('0.01')
+      setEstimatedGas(undefined)
     } else if (txError) {
       Add(`Transaction failed: ${txError.cause}`, {
         type: 'error',
       })
     }
   }, [txSuccess, txError])
+
+  useEffect(() => {
+    if (estimateGasData) {
+      setEstimatedGas(estimateGasData)
+    }
+  }, [estimateGasData])
 
   return (
     <div className='flex-column align-center '>
@@ -115,9 +126,13 @@ export default function SendEther() {
           <button
             className='btn btn-wide w-[100%] '
             onClick={handleSendTransation}
-            disabled={!isValidToAddress || !address || Boolean(estimateError) || amount === ''}>
+            disabled={!isValidToAddress || !address || Boolean(estimateGasError) || amount === ''}>
             {isLoading ? <span className='loading loading-dots loading-sm'></span> : 'Send ethers'}
           </button>
+
+          {!isLoading && isValidToAddress && address && !estimateGasError && amount !== '' && (
+            <p className='mt-4 label-text'>Estimated Gas Cost: {estimatedGas?.toString()}</p>
+          )}
         </div>
       </div>
     </div>

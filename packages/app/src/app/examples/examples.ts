@@ -18,7 +18,7 @@ export const EXAMPLE_ITEMS = [
   },
   {
     title: 'Notifications',
-    description: 'This example is demonstrates how to use the notification system within Nexth.',
+    description: 'This example demonstrates how to use the notification system within Nexth.',
     image: NotificationIcon.src,
     url: '/examples/notifications',
   },

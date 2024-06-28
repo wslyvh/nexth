@@ -144,7 +144,7 @@ export default function SendToken() {
               </div>
             </div>
             <button
-              className='btn btn-wide w-[100%] '
+              className='btn btn-wide w-[100%]'
               onClick={handleSendTransation}
               disabled={!isValidToAddress || !address || Boolean(estimateError) || amount === ''}>
               {isLoading ? <span className='loading loading-dots loading-sm'></span> : 'Send ethers'}
