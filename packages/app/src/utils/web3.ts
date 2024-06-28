@@ -20,7 +20,7 @@ export const WALLETCONNECT_CONFIG = defaultWagmiConfig({
   },
   auth: {
     email: true,
-    socials: [],
+    socials: undefined,
     showWallets: true,
     walletFeatures: true,
   },
