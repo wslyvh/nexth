@@ -11,14 +11,19 @@ if (!WALLETCONNECT_PROJECT_ID) {
 export const WALLETCONNECT_CONFIG = defaultWagmiConfig({
   projectId: WALLETCONNECT_PROJECT_ID,
   chains: ETH_CHAINS,
+  ssr: true,
   metadata: {
     name: SITE_NAME,
     description: SITE_INFO,
     url: SITE_URL,
     icons: [],
   },
-  ssr: true,
-  enableEmail: true,
+  auth: {
+    email: true,
+    socials: [],
+    showWallets: true,
+    walletFeatures: true,
+  },
   storage: createStorage({
     storage: cookieStorage,
   }),
