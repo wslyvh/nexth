@@ -20,7 +20,11 @@ export default async function Image() {
         <h1 tw='text-8xl'>
           {SITE_EMOJI} {SITE_NAME}
         </h1>
-        <p tw='text-4xl'>{SITE_INFO}</p>
+        <h2 tw='text-4xl'>{SITE_INFO}</h2>
+        <div tw='flex flex-col items-center justify-center mt-8'>
+          <div tw='text-xl'>Next.js · Ethereum · Viem · Wagmi · Web3Modal · SIWE</div>
+          <div tw='text-xl mt-2'>Tailwind · daisyUI · and more..</div>
+        </div>
       </div>
     )
   )
