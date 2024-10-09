@@ -4,8 +4,6 @@ import { SITE_DESCRIPTION, SITE_EMOJI, SITE_INFO, SITE_NAME, SITE_URL, SOCIAL_TW
 import { Layout } from '@/components/Layout'
 import { Web3Provider } from '@/context/Web3'
 import { NotificationProvider } from '@/context/Notifications'
-import { cookieToInitialState } from 'wagmi'
-import { WALLETCONNECT_CONFIG } from '@/utils/web3'
 import { headers } from 'next/headers'
 import '../assets/globals.css'
 
@@ -49,7 +47,7 @@ export const viewport: Viewport = {
 }
 
 export default function RootLayout(props: PropsWithChildren) {
-  const initialState = cookieToInitialState(WALLETCONNECT_CONFIG, headers().get('cookie'))
+  const cookies = headers().get('cookie')
 
   return (
     <html lang='en'>
@@ -61,7 +59,7 @@ export default function RootLayout(props: PropsWithChildren) {
       </head>
 
       <body>
-        <Web3Provider initialState={initialState}>
+        <Web3Provider cookies={cookies}>
           <NotificationProvider>
             <Layout>{props.children}</Layout>
           </NotificationProvider>

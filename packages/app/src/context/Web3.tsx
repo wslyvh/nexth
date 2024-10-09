@@ -1,28 +1,46 @@
 'use client'
 
-import { createWeb3Modal } from '@web3modal/wagmi/react'
+import { createAppKit } from '@reown/appkit/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { PropsWithChildren } from 'react'
-import { State, WagmiProvider } from 'wagmi'
-import { WALLETCONNECT_CONFIG, WALLETCONNECT_PROJECT_ID } from '@/utils/web3'
+import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi'
+import { WALLETCONNECT_ADAPTER, WALLETCONNECT_PROJECT_ID } from '@/utils/web3'
+import { SITE_NAME, SITE_INFO, SITE_URL } from '@/utils/site'
+import { ETH_CHAINS } from '@/utils/network'
+import { mainnet } from '@reown/appkit/networks'
 
 interface Props extends PropsWithChildren {
-  initialState?: State
+  cookies: string | null
 }
 
 const queryClient = new QueryClient()
 
-createWeb3Modal({
-  wagmiConfig: WALLETCONNECT_CONFIG,
+const metadata = {
+  name: SITE_NAME,
+  description: SITE_INFO,
+  url: SITE_URL,
+  icons: ['https://avatars.githubusercontent.com/u/25974464'],
+}
+
+createAppKit({
+  adapters: [WALLETCONNECT_ADAPTER],
   projectId: WALLETCONNECT_PROJECT_ID,
-  enableAnalytics: false, // Optional - defaults to your Cloud configuration
-  enableOnramp: true,
+  networks: ETH_CHAINS,
+  defaultNetwork: mainnet,
+  metadata: metadata,
+  features: {
+    analytics: true, // Optional - defaults to your Cloud configuration
+    email: true,
+    onramp: true,
+  },
 })
 
 export function Web3Provider(props: Props) {
+  const initialState = cookieToInitialState(WALLETCONNECT_ADAPTER.wagmiConfig as Config, props.cookies)
+
   return (
     <>
-      <WagmiProvider config={WALLETCONNECT_CONFIG} initialState={props.initialState}>
+      <WagmiProvider config={WALLETCONNECT_ADAPTER.wagmiConfig as Config} initialState={initialState}>
         <QueryClientProvider client={queryClient}>{props.children}</QueryClientProvider>
       </WagmiProvider>
     </>
