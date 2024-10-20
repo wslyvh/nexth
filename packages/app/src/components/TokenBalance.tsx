@@ -1,6 +1,5 @@
 'use client'
 import { useBalance, useReadContract } from 'wagmi'
-import { toBigInt } from 'ethers'
 import { useEffect } from 'react'
 import { formatBalance } from '@/utils/formatBalance'
 import { erc20Abi } from 'viem'
