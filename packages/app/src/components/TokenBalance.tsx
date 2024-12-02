@@ -1,6 +1,5 @@
 'use client'
 import { useBalance, useReadContract } from 'wagmi'
-import { toBigInt } from 'ethers'
 import { useEffect } from 'react'
 import { formatBalance } from '@/utils/formatBalance'
 import { erc20Abi } from 'viem'
@@ -45,7 +44,7 @@ export const TokenBalance = ({ address, tokenAddress, toFixed, onBalanceChange, 
   }
   return (
     <div className={`stat-value text-lg w-[150px] ${className}`}>
-      {formatBalance(ETHBalance.data?.value ?? toBigInt(0), toFixed)}
+      {formatBalance(ETHBalance.data?.value ?? 0 , toFixed)}
     </div>
   )
 }
