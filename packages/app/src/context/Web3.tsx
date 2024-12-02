@@ -25,7 +25,7 @@ const metadata = {
 createAppKit({
   adapters: [WALLETCONNECT_ADAPTER],
   projectId: WALLETCONNECT_PROJECT_ID,
-  networks: ETH_CHAINS,
+  networks: [mainnet, ...ETH_CHAINS],
   defaultNetwork: mainnet,
   metadata: metadata,
   features: {
