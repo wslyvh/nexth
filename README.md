@@ -44,6 +44,21 @@ npm run dev
 yarn dev
 ```
 
+## Funding
+
+This project is funding its core dependencies with [Drips protocol](https://www.drips.network/app/projects/github/wslyvh/nexth?exact). A split contract that splits 60% of all proceeds with core contributors and 40% for dependencies.
+
+### Contributors
+
+Contributors to this repository are rewarded based on their contributions to the project. Their contribution score is calculated based on a combination of the commits, issues, pull requests, and other contributions that determine the amount of funding they receives.
+
+The score is calculated using [Contributor Graph](https://github.com/wslyvh/contributor-graph).
+
+### Distribution
+
+- In 2024 the project received $7,075 USD in funding. 60% ($4,245) is distributed to core contributors.
+  - https://arbiscan.io/tx/0x95d6cd302374d64a401e35a27570fec9793bd9751cbfdeec36d3ade3b1965c24
+
 ## Deploy on Vercel 🚢
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fwslyvh%2Fnexth)

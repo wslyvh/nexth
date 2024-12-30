@@ -1,0 +1,75 @@
+{
+  "metadata": {
+    "repository": "wslyvh/nexth",
+    "runDate": "2024-12-16",
+    "sinceDate": null
+  },
+  "contributors": [
+    {
+      "login": "wslyvh",
+      "score": 695,
+      "percentage": 43.25,
+      "address": "0x8289432acd5eb0214b1c2526a5edb480aa06a9ab"
+    },
+    {
+      "login": "hone1er",
+      "score": 281,
+      "percentage": 17.49,
+      "address": "0xB73AB607bA73B5649405344e3f4F6c4feDc665cD"
+    },
+    {
+      "login": "Maxtho8",
+      "score": 137,
+      "percentage": 8.53,
+      "address": ""
+    },
+    {
+      "login": "jpgonzalezra",
+      "score": 135,
+      "percentage": 8.4,
+      "address": "0xE96c033444B4f72501EE0a3eb07B1887a9C8Fdcf"
+    },
+    {
+      "login": "Envoy-VC",
+      "score": 118,
+      "percentage": 7.34,
+      "address": "0xc0d86456F6f2930b892f3DAD007CDBE32c081FE6"
+    },
+    {
+      "login": "marthendalnunes",
+      "score": 102,
+      "percentage": 6.35,
+      "address": "0xED83f43e646313B3828a552cb31E3990d3dc9753"
+    },
+    {
+      "login": "stevennevins",
+      "score": 43,
+      "percentage": 2.68,
+      "address": "0xB090A53d9851AcB7E6a55fb9AFE3975901152233"
+    },
+    {
+      "login": "Rask467",
+      "score": 33,
+      "percentage": 2.05,
+      "address": ""
+    },
+    {
+      "login": "carlosrsabreu",
+      "score": 23,
+      "percentage": 1.43,
+      "address": "0xAB093EBbB9D97b1d571E9dB56209A43846775C75"
+    },
+    {
+      "login": "fosgate29",
+      "score": 20,
+      "percentage": 1.24,
+      "address": "0x67726e491bcC86d109FD5D67dBE81fd6F6Da6A24"
+    },
+    {
+      "login": "unholypanda",
+      "score": 20,
+      "percentage": 1.24,
+      "address": "0xa380339B85F7f4BA5d5640Bcf2c75FdcB4d4CDFa"
+    }
+  ]
+}
