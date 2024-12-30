@@ -57,6 +57,7 @@ The score is calculated using [Contributor Graph](https://github.com/wslyvh/cont
 ### Distribution
 
 - In 2024 the project received $7,075 USD in funding. 60% ($4,245) is distributed to core contributors.
+  - https://arbiscan.io/tx/0x95d6cd302374d64a401e35a27570fec9793bd9751cbfdeec36d3ade3b1965c24
 
 ## Deploy on Vercel 🚢
 
