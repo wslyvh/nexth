@@ -59,7 +59,7 @@ export function Alert(props: Props) {
         <StatusIcon type={props.type} />
       </div>
 
-      <div className='flex flex-col flex-grow'>
+      <div className='flex flex-col grow'>
         <h3 className='font-bold'>{props.message}</h3>
         <div className='flex flex-row gap-2'>
           <span className='text-xs'>{dayjs(props.timestamp).fromNow()}</span>

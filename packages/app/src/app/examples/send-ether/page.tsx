@@ -103,7 +103,7 @@ export default function SendEther() {
           </label>
         </div>
         <div className='flex-col justify-end m-2'>
-          <div className='stats shadow join-item mb-2 bg-[#282c33]'>
+          <div className='stats shadow-sm join-item mb-2 bg-[#282c33]'>
             <div className='stat '>
               <div className='stat-figure text-secondary'>
                 <img width={50} className='opacity-50 ml-10' src={Ethereum.src} alt='ethereum' />

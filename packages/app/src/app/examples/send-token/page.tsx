@@ -130,7 +130,7 @@ export default function SendToken() {
             </label>
           </div>
           <div className='flex-col justify-end m-2'>
-            <div className='stats shadow join-item mb-2 bg-[#282c33]'>
+            <div className='stats shadow-sm join-item mb-2 bg-[#282c33]'>
               <div className='stat '>
                 <div className='stat-figure text-secondary'>
                   <img className='opacity-25 ml-10' width={50} src={Token.src} alt='token' />

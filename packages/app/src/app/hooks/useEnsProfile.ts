@@ -6,7 +6,7 @@ const useEnsProfile = ({ ensName, key }: { ensName: string; key?: string }) => {
   const normalizedName = useCallback(() => {
     try {
       return normalize(ensName)
-    } catch (e) {
+    } finally {
       return ''
     }
   }, [ensName])

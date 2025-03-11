@@ -23,7 +23,7 @@ export function NotificationsDrawer() {
         </label>
       </div>
 
-      <div className='drawer-side z-[1]'>
+      <div className='drawer-side z-1'>
         <label htmlFor='my-drawer' aria-label='close sidebar' className='drawer-overlay'></label>
         <div className='p-4 w-full md:w-1/2 min-h-full bg-base-100'>
           <div className='flex justify-between'>

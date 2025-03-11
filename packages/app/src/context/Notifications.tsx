@@ -18,7 +18,7 @@ interface NotificationContext {
 }
 
 const defaultNotificationContext: NotificationContext = {
-  Add: (message: string, options?: NotificationOptions) => {},
+  Add: () => {},
   Clear: () => {},
   notifications: [],
 }

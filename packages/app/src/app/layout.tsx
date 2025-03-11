@@ -46,8 +46,9 @@ export const viewport: Viewport = {
   themeColor: '#000000',
 }
 
-export default function RootLayout(props: PropsWithChildren) {
-  const cookies = headers().get('cookie')
+export default async function RootLayout(props: PropsWithChildren) {
+  const headersList = await headers()
+  const cookies = headersList.get('cookie')
 
   return (
     <html lang='en'>
