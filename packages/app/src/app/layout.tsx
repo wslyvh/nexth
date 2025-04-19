@@ -2,9 +2,8 @@ import type { Metadata, Viewport } from 'next'
 import { PropsWithChildren } from 'react'
 import { SITE_DESCRIPTION, SITE_EMOJI, SITE_INFO, SITE_NAME, SITE_URL, SOCIAL_TWITTER } from '@/utils/site'
 import { Layout } from '@/components/Layout'
-import { Web3Provider } from '@/context/Web3'
-import { NotificationProvider } from '@/context/Notifications'
 import { headers } from 'next/headers'
+import { Providers } from '@/context'
 import '../assets/globals.css'
 
 export const metadata: Metadata = {
@@ -60,11 +59,9 @@ export default async function RootLayout(props: PropsWithChildren) {
       </head>
 
       <body>
-        <Web3Provider cookies={cookies}>
-          <NotificationProvider>
-            <Layout>{props.children}</Layout>
-          </NotificationProvider>
-        </Web3Provider>
+        <Providers cookies={cookies}>
+          <Layout>{props.children}</Layout>
+        </Providers>
       </body>
     </html>
   )

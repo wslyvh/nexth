@@ -1,7 +1,6 @@
 'use client'
 
 import { createAppKit } from '@reown/appkit/react'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { PropsWithChildren } from 'react'
 import { cookieToInitialState, WagmiProvider, type Config } from 'wagmi'
 import { WALLETCONNECT_ADAPTER, WALLETCONNECT_PROJECT_ID } from '@/utils/web3'
@@ -12,8 +11,6 @@ import { mainnet } from '@reown/appkit/networks'
 interface Props extends PropsWithChildren {
   cookies: string | null
 }
-
-const queryClient = new QueryClient()
 
 const metadata = {
   name: SITE_NAME,
@@ -41,7 +38,7 @@ export function Web3Provider(props: Props) {
   return (
     <>
       <WagmiProvider config={WALLETCONNECT_ADAPTER.wagmiConfig as Config} initialState={initialState}>
-        <QueryClientProvider client={queryClient}>{props.children}</QueryClientProvider>
+        {props.children}
       </WagmiProvider>
     </>
   )

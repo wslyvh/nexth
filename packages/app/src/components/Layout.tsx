@@ -8,6 +8,7 @@ export function Layout(props: PropsWithChildren) {
       <Header />
 
       <main className='grow px-4 container max-w-3xl mx-auto'>{props.children}</main>
+
       <Footer />
     </div>
   )
