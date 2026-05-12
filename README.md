@@ -62,6 +62,7 @@ The score is calculated using [Contributor Graph](https://github.com/wslyvh/cont
 ## Deploy on Vercel 🚢
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fwslyvh%2Fnexth)
+[![Deploy to PandaStack](https://dashboard.pandastack.io/deploy-button.svg)](https://dashboard.pandastack.io/deploy?repo=wslyvh/nexth&type=static&buildCmd=npm+run+build&outputDir=dist)
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=nexth&filter=next.js&utm_source=nexth&utm_campaign=nexth-readme) from the creators of Next.js.
 
