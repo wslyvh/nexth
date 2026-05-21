@@ -1,7 +1,8 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { isAddress } from 'viem'
 import Image from 'next/image'
+import { useAccount } from 'wagmi'
 import useEnsProfile from '@/app/hooks/useEnsProfile'
 import { truncateAddress } from '../utils/helpers/formatTools'
 
@@ -14,7 +15,14 @@ interface AddressInputProps extends React.HTMLProps<HTMLInputElement> {
 export const AddressInput = ({ onRecipientChange, onRawInputChange, disabled = false }: AddressInputProps) => {
   const [isValidToAddress, setIsValidToAddress] = useState<boolean>(false)
   const [rawTokenAddress, setRawTokenAddress] = useState<string>('')
-  const { ensAddress: ensAddy, ensAvatar } = useEnsProfile({ ensName: rawTokenAddress })
+  const [debouncedInput, setDebouncedInput] = useState<string>('')
+  const { chain } = useAccount()
+  const { ensAddress: ensAddy, ensAvatar } = useEnsProfile({ ensName: debouncedInput, chainId: chain?.id })
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedInput(rawTokenAddress), 300)
+    return () => clearTimeout(timer)
+  }, [rawTokenAddress])
 
   // Handle input change for recipient address
   const handleToAdressInput = (_to: string) => {

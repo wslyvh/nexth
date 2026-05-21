@@ -21,7 +21,7 @@
     "react-icons": "^4.11.0",
     "react-toastify": "^10.0.5",
     "siwe": "^3.0.0",
-    "viem": "^2.27.2",
+    "viem": "^2.41.2",
     "wagmi": "^2.14.16"
   },
   "devDependencies": {
