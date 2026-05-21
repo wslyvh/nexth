@@ -1,13 +1,6 @@
 import { useCallback } from 'react'
-import { normalize } from 'viem/ens'
+import { normalize, toCoinType } from 'viem/ens'
 import { useEnsAddress, useEnsAvatar, useEnsText } from 'wagmi'
-
-// Convert an EVM chainId to its ENS coin type (EIP-2304).
-// ETH mainnet is the special-case coin type 60; all other EVM chains use 0x80000000 | chainId.
-function evmChainIdToCoinType(chainId: number): number {
-  if (chainId === 1) return 60
-  return (0x80000000 | chainId) >>> 0
-}
 
 const useEnsProfile = ({ ensName, key, chainId }: { ensName: string; key?: string; chainId?: number }) => {
   const normalizedName = useCallback(() => {
@@ -21,7 +14,7 @@ const useEnsProfile = ({ ensName, key, chainId }: { ensName: string; key?: strin
   }, [ensName])
 
   const name = normalizedName()
-  const coinType = chainId !== undefined ? evmChainIdToCoinType(chainId) : undefined
+  const coinType = chainId !== undefined ? toCoinType(chainId) : undefined
 
   const { data: ensAddress } = useEnsAddress({ name, chainId: 1, coinType })
   const { data: ensAvatar } = useEnsAvatar({ name, chainId: 1 })
